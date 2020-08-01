@@ -1,4 +1,4 @@
-import React, { Profiler } from 'react'
+import React from 'react'
 import {NavLink } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {signOut} from '../../Actions/authActions'
