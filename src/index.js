@@ -17,16 +17,24 @@ import firebase from 'firebase/app'
     Reducer,
     compose(
       applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
-      reduxFirestore(fbConfig)
+      reduxFirestore(firebase, fbConfig)
     )
   );
-
+  
+  const rrfConfig = {
+    userProfile: 'usuarios',
+    useFirestoreForProfile: true
+}
   const rrfProps = {
     firebase,
-    config: fbConfig,
+    config: rrfConfig,
     dispatch: store.dispatch,
-    createFirestoreInstance
+    createFirestoreInstance,
+    presence: 'presence',
+    sessions: 'sessions'
   };
+
+ 
 
 ReactDOM.render(
   <Provider store={store}>
