@@ -6,11 +6,15 @@ import SignedOutLinks from './SignedOutLinks'
 const Navbar= () => {
     return(
         <nav className="nav-wrapper grey darken-3">
-                <div className="container">
-                    <Link to="/" className="brand-logo">GatiPlanero</Link>
-                    <SignedInLinks />
-                    <SignedOutLinks />
-                </div>
+            <ul className="left">
+                    <li><a href="https://react.gati.ga">Otros proyectos</a></li>
+                </ul>
+            <div className="container">
+                
+                <Link to="/" className="brand-logo">GatiPlanero</Link>
+                <SignedInLinks />
+                <SignedOutLinks />
+            </div>
         </nav>
     )
 }
