@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+    // REMINDER: NO PUSE EL REDIRECT CUANDO ESTAS LOGUEADO, PERO NO TIENE SENTIDO AHORA, HACER CUANDO TE LOGUEE CUANDO CREAS LA CUENTA
+
 export class SignUp extends Component {
     state = {
         email: '',
