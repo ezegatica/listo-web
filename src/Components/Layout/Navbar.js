@@ -11,7 +11,7 @@ const Navbar= () => {
                 </ul>
             <div className="container">
                 
-                <Link to="/" className="brand-logo">GatiPlanero</Link>
+                <Link to="/" className="brand-logo">GatiPlanner</Link>
                 <SignedInLinks />
                 <SignedOutLinks />
             </div>
