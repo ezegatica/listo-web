@@ -3,10 +3,20 @@ import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import moment from 'moment'
+import {Link} from 'react-router-dom'
 
 const Details = (props) => {
-    const {proyecto} = props;
+    const {proyecto, auth} = props;
+    console.log(props)
     if (proyecto) {
+        const editarProyecto = auth.uid === proyecto.autorUUID ? 
+        // es dueño
+        <div> 
+            <br/><Link to={"/editar/" + props.match.params.id} proyecto={proyecto} className="waves-effect waves-light btn grey lighten-2 black-text"><i className="material-icons right">edit</i>Editar proyecto</Link>
+        </div> 
+        : //no es dueño
+        null
+
         return (
             <div className="container section project-details">
             <div className="card z-depth-0">
@@ -18,6 +28,9 @@ const Details = (props) => {
                     <div>Por: {proyecto.autorNombre} {proyecto.autorApellido}</div>
                     <div>{moment (proyecto.createdAt.toDate()).calendar()}</div>
                 </div>
+                    {console.log("ID AUTOR: ", proyecto.autorUUID)}
+                    {console.log("ID LOGGED: ", auth.uid)}
+                <div>{editarProyecto}</div>
             </div>
         </div>
         )
@@ -30,17 +43,16 @@ const Details = (props) => {
         </div>
         )
     }
-
-    
 }
 
 const mapStateToProps = (state, ownProps) =>{
     const id = ownProps.match.params.id;
     const proyectos = state.firestore.data.proyectos;
-    // console.log(state);
-    const proyecto = proyectos ? proyectos[id] : null
+    console.log(state)
+    const proyecto = proyectos ? proyectos[id] : null;
     return{
-        proyecto : proyecto
+        proyecto : proyecto,
+        auth: state.firebase.auth
     }
 }
 
