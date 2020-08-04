@@ -8,6 +8,7 @@ import Details from './Components/Proyects/Details'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Create from './Components/Proyects/Create'
+import {Editar} from './Components/Proyects/Edit.js'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact path='/proyectos' component={Proyectos}/>
         <Route exact path='/proyectos/nuevo' component={Create}/>
         <Route path="/proyectos/:id" component={Details} />
+        <Route path="/editar/:id" component={Editar} />
       </Switch>
     </BrowserRouter>
     
