@@ -8,7 +8,7 @@ import Details from './Components/Proyects/Details'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Create from './Components/Proyects/Create'
-import {Editar} from './Components/Proyects/Edit.js'
+import Editar from './Components/Proyects/Edit.js'
 
 function App() {
   return (

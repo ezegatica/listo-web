@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 const Details = (props) => {
     const {proyecto, auth} = props;
     console.log(props)
-    if (proyecto) {
+    if (proyecto && auth.isLoaded) {
         const editarProyecto = auth.uid === proyecto.autorUUID ? 
         // es dueño
         <div> 
