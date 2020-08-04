@@ -17,7 +17,7 @@ export class Create extends Component {
         e.preventDefault();
         // console.log(this.state)
         this.props.createProject(this.state)
-        this.props.history.push("/proyectos");
+        this.props.history.push("/dashboard");
     }
     render() {
         const {auth} = this.props

@@ -77,14 +77,14 @@ export class Editar extends Component {
                                 <textarea id="content" className="materialize-textarea" placeholder={proyecto.content} onChange={this.Change}></textarea>
                             </div> */}
                              <div className="row">
-                                <div className="input-field col s6">
-                                <input value={this.state.title} id="title" type="text" className="validate" onChange={this.Change}/>
+                                <div className="input-field col s12">
+                                <input value={this.state.title} id="title" type="text" className="validate card-title" style={{fontSize:20}} onChange={this.Change}/>
                                 {/* <input value={proyecto.title} id="title" type="text" className="validate" onChange={this.Change}/> */}
                                 <label className="active" htmlFor="title">Titulo</label>
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="input-field col s6">
+                                <div className="input-field col s12">
                                 <textarea value={this.state.content} id="content" type="text" className="validate materialize-textarea" onChange={this.Change}></textarea>
                                 {/* <input value={proyecto.content} id="content" type="text" className="validate" onChange={this.Change}/> */}
                                 <label className="active" htmlFor="content">Contenido</label>
