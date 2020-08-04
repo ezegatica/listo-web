@@ -3,23 +3,24 @@ import { Link} from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import {connect} from 'react-redux'
+import SignedInMobileNavbar from './SignedInMobile'
+import SignedOutMobileNavbar from './SignedOutMobile'
 
 const Navbar= (props) => {
     const {auth, profile} = props;
     const links = auth.uid ? <SignedInLinks profile={profile}/> : <SignedOutLinks/>
+    const mobile = auth.uid ? <SignedInMobileNavbar/> : <SignedOutMobileNavbar/>
     return(
         <nav className="nav-wrapper grey darken-3">
-            <ul className="left">
-                    <li><a href="https://react.gati.ga">Otros proyectos</a></li>
-                </ul>
             <div className="container">
-                
                 <Link to="/" className="brand-logo">GatiPlanner</Link>
+                
                 <ul className="right">
                 {auth.isLoaded && links}
                 </ul>
-                
-
+                <ul className="show-on-medium-and-down hide-on-med-and-up">
+                {auth.isLoaded && mobile}
+                </ul>
             </div>
         </nav>
     )
