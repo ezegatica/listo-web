@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Navbar from './Components/Layout/Navbar'
-// import MobileNavbar from './Components/Layout/MobileNavbar'
+import MobileSpacing from './Components/Layout/MobileSpacing'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Profile from './Components/Dashboard/Profile'
 import Proyectos from './Components/Dashboard/Proyectos'
@@ -17,9 +17,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Navbar />
-        <br/>
-        <br/>
-        {/* <MobileNavbar /> */}
+        <MobileSpacing />
       </div>
       <Switch>
         <Route exact path="/" component={Home} />

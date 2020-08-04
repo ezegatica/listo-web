@@ -15,8 +15,8 @@ const SignedInLinks= (props) => {
             </ul>
 
             <ul className="show-on-medium-and-down hide-on-med-and-up right" >
-                <li><a href="/#logoutMobile" style={{padding:0, marginLeft:10}} onClick={props.signOut}><i className="material-icons left white-text">logout</i></a></li>
-                <li><Link to="/profile" style={{padding:0, marginRight:10}}><i className="material-icons white-text">person</i></Link></li>
+                <li><a href="/#logoutMobile" style={{padding:0, margin:0}} onClick={props.signOut}><i className="material-icons left white-text">logout</i></a></li>
+                <li><Link to="/profile" className="btn btn-floating red lighten-1" style={{padding:0, margin:0}}>{props.profile.initials}</Link></li>
             </ul>
            
 

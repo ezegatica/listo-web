@@ -20,7 +20,7 @@ export class SignIn extends Component {
     render() {
         const {authError, auth} = this.props;
         if (auth.uid){
-            return <Redirect to="/dashboard"/>
+            return <Redirect to="/profile"/>
         }
         else{
             return (
