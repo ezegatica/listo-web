@@ -8,7 +8,7 @@ const Home = () =>{
             <Link to="/proyectos"><h4 className="center">Lista de Proyectos</h4></Link>
             <h3>Email: usu@r.io</h3>
             <h3>Contraseña: usuario</h3>
-            <h5><Link to="https://react.gati.ga">Otros proyectos</Link></h5>
+            <h5><a href="https://react.gati.ga">Otros proyectos</a></h5>
         </div>
     )
 }
