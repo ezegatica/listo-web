@@ -90,8 +90,9 @@ export class Editar extends Component {
                             </div>
 
                             <div className="input-field">
-                                <button className="btn pink lighten-1 z-depth-0">
-                                    Crear proyecto
+                            <button className="btn pink lighten-1 z-depth-0">
+                                    <i className="material-icons left">save</i>
+                                    Guardar
                                 </button>
                             </div>
                         </form>
