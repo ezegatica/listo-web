@@ -18,3 +18,11 @@ export const createProject = (project) =>{
         
     }
 };
+
+export const editProject = (project) =>{
+    return(dispatch, getState, {getFirebase, getFirestore}) =>{
+        console.log("dispatched: ", project)
+        dispatch({type:'EDIT_PROJECT', project})
+        console.log()
+    }
+}

@@ -3,10 +3,6 @@ import Summary from './Summary'
 import {Link} from 'react-router-dom'
 
 const Mios = (props) =>{
-    
-    console.log(props)
-    console.log(props.projects)
-    console.log(props.auth)
     let Lista;
     // const Lista = projects
     if (props.projects){
