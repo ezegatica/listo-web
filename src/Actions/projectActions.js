@@ -21,8 +21,18 @@ export const createProject = (project) =>{
 
 export const editProject = (project) =>{
     return(dispatch, getState, {getFirebase, getFirestore}) =>{
-        console.log("dispatched: ", project)
-        dispatch({type:'EDIT_PROJECT', project})
-        console.log()
+        const firestore = getFirestore();
+        // console.log("dispatched: ", project)
+        // console.log("titulo nuevo: ", project.title)
+        // console.log("contenido nuevo: ", project.content)
+        // console.log("id proyecto a editar: ", project.id)
+        firestore.collection('proyectos').doc(project.id).update({
+            title: project.title,
+            content: project.content
+        }).then(() => {
+            dispatch({type:'EDIT_PROJECT', project})
+        }).catch((err) =>{
+            dispatch({type:'EDIT_PROJECT_ERROR', err})
+        })
     }
 }

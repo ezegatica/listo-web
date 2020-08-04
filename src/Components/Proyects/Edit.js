@@ -9,7 +9,8 @@ import {Link} from 'react-router-dom'
 export class Editar extends Component {
     state = {
         title: '',
-        content: ''
+        content: '',
+        id: ''
     }
 
     Change = (e) => {
@@ -18,41 +19,42 @@ export class Editar extends Component {
         })
     }
     x = false;
-    UpdateState = (proyecto) => {
+    UpdateState = (proyecto, proyectoID) => {
         if (this.x === false){
             this.setState({
                 title : proyecto.title,
-                content: proyecto.content
+                content: proyecto.content,
+                id: proyectoID
             })
-            console.log("State updated")
+            console.log("State synced")
             this.x = true;
         }
         else{
-            console.log("Not able to update anymore")
+            // console.log("Not able to update anymore")
             return null
         }
     }
 
     Submit = (e) => { 
         e.preventDefault();
-        // console.log(this.state)
+        // console.log(this.props)
         this.props.editProject(this.state)
-        // this.props.history.push("/proyectos");
+        this.props.history.push("/profile/");
     }
 
     render(props) {
         let mensajeAutorizado
-        const {auth, proyecto} = this.props
-        console.log("State: ",this.state)
-        if (proyecto){
-            console.log("Proyecto: ", proyecto)
-        }
+        const {auth, proyecto, proyectoID} = this.props
+        // console.log("State: ",this.state)
+            // if (proyecto){
+            //     console.log("Proyecto ID: ", proyectoID)
+            // }
         // if (auth.isLoaded){
         //     console.log(auth)
         // }
         
         if (auth.isLoaded && proyecto){
-            this.UpdateState(proyecto)
+            this.UpdateState(proyecto, proyectoID)
             mensajeAutorizado = auth.uid !== proyecto.autorUUID ? 
             <div> 
                 <br/>
@@ -123,7 +125,8 @@ const mapStateToProps= (state, ownProps) =>{
     // console.log(state)
     return { 
         proyecto: proyecto, 
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        proyectoID: ownProps.match.params.id
     }
 }
 

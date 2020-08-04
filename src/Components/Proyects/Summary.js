@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 const Summary = (props) =>{
     const {project, auth} = props;    
-    console.log(props)
+    // console.log(props)
     let editarBoton;
     if (auth.isLoaded) {
         editarBoton = auth.uid === project.autorUUID ?     

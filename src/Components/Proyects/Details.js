@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 
 const Details = (props) => {
     const {proyecto, auth} = props;
-    console.log(props)
+    // console.log(props)
     if (proyecto && auth.isLoaded) {
         const editarProyecto = auth.uid === proyecto.autorUUID ? 
         // es dueño
@@ -48,7 +48,7 @@ const Details = (props) => {
 const mapStateToProps = (state, ownProps) =>{
     const id = ownProps.match.params.id;
     const proyectos = state.firestore.data.proyectos;
-    console.log(state)
+    // console.log(state)
     const proyecto = proyectos ? proyectos[id] : null;
     return{
         proyecto : proyecto,
