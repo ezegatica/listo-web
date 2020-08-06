@@ -44,7 +44,7 @@ export class Editar extends Component {
 
     render(props) {
         let mensajeAutorizado
-        const {auth, proyecto, proyectoID} = this.props
+        const {auth, proyecto, proyectoID, profile} = this.props
         // console.log("State: ",this.state)
             // if (proyecto){
             //     console.log("Proyecto ID: ", proyectoID)
@@ -52,8 +52,9 @@ export class Editar extends Component {
         // if (auth.isLoaded){
         //     console.log(auth)
         // }
+        console.log(this.props)
         
-        if (auth.isLoaded && proyecto){
+        if (auth.isLoaded && proyecto && profile.isLoaded){
             this.UpdateState(proyecto, proyectoID)
             mensajeAutorizado = auth.uid !== proyecto.autorUUID ? 
             <div> 
@@ -63,7 +64,7 @@ export class Editar extends Component {
             </div> 
             : //no es dueño
             null
-            if (!mensajeAutorizado) {
+            if (!mensajeAutorizado || profile.isAdmin === true) {
                 return (
                     <div className="container row">
                         <h5 className="grey-text text-darken-3 col s12">Editar post</h5>
@@ -126,7 +127,8 @@ const mapStateToProps= (state, ownProps) =>{
     return { 
         proyecto: proyecto, 
         auth: state.firebase.auth,
-        proyectoID: ownProps.match.params.id
+        proyectoID: ownProps.match.params.id,
+        profile: state.firebase.profile
     }
 }
 

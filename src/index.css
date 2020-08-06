@@ -53,3 +53,10 @@ nav.nav-center ul li {
 nav.nav-center ul li a {
     display: inline-block;
 }
+
+.lista-proyectos a:any-link{
+  color: #555555
+}
+.lista-proyectos a:hover{
+  color: #999999
+}

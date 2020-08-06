@@ -9,7 +9,8 @@ export const createProject = (project) =>{
             autorNombre: profile.nombre,
             autorApellido: profile.apellido,
             autorUUID: autorUUID,
-            createdAt: new Date()
+            createdAt: new Date(),
+            autorAdmin: profile.isAdmin
         }).then(() => {
             dispatch({type: 'CREATE_PROJECT', project})
         }).catch((err) =>{

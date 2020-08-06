@@ -8,16 +8,20 @@ import { compose } from 'redux'
 const Profile = (props) => {
     const { projects } = props
     // console.log(props)
+    const admin = props.profile.isAdmin ? <div>Hola admin!</div> : null
+
     if (!props.auth.uid && props.auth.isLoaded) {
         return <Redirect to="/login" />
     }
     else {
         if (props.profile.isLoaded) {
+            console.log("ES ADMIN?", props.profile.isAdmin)
             return (
                 <div className="container nav-center">
                     <div className="carta">
                         <h1>{props.profile.nombre} {props.profile.apellido}</h1>
                         <p className="titulo">{props.auth.email}</p>
+                        <div>{admin}</div>
                     </div>
                     <div>
                         <h4 className="center">Mis proyectos:</h4>

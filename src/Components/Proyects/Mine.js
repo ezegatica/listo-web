@@ -1,6 +1,6 @@
 import React from 'react'
 import Summary from './Summary'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 const Mios = (props) =>{
     let Lista;
@@ -9,9 +9,7 @@ const Mios = (props) =>{
         Lista = props.projects.map(proyecto=>{
             if (proyecto.autorUUID === props.auth.uid){
                 return(
-                    <Link to={"/proyectos/" + proyecto.id} key={proyecto.id}>
                             <Summary project={proyecto}/>
-                    </Link>
                 )
             }
             else{

@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 
 const Details = (props) => {
     const {proyecto, auth} = props;
+    let adminBadge
     // console.log(props)
     if (proyecto && auth.isLoaded) {
         const editarProyecto = auth.uid === proyecto.autorUUID ? 
@@ -15,6 +16,10 @@ const Details = (props) => {
             <br/><Link to={"/editar/" + props.match.params.id} proyecto={proyecto} className="waves-effect waves-light btn grey lighten-2 black-text"><i className="material-icons right">edit</i>Editar proyecto</Link>
         </div> 
         : //no es dueño
+        null
+        
+        adminBadge = proyecto.autorAdmin === true ? <i className="material-icons blue-text" title="El usuario es admin">build</i> 
+        :
         null
 
         return (
@@ -25,7 +30,7 @@ const Details = (props) => {
                     <p>{proyecto.content}</p>
                 </div>
                 <div className="card-action grey lighten-4 grey-text">
-                    <div>Por: {proyecto.autorNombre} {proyecto.autorApellido}</div>
+                    <div>Por: {proyecto.autorNombre} {proyecto.autorApellido}{adminBadge}</div>
                     <div>{moment (proyecto.createdAt.toDate()).calendar()}</div>
                 </div>
                     {console.log("ID AUTOR: ", proyecto.autorUUID)}

@@ -17,6 +17,9 @@ export class SignIn extends Component {
         e.preventDefault();
         this.props.signIn(this.state);
     }
+    clearError = () =>{
+        
+    }
     render() {
         const {authError, auth} = this.props;
         if (auth.uid){
