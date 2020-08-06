@@ -8,7 +8,7 @@ import { compose } from 'redux'
 
 const Profile = (props) => {
     const { projects } = props
-    console.log("PROFILE.JS PROPS:", props)
+    // console.log("PROFILE.JS PROPS:", props)
     const admin = props.profile.isAdmin ? <div>Hola admin!</div> : null
 
     if (!props.auth.uid && props.auth.isLoaded) {
