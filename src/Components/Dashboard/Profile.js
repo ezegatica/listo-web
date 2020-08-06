@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Mios from '../Proyects/Mine'
+import Products from '../Proyects/ProductosList'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 
@@ -26,6 +27,10 @@ const Profile = (props) => {
                     <div>
                         <h4 className="center">Mis proyectos:</h4>
                         <Mios projects={projects} auth={props.auth} />
+                    </div>
+                    <div>
+                        <h4 className="center">Mis productos:</h4>
+                        <Products/>
                     </div>
                 </div>
 

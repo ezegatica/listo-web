@@ -21,7 +21,7 @@ export const createProject = (project) =>{
 };
 
 
-export const verSubProyectos = (project) =>{
+export const crearSubProyecto = (project) =>{
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
         const profile = getState().firebase.profile;

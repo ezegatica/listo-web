@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {verSubProyectos} from '../../Actions/projectActions'
+import {crearSubProyecto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
 
 export class Create extends Component {
@@ -9,10 +9,9 @@ export class Create extends Component {
     }
     Click = (e) =>{
         e.preventDefault();
-        this.props.verSubProyectos(this.state)
+        this.props.crearSubProyecto(this.state)
     }
     Change = (e) => {
-        console.log(e.target.id, 'id', e.target.value)
         this.setState({
             [e.target.id] : e.target.value
         })
@@ -32,7 +31,7 @@ export class Create extends Component {
                     </div>
                     <div className="input-field">
                         <button className="btn pink lighten-1 z-depth-0">
-                            Crear proyecto
+                            Crear producto
                         </button>
                     </div>
                 </form>
@@ -48,7 +47,7 @@ const mapStateToProps= (state) =>{
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        verSubProyectos: (project) => dispatch(verSubProyectos(project))
+        crearSubProyecto: (project) => dispatch(crearSubProyecto(project))
     }
 }
 
