@@ -10,6 +10,8 @@ export class Create extends Component {
     Click = (e) =>{
         e.preventDefault();
         this.props.crearSubProyecto(this.state)
+        this.props.history.push("/profile");
+
     }
     Change = (e) => {
         this.setState({
