@@ -45,3 +45,22 @@ export const signUp = (newUser) => {
         });
       }
     }
+
+    export const sendLink = (credentials) =>{
+        return (dispatch, getState, {getFirebase}) =>{
+            const firebase = getFirebase();
+            console.log("received", credentials.email)
+            if (credentials.email !== ''){
+                firebase.auth().sendPasswordResetEmail(credentials.email)
+                .then(()=>{
+                    dispatch({type: 'RECOVERY_SUCCESS'});
+                }).catch((err)=>{
+                    dispatch({type: 'RECOVERY_ERROR'});
+                });
+            }
+            else{
+                dispatch({type: 'RECOVERY_EMPTY'})
+            }
+            
+        }
+    }

@@ -1,5 +1,6 @@
 const initState = {
-    authError: null
+    authError: null,
+    mensaje: null
 }
 const authReducer = (state = initState, action) =>{
     switch(action.type){
@@ -36,7 +37,28 @@ const authReducer = (state = initState, action) =>{
                 ...state,
                 authError: 'ERROR AL REGISTRARSE: ' + action.err.message
             }
-
+        
+        case 'RECOVERY_SUCCESS':
+            console.log("Recovery link sent!")
+            return{
+                ...state,
+                mensaje: "Listo! Recibiras un correo en breve!",
+                authError: null
+            }
+        
+        case 'RECOVERY_ERROR':
+            console.log("Error sending Recovery link")
+            return{
+                ...state,
+                authError: "El mail que ingresaste parece ser incorrecto",
+                mensaje: null
+            }
+        case 'RECOVERY_EMPTY':
+            console.log("EL FORM ESTA VACIO PA")
+            return{
+                ...state,
+                authError: "Debe ingresar una direccion de correo"
+            }
 
             default:
                 return state

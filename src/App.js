@@ -9,6 +9,7 @@ import Home from './Components/Pages/Home'
 import Details from './Components/Proyects/Details'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
+import Recovery from './Components/Auth/Recovery'
 import Create from './Components/Proyects/Create'
 import Editar from './Components/Proyects/Edit.js'
 
@@ -29,6 +30,8 @@ function App() {
         <Route exact path='/proyectos/nuevo' component={Create}/>
         <Route path="/proyectos/:id" component={Details} />
         <Route path="/editar/:id" component={Editar} />
+        <Route path="/recovery" component={Recovery} />
+
       </Switch>
     </BrowserRouter>
     

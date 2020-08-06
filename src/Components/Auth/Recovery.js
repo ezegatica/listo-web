@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signIn} from '../../Actions/authActions'
-import { Redirect, Link } from 'react-router-dom'
+import {sendLink} from '../../Actions/authActions'
+import { Redirect } from 'react-router-dom'
 
-export class SignIn extends Component {
+export class Recovery extends Component {
     state = {
-        email: '',
-        password: ''
+        email: ''
     }
     Change = (e) => {
         this.setState({
@@ -14,11 +13,14 @@ export class SignIn extends Component {
         })
     }
     Submit = (e) => { 
-        e.preventDefault();
-        this.props.signIn(this.state);
+        // if (this.state.email !== ''){
+            e.preventDefault();
+            this.props.sendLink(this.state);
+        
     }
+
     render() {
-        const {authError, auth} = this.props;
+        const {authError, auth, mensaje} = this.props;
         if (auth.uid){
             return <Redirect to="/profile"/>
         }
@@ -26,25 +28,21 @@ export class SignIn extends Component {
             return (
                 <div className="container">
                     <form onSubmit={this.Submit} className="white">
-                        <h5 className="grey-text text-darken-3">Entrar</h5>
+                        <h5 className="grey-text text-darken-3">Olvide mi contraseña</h5>
+                        <p className="grey-text text-darken-1">Escribe tu direccion de mail y te enviaremos un email con la informacion para recuperar tu cuenta.</p>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>
                             <input type="email" id="email" onChange={this.Change} />
                         </div>
                         <div className="input-field">
-                            <label htmlFor="password">Contraseña</label>
-                            <input type="password" id="password" onChange={this.Change} />
-                        </div>
-                        <div>
-                            <Link to="/recovery" email={"#email"}>¿Olvidaste tu contraseña? </Link> /
-                            <Link to="/register"> ¿No tienes cuenta?</Link> <br/>
-                        </div>
-                        <div className="input-field">
-                            <button className="btn pink lighten-1 z-depth-0">
-                                Login
+                            <button className="btn pink lighten-1 z-depth-0 " >
+                                Enviar mail
                             </button>
                             <div className="red-text center">
                                 {authError ? <p>{authError}</p>: null}
+                            </div>
+                            <div className="green-text center">
+                                {mensaje ? <p>{mensaje}</p>: null}
                             </div>
                         </div>
                     </form>
@@ -57,14 +55,15 @@ export class SignIn extends Component {
 const mapStateToProps = (state) => {
     return{
         authError: state.auth.authError,
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        mensaje: state.auth.mensaje
     }
 }
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        signIn: (creds) => dispatch(signIn(creds))
+        sendLink: (creds) => dispatch(sendLink(creds))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(Recovery)
