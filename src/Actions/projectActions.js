@@ -20,12 +20,35 @@ export const createProject = (project) =>{
     }
 };
 
+
 export const verSubProyectos = (project) =>{
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        const profile = getState().firebase.profile;
+        const autorUUID = getState().firebase.auth.uid;
+        firestore.collection('usuarios').doc(autorUUID).collection('productos').add({
+            ...project,
+            autorNombre: profile.nombre,
+            autorApellido: profile.apellido,
+            autorUUID: autorUUID,
+            createdAt: new Date(),
+            autorAdmin: profile.isAdmin
+        }).then(() => {
+            dispatch({type: 'SUBPROYECTO_SUCCESS', project})
+        }).catch((err) =>{
+            dispatch({type:'SUBPROYECTO_ERROR', err})
+        })
+        
+    }
+};
+
+export const caca = (project) =>{
     return(dispatch, getState, {getFirebase, getFirestore}) =>{
         const firestore = getFirestore();
         const autorUUID = getState().firebase.auth.uid;
         firestore.collection('usuarios').doc(autorUUID).collection('productos').add({
-            ...project
+            titulo: project.title,
+            contenido: project.content
         }).then(() => {
             dispatch({type:'SUBPROYECTO_SUCCESS'})
         }).catch((err) =>{

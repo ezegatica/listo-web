@@ -9,9 +9,10 @@ export class Create extends Component {
     }
     Click = (e) =>{
         e.preventDefault();
-        this.props.verSubProyectos()
+        this.props.verSubProyectos(this.state)
     }
     Change = (e) => {
+        console.log(e.target.id, 'id', e.target.value)
         this.setState({
             [e.target.id] : e.target.value
         })
