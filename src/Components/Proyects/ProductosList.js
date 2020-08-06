@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {db, auth} from '../../Config/fbConfig'
+import {db} from '../../Config/fbConfig'
+// import {auth} from '../../Config/fbConfig'
 
 export class ProductosList extends Component {
     state = {
@@ -39,7 +40,7 @@ export class ProductosList extends Component {
             <div>
                 {this.state.productos && this.state.productos.map (producto =>{
                     return(
-                        <div className="card z-depth-0 proyect-summary" key={producto.id}>
+                        <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.id}>
                         <div className="card-content grey-text text-darken-3 lista-proyectos">
                             <span className="card-title" title={producto.title}>{producto.title}</span>
                             <p>{producto.content}</p>
