@@ -30,7 +30,7 @@ const Details = (props) => {
                     <p>{proyecto.content}</p>
                 </div>
                 <div className="card-action grey lighten-4 grey-text">
-                    <div>Por: {proyecto.autorNombre} {proyecto.autorApellido}{adminBadge}</div>
+                    <div><p>Por: {proyecto.autorNombre} {proyecto.autorApellido}{adminBadge}</p></div>
                     <div>{moment (proyecto.createdAt.toDate()).calendar()}</div>
                 </div>
                     {console.log("ID AUTOR: ", proyecto.autorUUID)}

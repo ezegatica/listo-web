@@ -52,7 +52,7 @@ export class Editar extends Component {
         // if (auth.isLoaded){
         //     console.log(auth)
         // }
-        console.log(this.props)
+        // console.log(this.props)
         
         if (auth.isLoaded && proyecto && profile.isLoaded){
             this.UpdateState(proyecto, proyectoID)
