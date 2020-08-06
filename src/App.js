@@ -12,7 +12,7 @@ import Register from './Components/Auth/SignUp'
 import Recovery from './Components/Auth/Recovery'
 import Create from './Components/Proyects/Create'
 import Editar from './Components/Proyects/Edit.js'
-
+import Productos from './Components/Pages/Productos'
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +31,7 @@ function App() {
         <Route path="/proyectos/:id" component={Details} />
         <Route path="/editar/:id" component={Editar} />
         <Route path="/recovery" component={Recovery} />
+        <Route path="/productos" component={Productos} />
 
       </Switch>
     </BrowserRouter>

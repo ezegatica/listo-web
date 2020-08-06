@@ -7,7 +7,7 @@ import { compose } from 'redux'
 
 const Profile = (props) => {
     const { projects } = props
-    // console.log(props)
+    console.log("PROPS:", props)
     const admin = props.profile.isAdmin ? <div>Hola admin!</div> : null
 
     if (!props.auth.uid && props.auth.isLoaded) {
@@ -46,12 +46,15 @@ const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
         profile: state.firebase.profile,
-        projects: state.firestore.ordered.proyectos
+        projects: state.firestore.ordered.proyectos,
+        firestoreall: state.firestore,
+        firebasall: state.firebase
     }
 }
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-        { collection: 'proyectos' }
+        { collection: 'proyectos' },
+        { collection: 'usuarios' },
     ])
 )(Profile)

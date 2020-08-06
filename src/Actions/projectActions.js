@@ -20,6 +20,20 @@ export const createProject = (project) =>{
     }
 };
 
+export const verSubProyectos = (project) =>{
+    return(dispatch, getState, {getFirebase, getFirestore}) =>{
+        const firestore = getFirestore();
+        const autorUUID = getState().firebase.auth.uid;
+        firestore.collection('usuarios').doc(autorUUID).collection('productos').add({
+            ...project
+        }).then(() => {
+            dispatch({type:'SUBPROYECTO_SUCCESS'})
+        }).catch((err) =>{
+            dispatch({type:'SUBPROYECTO_ERROR'})
+        })
+    }
+}
+
 export const editProject = (project) =>{
     return(dispatch, getState, {getFirebase, getFirestore}) =>{
         const firestore = getFirestore();
