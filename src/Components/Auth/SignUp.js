@@ -9,8 +9,7 @@ export class SignUp extends Component {
     state = {
         email: '',
         password: '',
-        nombre: '',
-        apellido: ''
+        nombre: ''
     }
     Change = (e) => {
         this.setState({
@@ -24,7 +23,7 @@ export class SignUp extends Component {
     render() {
         const {authError, auth} = this.props;
         if (auth.uid){
-            return <Redirect to="/dashboard"/>
+            return <Redirect to="/profile"/>
         }
         else{
             return (
@@ -42,10 +41,6 @@ export class SignUp extends Component {
                         <div className="input-field">
                             <label htmlFor="nombre">Nombre</label>
                             <input type="text" id="nombre" onChange={this.Change} />
-                        </div>
-                        <div className="input-field">
-                            <label htmlFor="apellido">Apellido</label>
-                            <input type="text" id="apellido" onChange={this.Change} />
                         </div>
                         <div>
                             <Link to="/login">¿Ya tienes cuenta? </Link>

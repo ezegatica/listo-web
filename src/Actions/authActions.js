@@ -35,8 +35,7 @@ export const signUp = (newUser) => {
         ).then((resp) => {
             return firestore.collection('usuarios').doc(resp.user.uid).set({
                 nombre: newUser.nombre,
-                apellido: newUser.apellido,
-                initials: newUser.nombre[0] + newUser.apellido[0],
+                initials: newUser.nombre[0],
                 isAdmin: false
             });
         }).then(() => {

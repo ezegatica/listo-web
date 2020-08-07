@@ -20,7 +20,7 @@ export class ProductosList extends Component {
             })
             this.setState({productos: Productos})
             console.log("STATE: ", this.state)
-            console.log(snapshot)
+            console.log("SNAPSHOT :", snapshot)
         }).catch(error => console.log(error))
     }
     render(props) {
@@ -32,8 +32,9 @@ export class ProductosList extends Component {
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.createdAt}>
                             <div className="card-content grey-text text-darken-3 lista-proyectos">
-                                <span className="card-title" title={producto.title}>{producto.title}</span>
-                                <p>{producto.content}</p>
+                                <span className="card-title" title={producto.titulo}>{producto.titulo}</span>
+                                <p>{producto.descripcion}</p>
+                                <p>Precio: ${producto.precio}</p>
                             </div>
                         </div>
                     )

@@ -3,16 +3,17 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Navbar from './Components/Layout/Navbar'
 import MobileSpacing from './Components/Layout/MobileSpacing'
 import Dashboard from './Components/Dashboard/Dashboard'
-import Profile from './Components/Dashboard/Profile'
+import Profile from './Components/Pages/Profile'
 import Proyectos from './Components/Dashboard/Proyectos'
 import Home from './Components/Pages/Home'
+import Restaurantes from './Components/Pages/Restaurantes'
 import Details from './Components/Proyects/Details'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Recovery from './Components/Auth/Recovery'
 import Create from './Components/Proyects/Create'
 import Editar from './Components/Proyects/Edit.js'
-import Productos from './Components/Pages/Productos'
+import Productos from './Components/Productos/Agregar'
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
         <Route path="/editar/:id" component={Editar} />
         <Route path="/recovery" component={Recovery} />
         <Route path="/productos" component={Productos} />
+        <Route path="/restaurantes" component={Restaurantes} />
 
       </Switch>
     </BrowserRouter>

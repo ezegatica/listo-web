@@ -9,7 +9,7 @@ const Mios = (props) =>{
         Lista = props.projects.map(proyecto=>{
             if (proyecto.autorUUID === props.auth.uid){
                 return(
-                            <Summary project={proyecto} key={proyecto.id}/>
+                    <Summary project={proyecto} key={proyecto.id}/>
                 )
             }
             else{

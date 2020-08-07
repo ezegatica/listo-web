@@ -1,16 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Mios from '../Proyects/Mine'
-import Products from '../Proyects/ProductosList'
+import Products from '../Productos/Lista'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 
 const Profile = (props) => {
-    const { projects } = props
     // console.log("PROFILE.JS PROPS:", props)
     const admin = props.profile.isAdmin ? <div>Hola admin!</div> : null
-
     if (!props.auth.uid && props.auth.isLoaded) {
         return <Redirect to="/login" />
     }
@@ -20,13 +17,9 @@ const Profile = (props) => {
             return (
                 <div className="container nav-center">
                     <div className="carta">
-                        <h1>{props.profile.nombre} {props.profile.apellido}</h1>
+                        <h1>{props.profile.nombre}</h1>
                         <p className="titulo">{props.auth.email}</p>
                         <div>{admin}</div>
-                    </div>
-                    <div>
-                        <h4 className="center">Mis proyectos:</h4>
-                        <Mios projects={projects} auth={props.auth} />
                     </div>
                     <div>
                         <h4 className="center">Mis productos:</h4>
@@ -50,10 +43,7 @@ const Profile = (props) => {
 const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
-        profile: state.firebase.profile,
-        projects: state.firestore.ordered.proyectos,
-        firestoreall: state.firestore,
-        firebaseall: state.firebase
+        profile: state.firebase.profile
     }
 }
 export default compose(
