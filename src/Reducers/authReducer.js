@@ -35,7 +35,13 @@ const authReducer = (state = initState, action) =>{
             console.log("register bad")
             return {
                 ...state,
-                authError: 'ERROR AL REGISTRARSE: ' + action.err.message
+                authError: 'ERROR AL REGISTRARSE'
+            }
+        case 'SIGNUP_NONAME':
+            console.log("no name")
+            return {
+                ...state,
+                authError: 'Debes especificar un nombre'
             }
         
         case 'RECOVERY_SUCCESS':
