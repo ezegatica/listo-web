@@ -1,25 +1,23 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 import {auth} from '../../Config/fbConfig'
-// import {userUUID} from '../../Config/fbConfig'
 
 export class ProductosList extends Component {
     state = {
-        productos: null,
-            // id: null
+        productos: null
     }
     componentDidMount(){
         db.collection('usuarios').doc(auth.currentUser.uid).collection('productos').get()
         .then(snapshot =>{
             const Productos = []
-            const IDs = []
             snapshot.forEach(doc =>{
-                console.log("DATA:", doc.data())
-                const data = doc.data()
-                Productos.push(data)
-                IDs.push(doc.id)
+                console.log("AGREGO DATA:", doc.data())
+                console.log("PRODUCTO ID DEL AGREGADO:", doc.id)
+                const info = doc.data()
+                const id = doc.id;
+                Productos.push({info, id})
             })
-            this.setState({productos: Productos, id: IDs})
+            this.setState({productos: Productos})
             console.log("STATE: ", this.state)
         }).catch(error => console.log(error))
     }
@@ -30,11 +28,11 @@ export class ProductosList extends Component {
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.id}>
                             <div className="card-content grey-text text-darken-3 lista-proyectos">
-                                <span className="card-title" title={producto.titulo}>{producto.titulo}</span>
-                                <p>{producto.descripcion}</p>
-                                <p>Precio: ${producto.precio}</p>
-                                <p>usuario: {producto.autorNombre}</p>
-                                <p>ID PRODUCTO: {this.state.id}</p>
+                                <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
+                                <p className="red-text">{producto.info.descripcion}</p>
+                                <p><b>Precio: </b>${producto.info.precio}</p>
+                                <p><b>usuario:</b> {producto.info.autorNombre}</p>
+                                <p><b>ID PRODUCTO: </b>{producto.id}</p>
                             </div>
                         </div>
                     )

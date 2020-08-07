@@ -13,7 +13,7 @@ const Profile = (props) => {
     }
     else {
         if (props.profile.isLoaded) {
-            console.log("ES ADMIN?", props.profile.isAdmin)
+                // console.log("ES ADMIN?", props.profile.isAdmin)
             return (
                 <div className="container nav-center">
                     <div className="carta">
