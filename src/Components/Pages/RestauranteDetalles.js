@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
-import {auth} from '../../Config/fbConfig'
 
-export class ProductosList extends Component {
+export class RestauranteDetalles extends Component {
     state = {
-        productos: null
+        productos: null,
+        nombreRestaurante: null
     }
+    
     componentDidMount(){
-        db.collection('usuarios').doc(auth.currentUser.uid).collection('productos').get()
+        let urlID = this.props.match.params.id;
+        console.log(urlID)
+        console.log("PROPS: ", this.props)
+        db.collection('usuarios').doc(urlID).collection('productos').get()
         .then(snapshot =>{
             const Productos = []
             snapshot.forEach(doc =>{
@@ -18,10 +22,17 @@ export class ProductosList extends Component {
             this.setState({productos: Productos})
             console.log("STATE: ", this.state)
         }).catch(error => console.log(error))
+        db.collection('usuarios').doc(urlID).get()
+        .then(snapshot => {
+            this.setState({nombreRestaurante: snapshot.data().nombre})
+        })
     }
     render(props) {
         return (
             <div>
+                <h4 className="center">{this.state.nombreRestaurante}</h4>
+                <hr/>
+                <h4>Productos: </h4>
                 {this.state.productos && this.state.productos.map (producto =>{
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.id}>
@@ -39,4 +50,4 @@ export class ProductosList extends Component {
         )
     }
 }
-export default ProductosList
+export default RestauranteDetalles

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 // import {auth} from '../../Config/fbConfig'
+import {Link} from 'react-router-dom'
 
 export class Restaurantes extends Component {
     state = {
@@ -14,12 +15,13 @@ export class Restaurantes extends Component {
         .then(snapshot =>{
             const Restaurantes = []
             snapshot.forEach(doc =>{
-                const data = doc.data()
-                Restaurantes.push(data)
+                const info = doc.data()
+                const id = doc.id;
+                Restaurantes.push({info, id})
             })
             this.setState({restaurantes: Restaurantes})
-            console.log("STATE: ", this.state)
-            console.log("SNAPSHOT :", snapshot)
+            console.log("STATE RESTAURANTES: ", this.state)
+
         }).catch(error => console.log(error))
     }
     render(props) {
@@ -27,14 +29,12 @@ export class Restaurantes extends Component {
             <div>
                 <h3 className="center">RESTAURANTES:</h3>
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
-                    // console.log("producto: ", producto)
                     console.log("RESTAURANT :", restaurant);
                     return(
-                        <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant}>
+                        <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
                             <div className="card-content grey-text text-darken-3 lista-proyectos">
-                                <span className="card-title" title={restaurant.nombre}>{restaurant.nombre}</span>
-                                <p>Descripcion: {restaurant.descripcion}</p>
-                                <p>ID RESTAURANTE: [deberia estar aca]</p>
+                                <Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link>
+                                <p>ID RESTAURANTE: {restaurant.id}</p>
                             </div>
                         </div>
                     )

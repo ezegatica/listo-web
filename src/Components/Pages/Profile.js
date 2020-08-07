@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Products from '../Productos/Lista'
+import Lista from '../Productos/Lista'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 
@@ -23,7 +23,7 @@ const Profile = (props) => {
                     </div>
                     <div>
                         <h4 className="center">Mis productos:</h4>
-                        <Products/>
+                        <Lista/>
                     </div>
                 </div>
 

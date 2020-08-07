@@ -8,6 +8,7 @@ import Proyectos from './Components/Dashboard/Proyectos'
 import Home from './Components/Pages/Home'
 import Restaurantes from './Components/Pages/Restaurantes'
 import Details from './Components/Proyects/Details'
+import RestauranteDetalles from './Components/Pages/RestauranteDetalles'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Recovery from './Components/Auth/Recovery'
@@ -33,8 +34,8 @@ function App() {
         <Route path="/editar/:id" component={Editar} />
         <Route path="/recovery" component={Recovery} />
         <Route path="/productos" component={Productos} />
-        <Route path="/restaurantes" component={Restaurantes} />
-
+        <Route exact path="/restaurantes" component={Restaurantes} />
+        <Route path="/restaurantes/:id" component={RestauranteDetalles} />
       </Switch>
     </BrowserRouter>
     
