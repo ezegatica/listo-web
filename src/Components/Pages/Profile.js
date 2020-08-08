@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Lista from '../Productos/Lista'
-import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'redux'
+
 
 const Profile = (props) => {
     // console.log("PROFILE.JS PROPS:", props)
@@ -17,7 +16,7 @@ const Profile = (props) => {
             return (
                 <div className="container nav-center">
                     <div className="carta">
-                        <h1>{props.profile.nombre}</h1>
+                        <h1 title={props.profile.nombre}>{props.profile.nombre}</h1>
                         <p className="titulo">{props.auth.email}</p>
                         <div>{admin}</div>
                     </div>
@@ -46,10 +45,4 @@ const mapStateToProps = (state) => {
         profile: state.firebase.profile
     }
 }
-export default compose(
-    connect(mapStateToProps),
-    firestoreConnect([
-        { collection: 'proyectos' },
-        { collection: 'usuarios' },
-    ])
-)(Profile)
+export default connect(mapStateToProps)(Profile)

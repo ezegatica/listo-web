@@ -6,9 +6,10 @@ import Dashboard from './Components/Dashboard/Dashboard'
 import Profile from './Components/Pages/Profile'
 import Proyectos from './Components/Dashboard/Proyectos'
 import Home from './Components/Pages/Home'
-import Restaurantes from './Components/Pages/Restaurantes'
+import RestaurantesLista from './Components/Pages/RestaurantesLista'
 import Details from './Components/Proyects/Details'
 import RestauranteDetalles from './Components/Pages/RestauranteDetalles'
+import ProductoDetalles from './Components/Productos/Detalles'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Recovery from './Components/Auth/Recovery'
@@ -34,8 +35,9 @@ function App() {
         <Route path="/editar/:id" component={Editar} />
         <Route path="/recovery" component={Recovery} />
         <Route path="/productos" component={Productos} />
-        <Route exact path="/restaurantes" component={Restaurantes} />
-        <Route path="/restaurantes/:id" component={RestauranteDetalles} />
+        <Route exact path="/restaurantes" component={RestaurantesLista} />
+        <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
+        <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
       </Switch>
     </BrowserRouter>
     

@@ -22,6 +22,7 @@ export const createProject = (project) =>{
 
 export const crearProducto = (project) =>{
     return (dispatch, getState, { getFirebase, getFirestore }) => {
+        if (project.titulo !== "" && project.descripcion !== "" && project.precio !== ""){
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const autorUUID = getState().firebase.auth.uid;
@@ -36,7 +37,10 @@ export const crearProducto = (project) =>{
         }).catch((err) =>{
             dispatch({type:'PRODUCTO_ERROR', err})
         })
-        
+    }else{
+        dispatch({type:'PRODUCTO_VACIO'})
+        console.log("PRODUCTO VACIO, CREACION INVALIDA")
+    }
     }
 };
 

@@ -4,14 +4,14 @@ import {connect} from 'react-redux'
 
 export class Create extends Component {
     state = {
-        titulo: '',
-        descripcion: '',
-        precio: ''
+        titulo: "",
+        descripcion: "",
+        precio: ""
     }
     Click = (e) =>{
         e.preventDefault();
         this.props.crearProducto(this.state)
-        this.props.history.push("/profile");
+        this.props.history.push("/profile")
 
     }
     Change = (e) => {
@@ -26,15 +26,15 @@ export class Create extends Component {
                     <h5 className="grey-text text-darken-3">Agregar producto</h5> <br />
                     <div className="input-field">
                         <label htmlFor="titulo">Titulo</label>
-                        <input type="text" id="titulo" onChange={this.Change}/>
+                        <input type="text" id="titulo" onChange={this.Change} required={true}/>
                     </div>
                     <div className="input-field">
                         <label htmlFor="descripcion">Contenido del Proyecto:</label>
-                        <textarea id="descripcion" className="materialize-textarea" onChange={this.Change}></textarea>
+                        <textarea id="descripcion" className="materialize-textarea" onChange={this.Change}required={true}></textarea>
                     </div>
                     <div className="input-field">
                         <label htmlFor="precio">Precio:</label>
-                        <input type="number" id="precio" min="1" onChange={this.Change} placeholder="50"/>
+                        <input type="number" id="precio" min="1" onChange={this.Change} placeholder="50"required={true}/>
                     </div>
                     <div className="input-field">
                         <button className="btn pink lighten-1 z-depth-0">

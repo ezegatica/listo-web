@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 import {auth} from '../../Config/fbConfig'
-
+import {Link} from 'react-router-dom'
 export class ProductosList extends Component {
     state = {
         productos: null
@@ -25,13 +25,16 @@ export class ProductosList extends Component {
                 {this.state.productos && this.state.productos.map (producto =>{
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.id}>
+                            <Link to={"/restaurantes/" + producto.info.autorUUID+"/"+producto.id}>
                             <div className="card-content grey-text text-darken-3 lista-proyectos">
                                 <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
                                 <p className="red-text">{producto.info.descripcion}</p>
                                 <p><b>Precio: </b>${producto.info.precio}</p>
                                 <p><b>restaurante:</b> {producto.info.autorNombre}</p>
+                                <p><b>ID RESTAURANTE:</b> {producto.info.autorUUID}</p>
                                 <p><b>ID PRODUCTO: </b>{producto.id}</p>
                             </div>
+                            </Link>
                         </div>
                     )
             })}

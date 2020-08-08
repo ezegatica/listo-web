@@ -25,11 +25,12 @@ export const signOut = () =>{
 }
 
 export const signUp = (newUser) => {
+    
     return(dispatch, getState, {getFirebase, getFirestore}) => {
+        if (newUser.nombre !== ""){
         const firebase = getFirebase();
         const firestore = getFirestore();
         console.log("NUEVO USUARIO",newUser)
-        if (newUser.nombre !== ""){
             console.log("PASO EL IF")
             firebase.auth().createUserWithEmailAndPassword(
                 newUser.email,
@@ -49,8 +50,7 @@ export const signUp = (newUser) => {
         else{
             console.log("NO PASO EL IF")
             dispatch({type: 'SIGNUP_NONAME'})
-        }
-        
+        }        
       }
     }
 
