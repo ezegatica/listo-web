@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { db } from '../../Config/fbConfig'
+import { db, auth } from '../../Config/fbConfig'
+import {Link} from 'react-router-dom'
 
 export class Detalles extends Component {
     state = {
@@ -9,7 +10,6 @@ export class Detalles extends Component {
     componentDidMount() {
         let resID = this.props.match.params.id;
         let proID = this.props.match.params.productoid;
-        console.log("PROPS: ", this.props)
         db.collection('usuarios').doc(resID).collection('productos').doc(proID).get()
             .then(snapshot => {
                 const info = snapshot.data()
@@ -18,7 +18,20 @@ export class Detalles extends Component {
             }).catch(error => console.log(error))
     }
     render() {
-        if (this.state.producto !== null){
+        if (this.state.producto !== null && auth.currentUser.uid){
+            console.log("UID", auth.currentUser.uid)
+            console.log("AUTOR", this.state.producto.autorUUID)
+            const editarProducto = auth.currentUser.uid === this.state.producto.autorUUID ? 
+        // es dueño
+        <div> 
+            <br/>
+            <Link to={"/restaurantes/"+this.state.producto.autorUUID+"/"+this.state.id+"/editar"} className="waves-effect waves-light btn grey lighten-2 black-text"><i className="material-icons right">edit</i>Editar</Link>
+            <br/>
+            <br/>
+            <Link to={"/restaurantes/"+this.state.producto.autorUUID+"/"+this.state.id+"/borrar"} className="waves-effect waves-light btn red lighten-2 white-text"><i className="material-icons right">delete</i>Borrar</Link>
+        </div> 
+        : //no es dueño
+        null
             return (
                 <div>
                     <div className="container section project-details">
@@ -28,6 +41,7 @@ export class Detalles extends Component {
                                 <hr />
                                 <p>{this.state.producto.descripcion}</p>
                                 <p>${this.state.producto.precio}</p>
+                                <div>{editarProducto}</div>
                             </div>
                         </div>
                     </div>

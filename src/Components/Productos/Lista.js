@@ -30,9 +30,14 @@ export class ProductosList extends Component {
                                 <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
                                 <p className="red-text">{producto.info.descripcion}</p>
                                 <p><b>Precio: </b>${producto.info.precio}</p>
-                                <p><b>restaurante:</b> {producto.info.autorNombre}</p>
-                                <p><b>ID RESTAURANTE:</b> {producto.info.autorUUID}</p>
-                                <p><b>ID PRODUCTO: </b>{producto.id}</p>
+                                <p title={"RESTAURANTE: " + producto.info.autorUUID + "\nPRODUCTO: " + producto.id}><b>Restaurante:</b> {producto.info.autorNombre}</p>
+                                {/* <p><b>ID RESTAURANTE:</b> {producto.info.autorUUID}</p>
+                                <p><b>ID PRODUCTO: </b>{producto.id}</p> 
+                                CAMBIADO POR HOVER AL NOMBRE DEL RESTAURANTE BRO
+                                CAMBIADO POR HOVER AL NOMBRE DEL RESTAURANTE BRO
+                                CAMBIADO POR HOVER AL NOMBRE DEL RESTAURANTE BRO
+                                CAMBIADO POR HOVER AL NOMBRE DEL RESTAURANTE BRO
+                                */}
                             </div>
                             </Link>
                         </div>

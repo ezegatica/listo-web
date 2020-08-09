@@ -1,11 +1,5 @@
-const initState = {
-    projects:[
-        {id: '1', title: 'help me find peach', content: 'blah blah blah'},
-        {id: '2', title: 'collect all the stars', content: 'blah blah blah'},
-        {id: '3', title: 'egg hunt with yoshi', content: 'blah blah blah'}
-    ]
-}
-const projectReducer = (state = initState, action) =>{
+const initState = {}
+const projectReducer = (state = initState, action, props) =>{
     switch  (action.type) {
         case 'CREATE_PROJECT':
             console.log('PROYECTO CREADO: ', action.project);
@@ -28,6 +22,14 @@ const projectReducer = (state = initState, action) =>{
             return state;
         case 'PRODUCTO_ERROR':
             console.log("ERROR AL CREAR PRODUCTO", action.err);
+            return state;
+            
+        case 'PRODUCTO_EDIT_SUCCESS':
+            console.log("EDITADO PRODUCTO", action.producto);
+            return state;
+
+        case 'PRODUCTO_EDIT_ERROR':
+            console.log("ERROR AL EDITAR PRODUCTO", action.err);
             return state;
             
         default: 

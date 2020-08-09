@@ -10,12 +10,14 @@ import RestaurantesLista from './Components/Pages/RestaurantesLista'
 import Details from './Components/Proyects/Details'
 import RestauranteDetalles from './Components/Pages/RestauranteDetalles'
 import ProductoDetalles from './Components/Productos/Detalles'
+import ProductoEditar from './Components/Productos/Editar'
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Recovery from './Components/Auth/Recovery'
 import Create from './Components/Proyects/Create'
 import Editar from './Components/Proyects/Edit.js'
 import Productos from './Components/Productos/Agregar'
+import Borrar from './Components/Productos/Borrar'
 function App() {
   return (
     <BrowserRouter>
@@ -38,6 +40,8 @@ function App() {
         <Route exact path="/restaurantes" component={RestaurantesLista} />
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
         <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
+        <Route exact path="/restaurantes/:id/:productoid/editar" component={ProductoEditar} />
+        <Route exact path="/restaurantes/:id/:productoid/borrar" component={Borrar} />
       </Switch>
     </BrowserRouter>
     

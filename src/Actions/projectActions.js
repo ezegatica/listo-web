@@ -43,29 +43,29 @@ export const crearProducto = (project) =>{
     }
     }
 };
-
-// export const caca = (project) =>{
-//     return(dispatch, getState, {getFirebase, getFirestore}) =>{
-//         const firestore = getFirestore();
-//         const autorUUID = getState().firebase.auth.uid;
-//         firestore.collection('usuarios').doc(autorUUID).collection('productos').add({
-//             titulo: project.title,
-//             contenido: project.content
-//         }).then(() => {
-//             dispatch({type:'SUBPROYECTO_SUCCESS'})
-//         }).catch((err) =>{
-//             dispatch({type:'SUBPROYECTO_ERROR'})
-//         })
-//     }
-// }
+export const editarProducto = (producto) =>{
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        if (producto.titulo !== "" && producto.descripcion !== "" && producto.precio !== ""){
+            console.log("EDITAR PRODUCTO:", producto)
+            const firestore = getFirestore();
+            // const uid = getState().firebase.auth.uid;
+            firestore.collection('usuarios').doc(producto.producto.autorUUID).collection('productos').doc(producto.id).update({
+                ...producto
+            }).then(() => {
+                dispatch({type: 'PRODUCTO_EDIT_SUCCESS', producto})
+            }).catch((err) =>{
+                dispatch({type:'PRODUCTO_EDIT_ERROR', err})
+            })
+        }else{
+            dispatch({type:'PRODUCTO_VACIO'})
+            console.log("PRODUCTO VACIO, CREACION INVALIDA")
+        }
+    }
+}
 
 export const editProject = (project) =>{
     return(dispatch, getState, {getFirebase, getFirestore}) =>{
         const firestore = getFirestore();
-        // console.log("dispatched: ", project)
-        // console.log("titulo nuevo: ", project.title)
-        // console.log("contenido nuevo: ", project.content)
-        // console.log("id proyecto a editar: ", project.id)
         firestore.collection('proyectos').doc(project.id).update({
             title: project.title,
             content: project.content
