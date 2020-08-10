@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { db,auth } from '../../Config/fbConfig'
 import {editarProducto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
+import Forbidden from '../Pages/Forbidden'
 
 export class Editar extends Component {
     state = {
@@ -41,6 +42,7 @@ export class Editar extends Component {
             console.log("STATE:", this.state)
             console.log("UID", auth.currentUser.uid)
             console.log("AUTOR", this.state.producto.autorUUID)
+            if (auth.currentUser.uid === this.state.producto.autorUUID){
             return (
                 <div className="container row">
                         <h5 className="grey-text text-darken-3 col s12">Editar post</h5>
@@ -73,6 +75,11 @@ export class Editar extends Component {
                         </form>
                     </div>
             )
+            }else{
+                return(
+                    <Forbidden />
+                )
+            }
         }
         else{
             return(

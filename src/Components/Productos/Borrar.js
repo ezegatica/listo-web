@@ -22,7 +22,6 @@ export class Borrar extends Component {
             }).catch(error => console.log(error))
     }
     borrar(state) {
-        console.log("borrar", state.id)
         this.setState({mensaje: "Borrando..."})
         db.collection('usuarios').doc(resID).collection('productos').doc(proID).delete()
             .then(snapshot => {
@@ -39,8 +38,6 @@ export class Borrar extends Component {
                     <Redirect to="/profile"/>
                 )
             }
-            console.log("STATE: ",this.state)
-            console.log("AUTH: ", auth.W)
             if (auth.currentUser.uid === this.state.producto.autorUUID){
                 console.log("ES EL DUEÑO")
                 return (
