@@ -22,7 +22,7 @@ export class Editar extends Component {
     UpdateState = (proyecto, proyectoID) => {
         if (this.x === false){
             this.setState({
-                title : proyecto.title,
+                title: proyecto.title,
                 content: proyecto.content,
                 id: proyectoID
             })

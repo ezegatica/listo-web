@@ -16,7 +16,6 @@ var config = {
   firebase.firestore()
 
   export const auth = firebase.auth()
-  // export const userUUID = firebase.auth().currentUser.uid
   export const db = firebase.firestore()
 
   export default firebase;
