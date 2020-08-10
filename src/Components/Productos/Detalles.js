@@ -18,6 +18,27 @@ export class Detalles extends Component {
             }).catch(error => console.log(error))
     }
     render() {
+        // if (!auth.currentUser){
+        //     auth.signInAnonymously()
+        //     console.log("singed in anon")
+        // }
+        if (this.state.producto !== null && !auth.currentUser){ //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
+            return(
+                <div>
+                    <div className="container section project-details">
+                        <div className="card z-depth-0">
+                            <div className="card-content">
+                                <span className="card-title">{this.state.producto.titulo}</span>
+                                <hr />
+                                <p>{this.state.producto.descripcion}</p>
+                                <p>${this.state.producto.precio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }        
+
         if (this.state.producto !== null && auth.currentUser.uid){
             console.log("UID", auth.currentUser.uid)
             console.log("AUTOR", this.state.producto.autorUUID)

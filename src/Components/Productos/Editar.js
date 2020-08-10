@@ -3,6 +3,7 @@ import { db,auth } from '../../Config/fbConfig'
 import {editarProducto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
 import Forbidden from '../Pages/Forbidden'
+import { Redirect } from 'react-router-dom'
 
 export class Editar extends Component {
     state = {
@@ -38,6 +39,11 @@ export class Editar extends Component {
             }).catch(error => console.log(error))
     }
     render() {
+        if (!auth.currentUser && this.state.producto !== null){
+            return(
+                <Redirect to="/login"/>
+            )
+        }
         if (this.state.producto !== null && auth.currentUser.uid && this.state.titulo !== null){
             console.log("STATE:", this.state)
             console.log("UID", auth.currentUser.uid)

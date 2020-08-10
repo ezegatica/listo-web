@@ -38,6 +38,11 @@ export class Borrar extends Component {
                     <Redirect to="/profile"/>
                 )
             }
+            if (!auth.currentUser){
+                return(
+                    <Redirect to="/login"/>
+                )
+            }
             if (auth.currentUser.uid === this.state.producto.autorUUID){
                 console.log("ES EL DUEÑO")
                 return (
