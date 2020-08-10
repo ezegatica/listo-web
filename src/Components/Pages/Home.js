@@ -12,7 +12,6 @@ const Home = () =>{
             <h3>Email: usu@r.io</h3>
             <h3>Contraseña: usuario</h3>
             <h5><a href="https://react.gati.ga">Otros proyectos</a></h5>
-            {/* <Link to="/productos">Productos</Link> */}
         </div>
     )
 }
