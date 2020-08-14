@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 const Home = () =>{
     return(
         <div>
-            <Link to="/productos"><h3 className="center">Crear Producto</h3></Link>
+            <Link to="/productos/nuevo"><h3 className="center">Crear Producto</h3></Link>
             <Link to="/profile"><h3 className="center">Mi perfil :D</h3></Link>
             <Link to="/restaurantes"><h3 className="center">Restaurantes</h3></Link>
             {/* <Link to="/proyectos/nuevo"><h4 className="center">Nuevo Proyecto?</h4></Link>

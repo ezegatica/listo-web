@@ -23,10 +23,18 @@ const projectReducer = (state = initState, action, props) =>{
         case 'PRODUCTO_ERROR':
             console.log("ERROR AL CREAR PRODUCTO", action.err);
             return state;
-            
+        
         case 'PRODUCTO_EDIT_SUCCESS':
             console.log("EDITADO PRODUCTO", action.producto);
+            window.location.reload(false);
             return state;
+        case 'PRODUCTO_ELIMINADO':
+            console.log("EXITO AL ELIMINAR PRODUCTO", action.producto)
+            return state
+        
+        case 'PRODUCTO_ELIMINADO_ERROR':
+            console.log("ERROR AL ELIMINAR PRODUCTO", action.err)
+        return state
 
         case 'PRODUCTO_EDIT_ERROR':
             console.log("ERROR AL EDITAR PRODUCTO", action.err);

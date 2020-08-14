@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
 
-export class RestauranteDetalles extends Component {
+export class RestauranteDetalles2 extends Component {
     state = {
         productos: null,
         nombreRestaurante: null
@@ -11,7 +11,6 @@ export class RestauranteDetalles extends Component {
     componentDidMount(){
         let urlID = this.props.match.params.id;
         // console.log(urlID)
-        console.log("PROPS: ", this.props)
         db.collection('usuarios').doc(urlID).collection('productos').get()
         .then(snapshot =>{
             const Productos = []
@@ -25,7 +24,6 @@ export class RestauranteDetalles extends Component {
         db.collection('usuarios').doc(urlID).get()
         .then(snapshot => {
             this.setState({nombreRestaurante: snapshot.data().nombre})
-            console.log("STATE: ", this.state)
         })
     }
     render() {
@@ -43,7 +41,7 @@ export class RestauranteDetalles extends Component {
                                 <div className="card-content grey-text text-darken-3 lista-proyectos">
                                     <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
                                     <p><b>Precio: </b>${producto.info.precio}</p>
-                                    <p><b>restaurante:</b> {producto.info.autorNombre}</p>
+                                    <p><b>restaurante:</b> {this.state.nombreRestaurante}</p>
                                     <p><b>ID PRODUCTO: </b>{producto.id}</p>
                                 </div>
                                 </Link>
@@ -62,4 +60,4 @@ export class RestauranteDetalles extends Component {
         
     }
 }
-export default RestauranteDetalles
+export default RestauranteDetalles2

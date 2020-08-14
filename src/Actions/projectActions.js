@@ -19,6 +19,19 @@ export const createProject = (project) =>{
     }
 };
 
+export const borrarProducto = (producto) => {
+    return(dispatch, getState, {getFirestore})=> {
+        console.log("recibido en el actions")
+        const firestore = getFirestore();
+        firestore.collection('usuarios').doc(producto.producto.autorUUID).collection('productos').doc(producto.id).delete()
+        .then(() => {
+            dispatch({type: 'PRODUCTO_ELIMINADO', producto})
+            console.log("PRODUCTO: ", producto)
+        }).catch((err) => {
+            dispatch({type: 'PRODUCTO_ELIMINADO_ERROR', err})
+        })
+    }
+}
 
 export const crearProducto = (project) =>{
     return (dispatch, getState, { getFirebase, getFirestore }) => {

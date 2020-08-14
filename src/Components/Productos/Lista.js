@@ -4,7 +4,8 @@ import {auth} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
 export class ProductosList extends Component {
     state = {
-        productos: null
+        productos: null,
+        nombreResto: null
     }
     componentDidMount(){
         db.collection('usuarios').doc(auth.currentUser.uid).collection('productos').get()

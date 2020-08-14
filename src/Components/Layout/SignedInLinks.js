@@ -8,7 +8,7 @@ const SignedInLinks= (props) => {
         <div className="nav-wrapper grey darken-3">
             <ul className="right">
                 {/* <li><NavLink to="/proyectos/nuevo">Nuevo proyecto</NavLink></li> */}
-                <li><NavLink to="/productos">Nuevo producto</NavLink></li>
+                <li><NavLink to="/productos/nuevo">Nuevo producto</NavLink></li>
                 <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
                 <li><a href="#logout" onClick={props.signOut}>Logout</a></li>
                 <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
