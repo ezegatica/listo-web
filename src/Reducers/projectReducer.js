@@ -29,7 +29,8 @@ const projectReducer = (state = initState, action, props) =>{
             window.location.reload(false);
             return state;
         case 'PRODUCTO_ELIMINADO':
-            console.log("EXITO AL ELIMINAR PRODUCTO", action.producto)
+            console.log("EXITO AL ELIMINAR PRODUCTO")
+            window.location.href = "/profile"
             return state
         
         case 'PRODUCTO_ELIMINADO_ERROR':

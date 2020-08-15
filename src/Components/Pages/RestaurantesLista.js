@@ -8,9 +8,7 @@ export class Restaurantes extends Component {
         restaurantes: null
     }
     componentDidMount(){
-        console.log("RESTAURANTES.JS MOUNTED")
-        console.log("AUTH :")
-        
+       
         db.collection('usuarios').get()
         .then(snapshot =>{
             const Restaurantes = []
@@ -20,7 +18,6 @@ export class Restaurantes extends Component {
                 Restaurantes.push({info, id})
             })
             this.setState({restaurantes: Restaurantes})
-            console.log("STATE RESTAURANTES: ", this.state)
 
         }).catch(error => console.log(error))
     }
@@ -29,7 +26,6 @@ export class Restaurantes extends Component {
             <div>
                 <h3 className="center">RESTAURANTES:</h3>
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
-                    console.log("RESTAURANT :", restaurant);
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
                             <div className="card-content grey-text text-darken-3 lista-proyectos">

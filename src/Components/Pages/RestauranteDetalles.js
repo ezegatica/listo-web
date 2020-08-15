@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom'
 export class RestauranteDetalles2 extends Component {
     state = {
         productos: null,
-        nombreRestaurante: null
+        nombreRestaurante: null,
+        e404: null
     }
     
     componentDidMount(){
@@ -24,9 +25,25 @@ export class RestauranteDetalles2 extends Component {
         db.collection('usuarios').doc(urlID).get()
         .then(snapshot => {
             this.setState({nombreRestaurante: snapshot.data().nombre})
+        }).catch(error => {
+            console.log(error)
+            if (error.message === "Cannot read property 'nombre' of undefined"){
+                console.log("EL ERROR BRO")
+                this.setState({e404: true})
+            } 
         })
     }
     render() {
+        if (this.state.e404 === true){
+            return(
+                <div className="container center">
+                    <h3>Error 404</h3>
+                    <h5>El restaurante no ha sido encontrado, puede haber sido movido o eliminado</h5>
+                    <Link to="/"><h6>Volver a la home</h6></Link>
+                    <Link to="/restaurantes"><h6>Volver a los restaurantes</h6></Link>
+                </div>
+            )
+        }
         if (this.state.productos !== null && this.state.nombreRestaurante !== null){
             return (
                 <div>

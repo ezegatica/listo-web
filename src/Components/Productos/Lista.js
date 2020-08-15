@@ -17,7 +17,6 @@ export class ProductosList extends Component {
                 Productos.push({info, id})
             })
             this.setState({productos: Productos})
-            console.log("STATE: ", this.state)
         }).catch(error => console.log(error))
     }
     render(props) {

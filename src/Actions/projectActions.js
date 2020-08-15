@@ -33,6 +33,13 @@ export const borrarProducto = (producto) => {
     }
 }
 
+export const borrarProductoTEST = (producto) => {
+    return(dispatch, getState, {getFirestore})=> {
+        console.log("recibido en el actions de prueba")
+        dispatch({type: 'PRODUCTO_ELIMINADO', producto})
+    }
+}
+
 export const crearProducto = (project) =>{
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         if (project.titulo !== "" && project.descripcion !== "" && project.precio !== ""){

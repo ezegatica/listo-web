@@ -61,7 +61,6 @@ export class Detalles extends Component {
             
     }
     render() {
-        console.log("STATE", this.state)
         if (this.state.e404 === true){
             return(
                 <div className="container center">
@@ -107,11 +106,13 @@ export class Detalles extends Component {
         null
 
         const formBorrar = this.state.productoBorrarVisible === true ?
-        <div className="container row">
+        <div className="container row center">
             <hr style={{borderTop: "1px dashed red"}}/>
-                <h2>{this.state.producto.titulo}</h2>
-                <p className="center">Estas seguro que lo quiere eliminar?</p>
-                <button onClick={() => this.Borrar(this.state)} className="btn red">Si</button>
+                <h4 className="center">Estas seguro que quiere eliminar el producto?</h4>
+                <hr className="barra-fachera"/>
+                <button onClick={() => this.Borrar(this.state)} className="btn red boton-form">Si</button>
+                <button onClick={() => this.setState({productoBorrarVisible: false})} className="btn grey boton-form">No</button>
+
         </div>
         :
         null

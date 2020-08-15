@@ -21,7 +21,6 @@ const Profile = (props) => {
     }
     else {
         if (props.profile.isLoaded) {
-            console.log(props.auth.emailVerified)
             return (
                 <div className="container nav-center">
                     <div className="carta">

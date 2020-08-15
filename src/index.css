@@ -62,3 +62,11 @@ nav.nav-center ul li a {
 .lista-proyectos a:hover{
   color: #999999
 }
+
+.boton-form{
+  margin: 10px;
+}
+
+.barra-fachera{
+  height:2px;border-width:0;color:gray;background-color:gray
+}
