@@ -96,7 +96,7 @@ export class Detalles extends Component {
         if (this.state.loading){
             btnEdit = "btn grey lighten-2 black-text disabled"
             btnBorrar = "btn red lighten-2 white-text disabled"
-            msjCargando= "Cargando..."
+            msjCargando= "Enviando..."
         }
         else{
             btnEdit = "btn grey lighten-2 black-text"
@@ -176,7 +176,7 @@ export class Detalles extends Component {
                                 <div>{formEditar}</div>
                                 <div>{formBorrar}</div>
                                 <div>{Hecho}</div>
-                                <div>{msjCargando}</div>
+                                <div className="center">{msjCargando}</div>
                             </div>
                         </div>
                     </div>
