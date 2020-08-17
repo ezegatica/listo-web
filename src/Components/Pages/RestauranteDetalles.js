@@ -70,7 +70,9 @@ export class RestauranteDetalles2 extends Component {
         }else{
             return(
                 <div className="center">
-                    <p>Cargando...</p>
+                     <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+            <div></div><div></div><div></div><div></div>
+            </div></div>
                 </div>
             )
         }

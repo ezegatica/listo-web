@@ -2,20 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Lista from '../Productos/Lista'
-import { auth } from '../../Config/fbConfig'
+// import { auth } from '../../Config/fbConfig'
 
 
-const sendMail = (credentials) => {
-    console.log("verificar", credentials)
-    auth.currentUser.sendEmailVerification()
-    .then(() => {
-        console.log("MAIL ENVIADO!")
-    }).catch((err)=>{
-        console.log("ERROR: ", err.message)
-    })
-}
+// const sendMail = (credentials) => {
+//     console.log("verificar", credentials)
+//     auth.currentUser.sendEmailVerification()
+//         .then(() => {
+//             console.log("MAIL ENVIADO!")
+//         }).catch((err) => {
+//             console.log("ERROR: ", err.message)
+//         })
+// }
 const Profile = (props) => {
-    const admin = props.profile.isAdmin ? <div>Admin Mode Owo</div> : null
+    // const admin = props.profile.isAdmin ? <div>Admin Mode Owo</div> : null
     if (!props.auth.uid && props.auth.isLoaded) {
         return <Redirect to="/login" />
     }
@@ -26,13 +26,13 @@ const Profile = (props) => {
                     <div className="carta">
                         <h1 title={props.profile.nombre}>{props.profile.nombre}</h1>
                         <p className="titulo">{props.auth.email}</p>
-                        {!props.auth.emailVerified ? <button className="waves-effect waves-green btn grey lighten-4 black-text btn-small" onClick={() => sendMail(props.auth.email)}> Verificar mail</button> : null}
-                        <div>{admin}</div>
-                        <br/>
+                        {/* {!props.auth.emailVerified ? <button className="waves-effect waves-green btn grey lighten-4 black-text btn-small" onClick={() => sendMail(props.auth.email)}> Verificar mail</button> : null} */}
+                        {/* <div>{admin}</div> */}
+                        <br />
                     </div>
                     <div>
                         <h4 className="center">Mis productos:</h4>
-                        <Lista/>
+                        <Lista />
                     </div>
                 </div>
 
@@ -42,7 +42,9 @@ const Profile = (props) => {
             return (
                 <div className="caja">
                     <div className="centrado">
-                        <p>Cargando...</p>
+                    <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+    <div></div><div></div><div></div><div></div>
+    </div></div>
                     </div>
                 </div>
             )

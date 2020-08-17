@@ -22,9 +22,19 @@ export class Restaurantes extends Component {
         }).catch(error => console.log(error))
     }
     render(props) {
+        let Cargando = this.state.restaurantes ? 
+        null :
+        <div className="caja">
+                    <div className="centrado">
+                    <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+            <div></div><div></div><div></div><div></div>
+            </div></div>                    </div>
+                </div>
+       
         return (
             <div>
                 <h3 className="center">RESTAURANTES:</h3>
+                {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
@@ -38,6 +48,7 @@ export class Restaurantes extends Component {
             </div>
         )
     }
+    
 }
 
 export default Restaurantes

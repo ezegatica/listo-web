@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { db, auth } from '../../Config/fbConfig'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {editarProducto} from '../../Actions/projectActions'
 import {borrarProducto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
@@ -10,7 +10,8 @@ export class Detalles extends Component {
         producto: null,
         productoEditarVisible: null,
         productoBorrarVisible: null,
-        e404: false
+        e404: false,
+        loading: false
     }
 
     Change = (e) => {
@@ -19,19 +20,21 @@ export class Detalles extends Component {
         })
     }
 
-    Submit = (e) => { 
+    Editar = (e) => { 
         e.preventDefault();
         this.props.editarProducto(this.state)
         this.setState({
-            productoEditarVisible: false
-        })
+            productoEditarVisible: false,
+            loading: true
+
+        })   
         
     }
-
     Borrar = () => {
         this.props.borrarProducto(this.state)
         this.setState({
-            productoBorrarVisible: false
+            productoBorrarVisible: false,
+            loading: true
         })
     }
     componentDidMount() {
@@ -87,20 +90,30 @@ export class Detalles extends Component {
                 </div>
             )
         }        
-
+        let btnEdit;
+        let btnBorrar;
+        let msjCargando;
+        if (this.state.loading){
+            btnEdit = "btn grey lighten-2 black-text disabled"
+            btnBorrar = "btn red lighten-2 white-text disabled"
+            msjCargando= "Cargando..."
+        }
+        else{
+            btnEdit = "btn grey lighten-2 black-text"
+            btnBorrar = "btn red lighten-2 white-text"
+            msjCargando= null
+        }
+        const Hecho = this.props.hecho ? <Redirect to="/profile" /> : null
         if (this.state.producto !== null && auth.currentUser.uid){
-            // console.log("UID", auth.currentUser.uid)
-            // console.log("AUTOR", this.state.producto.autorUUID)
+
             const botonesCambiar = auth.currentUser.uid === this.state.producto.autorUUID ? 
         // es dueño
         <div> 
             <br/>
-            {/* <Link to={"/restaurantes/"+this.state.producto.autorUUID+"/"+this.state.id+"/editar"} className="waves-effect waves-light btn grey lighten-2 black-text"><i className="material-icons right">edit</i>Editar</Link> */}
-            <button className="btn grey lighten-2 black-text" onClick={() => this.setState({ productoEditarVisible: true, productoBorrarVisible: false })}><i className="material-icons right">edit</i>Editar</button>
+            <button className={btnEdit} onClick={() => this.setState({ productoEditarVisible: true, productoBorrarVisible: false })}><i className="material-icons right">edit</i>Editar</button>
             <br/>
             <br/>
-            <button className="btn red lighten-2 white-text" onClick={() => this.setState({ productoEditarVisible: false, productoBorrarVisible: true  })}><i className="material-icons right">delete</i>Borrar</button>
-            {/* <Link to={"/restaurantes/"+this.state.producto.autorUUID+"/"+this.state.id+"/borrar"} className="waves-effect waves-light btn red lighten-2 white-text"><i className="material-icons right">delete</i>Borrar</Link> */}
+            <button className={btnBorrar} onClick={() => this.setState({ productoEditarVisible: false, productoBorrarVisible: true  })}><i className="material-icons right">delete</i>Borrar</button>
         </div> 
         : //no es dueño
         null
@@ -112,7 +125,6 @@ export class Detalles extends Component {
                 <hr className="barra-fachera"/>
                 <button onClick={() => this.Borrar(this.state)} className="btn red boton-form">Si</button>
                 <button onClick={() => this.setState({productoBorrarVisible: false})} className="btn grey boton-form">No</button>
-
         </div>
         :
         null
@@ -120,7 +132,7 @@ export class Detalles extends Component {
         const formEditar = this.state.productoEditarVisible === true ?
         <div className="container row">
         <hr style={{borderTop: "1px dashed red"}}/>
-            <form onSubmit={this.Submit} className="white col s12">
+            <form onSubmit={this.Editar} className="white col s12">
              <div className="row">
                 <div className="input-field col s12">
                 <input value={this.state.titulo} id="titulo" type="text" className="validate card-title" style={{fontSize:20}} onChange={this.Change}/>
@@ -163,6 +175,8 @@ export class Detalles extends Component {
                                 <div>{botonesCambiar}</div>
                                 <div>{formEditar}</div>
                                 <div>{formBorrar}</div>
+                                <div>{Hecho}</div>
+                                <div>{msjCargando}</div>
                             </div>
                         </div>
                     </div>
@@ -171,10 +185,18 @@ export class Detalles extends Component {
         }
         else{
             return(
-                <div className="center container">Loading...</div>
+                <div className="center container"> <div className="loadingio-spinner-bars-jl0izsh3cc"><div class="ldio-at0j3uszb4c">
+                <div></div><div></div><div></div><div></div>
+                </div></div></div>
             )
         }
         
+    }
+}
+
+const mapStateToProps= (state) =>{
+    return {
+        hecho: state.project.done
     }
 }
 const mapDispatchToProps = (dispatch) =>{
@@ -183,4 +205,4 @@ const mapDispatchToProps = (dispatch) =>{
         borrarProducto: (producto) => dispatch(borrarProducto(producto))
     }
 }
-export default connect(null,mapDispatchToProps)(Detalles)
+export default connect(mapStateToProps,mapDispatchToProps)(Detalles)

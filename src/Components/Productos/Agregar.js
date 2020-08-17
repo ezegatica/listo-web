@@ -8,12 +8,14 @@ export class Create extends Component {
     state = {
         titulo: "",
         descripcion: "",
-        precio: ""
+        precio: "",
+        loading: false
     }
     Click = (e) =>{
         e.preventDefault();
         this.props.crearProducto(this.state)
-        this.props.history.push("/profile")
+        this.setState({loading: true})
+        // this.props.history.push("/profile")
 
     }
     Change = (e) => {
@@ -22,7 +24,15 @@ export class Create extends Component {
         })
     }
     render() {
-        console.log(this.props.auth)
+        let asd;
+        if (this.state.loading){
+           asd = "btn pink lighten-1 z-depth-0 disabled"
+        }
+        else{
+            asd = "btn pink lighten-1 z-depth-0"
+        }
+        const Hecho = this.props.hecho ? <Redirect to="/profile" /> : null
+        const Enviando = this.state.loading && !this.props.hecho ? <div className="center"><h4>Creando...</h4></div> : null
         if (this.props.auth.isLoaded && this.props.auth.uid)
         {
             return (
@@ -42,9 +52,11 @@ export class Create extends Component {
                             <input type="number" id="precio" min="1" onChange={this.Change} placeholder="50"required={true}/>
                         </div>
                         <div className="input-field">
-                            <button className="btn pink lighten-1 z-depth-0">
+                            <button className={asd}>
                                 Crear producto
                             </button>
+                            {Enviando}
+                            {Hecho}
                         </div>
                     </form>
                 </div>
@@ -67,7 +79,8 @@ export class Create extends Component {
 
 const mapStateToProps= (state) =>{
     return {
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        hecho: state.project.done
     }
 }
 

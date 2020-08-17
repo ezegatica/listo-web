@@ -1,23 +1,23 @@
 
-export const createProject = (project) =>{
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        const firestore = getFirestore();
-        const profile = getState().firebase.profile;
-        const autorUUID = getState().firebase.auth.uid;
-        firestore.collection('proyectos').add({
-            ...project,
-            autorNombre: profile.nombre,
-            autorUUID: autorUUID,
-            createdAt: new Date(),
-            autorAdmin: profile.isAdmin
-        }).then(() => {
-            dispatch({type: 'CREATE_PROJECT', project})
-        }).catch((err) =>{
-            dispatch({type:'CREATE_PROJECT_ERROR', err})
-        })
+// export const createProject = (project) =>{
+//     return (dispatch, getState, { getFirebase, getFirestore }) => {
+//         const firestore = getFirestore();
+//         const profile = getState().firebase.profile;
+//         const autorUUID = getState().firebase.auth.uid;
+//         firestore.collection('proyectos').add({
+//             ...project,
+//             autorNombre: profile.nombre,
+//             autorUUID: autorUUID,
+//             createdAt: new Date(),
+//             autorAdmin: profile.isAdmin
+//         }).then(() => {
+//             dispatch({type: 'CREATE_PROJECT', project})
+//         }).catch((err) =>{
+//             dispatch({type:'CREATE_PROJECT_ERROR', err})
+//         })
         
-    }
-};
+//     }
+// };
 
 export const borrarProducto = (producto) => {
     return(dispatch, getState, {getFirestore})=> {
@@ -26,6 +26,10 @@ export const borrarProducto = (producto) => {
         firestore.collection('usuarios').doc(producto.producto.autorUUID).collection('productos').doc(producto.id).delete()
         .then(() => {
             dispatch({type: 'PRODUCTO_ELIMINADO', producto})
+            setTimeout(() => {
+            
+                dispatch({type: 'RESET'})
+              }, 500)
             console.log("PRODUCTO: ", producto)
         }).catch((err) => {
             dispatch({type: 'PRODUCTO_ELIMINADO_ERROR', err})
@@ -33,12 +37,23 @@ export const borrarProducto = (producto) => {
     }
 }
 
-export const borrarProductoTEST = (producto) => {
+export const crearProductoTMP = (project) => {
     return(dispatch, getState, {getFirestore})=> {
+        setTimeout(() => {
+            
+            dispatch({type: 'PRODUCTO_SUCCESS', project})
+
+            setTimeout(() => {
+            
+                dispatch({type: 'RESET'})
+              }, 1000)
+
+          }, 1000)
+
         console.log("recibido en el actions de prueba")
-        dispatch({type: 'PRODUCTO_ELIMINADO', producto})
     }
 }
+
 
 export const crearProducto = (project) =>{
     return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -54,6 +69,9 @@ export const crearProducto = (project) =>{
             autorAdmin: profile.isAdmin
         }).then(() => {
             dispatch({type: 'PRODUCTO_SUCCESS', project})
+            setTimeout(() => {
+                dispatch({type: 'RESET'})
+              }, 500)
         }).catch((err) =>{
             dispatch({type:'PRODUCTO_ERROR', err})
         })
@@ -73,6 +91,10 @@ export const editarProducto = (producto) =>{
                 ...producto
             }).then(() => {
                 dispatch({type: 'PRODUCTO_EDIT_SUCCESS', producto})
+                setTimeout(() => {
+            
+                    dispatch({type: 'RESET'})
+                  }, 500)
             }).catch((err) =>{
                 dispatch({type:'PRODUCTO_EDIT_ERROR', err})
             })
@@ -83,16 +105,16 @@ export const editarProducto = (producto) =>{
     }
 }
 
-export const editProject = (project) =>{
-    return(dispatch, getState, {getFirebase, getFirestore}) =>{
-        const firestore = getFirestore();
-        firestore.collection('proyectos').doc(project.id).update({
-            title: project.title,
-            content: project.content
-        }).then(() => {
-            dispatch({type:'EDIT_PROJECT', project})
-        }).catch((err) =>{
-            dispatch({type:'EDIT_PROJECT_ERROR', err})
-        })
-    }
-}
+// export const editProject = (project) =>{
+//     return(dispatch, getState, {getFirebase, getFirestore}) =>{
+//         const firestore = getFirestore();
+//         firestore.collection('proyectos').doc(project.id).update({
+//             title: project.title,
+//             content: project.content
+//         }).then(() => {
+//             dispatch({type:'EDIT_PROJECT', project})
+//         }).catch((err) =>{
+//             dispatch({type:'EDIT_PROJECT_ERROR', err})
+//         })
+//     }
+// }

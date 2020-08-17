@@ -4,6 +4,8 @@ import Forbidden from '../Pages/Forbidden'
 import {Redirect} from 'react-router-dom'
 let resID;
 let proID;
+// ARCHIVO MOVIDO AL FORM DE Detalles.JS
+
 export class Borrar extends Component {
     componentDidMount() {
         resID = this.props.match.params.id;
@@ -48,7 +50,7 @@ export class Borrar extends Component {
                 return (
                     <div className="center">
                         <h2>{this.state.producto.titulo}</h2>
-                        <p className="center">Estas seguro que lo quiere eliminar?</p>
+                        <p className="center">Estas seguro que lo quierasde eliminar?</p>
                         <button onClick={() => this.borrar(this.state)} className="btn red">Si</button>
                         <p>{this.state.mensaje ? <p>{this.state.mensaje}</p>: null}</p>
                     </div>

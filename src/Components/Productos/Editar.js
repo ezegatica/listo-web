@@ -99,10 +99,16 @@ export class Editar extends Component {
     }
 }
 
+const mapStateToProps= (state) =>{
+    return {
+        hecho: state.project.done
+    }
+}
+
 const mapDispatchToProps = (dispatch) =>{
     return {
         editarProducto: (producto) => dispatch(editarProducto(producto))
     }
 }
 
-export default connect(null,mapDispatchToProps)(Editar)
+export default connect(mapStateToProps, mapDispatchToProps)(Editar)
