@@ -3,6 +3,12 @@ import {Link} from 'react-router-dom'
 const Home = () =>{
     return(
         <div>
+            <div className="red">
+            <h1 className="container center">AVISO!</h1>
+            <h4 className="center">La base de datos se reinciara el 20-8 para tareas de mantenimiento y actualizacion, se perderan todos los datos y cuentas existentes</h4>
+            <br />
+            </div>
+            <hr />
             <Link to="/productos/nuevo"><h3 className="center">Crear Producto</h3></Link>
             <Link to="/profile"><h3 className="center">Mi perfil :D</h3></Link>
             <Link to="/restaurantes"><h3 className="center">Restaurantes</h3></Link>
