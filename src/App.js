@@ -17,7 +17,7 @@ import Recovery from './Components/Auth/Recovery'
 // import Create from './Components/Proyects/Create'
 // import Editar from './Components/Proyects/Edit.js'
 import Agregar from './Components/Productos/Agregar'
-import Borrar from './Components/Productos/Borrar'
+// import Borrar from './Components/Productos/Borrar'
 function App() {
   return (
     <BrowserRouter>
@@ -41,7 +41,7 @@ function App() {
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
         <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
         {/* <Route exact path="/restaurantes/:id/:productoid/editar" component={ProductoEditar} /> */}
-        <Route exact path="/restaurantes/:id/:productoid/borrar" component={Borrar} />
+        {/* <Route exact path="/restaurantes/:id/:productoid/borrar" component={Borrar} /> */}
       </Switch>
     </BrowserRouter>
     
