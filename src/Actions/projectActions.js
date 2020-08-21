@@ -62,7 +62,9 @@ export const crearProducto = (project) =>{
         const profile = getState().firebase.profile;
         const autorUUID = getState().firebase.auth.uid;
         firestore.collection('restaurantes').doc(autorUUID).collection('productos').add({
-            ...project,
+            titulo: project.titulo,
+            descripcion: project.descripcion,
+            precio: project.precio,
             autorNombre: profile.nombre,
             autorUUID: autorUUID,
         }).then(() => {
@@ -86,7 +88,9 @@ export const editarProducto = (producto) =>{
             const firestore = getFirestore();
             // const uid = getState().firebase.auth.uid;
             firestore.collection('restaurantes').doc(producto.producto.autorUUID).collection('productos').doc(producto.id).update({
-                ...producto
+                titulo: producto.titulo,
+                descripcion: producto.descripcion,
+                precio: producto.precio,
             }).then(() => {
                 dispatch({type: 'PRODUCTO_EDIT_SUCCESS', producto})
                 setTimeout(() => {
