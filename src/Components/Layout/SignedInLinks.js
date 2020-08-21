@@ -3,13 +3,17 @@ import {NavLink } from 'react-router-dom'
 import {connect} from 'react-redux'
 import {signOut} from '../../Actions/authActions'
 const SignedInLinks= (props) => {
+    const panelAdmin = props.profile.isAdmin ? 
+    <li><NavLink to="/admin">Admin</NavLink></li> : null
+    const panelResto = props.profile.isResto ?
+    <li><NavLink to="/productos/nuevo">Nuevo producto</NavLink></li> : null
 
     return(
         <div className="nav-wrapper grey darken-3">
             <ul className="right">
-                <li className="link-disabled" title="deshabilitado temporalmente">Nuevo producto</li>
+                {panelResto}
                 <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
-                <li><NavLink to="/admin">ADMIN</NavLink></li>
+                {panelAdmin}
                 <li><a href="#logout" onClick={props.signOut}>Logout</a></li>
                 <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
             </ul>

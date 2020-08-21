@@ -22,7 +22,6 @@ export class SignUp extends Component {
         this.props.signUp(this.state)
     }
     render() {
-        console.log(this.props)
         const {authError, auth} = this.props;
         if (auth.uid){
             return <Redirect to="/profile"/>

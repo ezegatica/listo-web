@@ -14,7 +14,7 @@ const Navbar= (props) => {
                 <Link to="/" className="brand-logo">Listo!</Link>
                 
                 <ul className="right">
-                {auth.isLoaded && links}
+                {auth.isLoaded && profile.isLoaded && links}
                 </ul>
             </div>
         </nav>

@@ -1,20 +1,29 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
+// LAYOUT
 import Navbar from './Components/Layout/Navbar'
 import MobileSpacing from './Components/Layout/MobileSpacing'
+
+// PAGINAS
 import Home from './Components/Pages/Home'
 import Profile from './Components/Pages/Profile'
+import Settings from './Components/Pages/Settings'
+
+// RESTAURANTES
 import RestaurantesLista from './Components/Restaurante/RestaurantesLista'
 import RestauranteDetalles from './Components/Restaurante/RestauranteDetalles'
+
+// PRODUCTOS
 import ProductoDetalles from './Components/Productos/Detalles'
+import Agregar from './Components/Productos/Agregar'
+
+// AUTH
 import Login from './Components/Auth/SignIn'
 import Register from './Components/Auth/SignUp'
 import Recovery from './Components/Auth/Recovery'
-import Agregar from './Components/Productos/Agregar'
 
 // ADMIN
 import Admin from './Components/Pages/Admin'
-// import SignUpResto from './Components/Auth/SignUpResto'
 
 
 function App() {
@@ -30,7 +39,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route exact path="/admin" component={Admin} />
-        {/* <Route path="/admin/restaurante" component={SignUpResto} /> */}
+        <Route exact path="/settings" component={Settings} />
         
         <Route path="/recovery" component={Recovery} />
         <Route exact path="/productos/nuevo" component={Agregar} />

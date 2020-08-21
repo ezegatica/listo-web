@@ -24,6 +24,82 @@ export const signOut = () => {
     }
 }
 
+export const deleteUser = (user) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        console.log("LLEGO")
+        return firestore.collection("usuarios").doc(user).get()
+            .then(snapshot => {
+                console.log("PASO EL GET")
+                const Resto = snapshot.data().isResto;
+                console.log(Resto)
+                console.log("BORRANDO USUARIO")
+                return firestore.collection('usuarios').doc(user).delete()
+                    .then(() => {
+                        console.log("BORRADO USUARIOS")
+                        if (Resto) {
+                            console.log("BORRANDO RESTO")
+                            return firestore.collection('restaurantes').doc(user).delete()
+                                .then(() => {
+                                    console.log("BORRADO EXITOSO DEL RESTAURANTE")
+                                    return firebase.auth().currentUser.delete()
+                                        .then(() => {
+                                            console.log("BORRADO RESTAURANTE EXITOSAMENTE DEL AUTH")
+                                            dispatch({ type: 'DELETE_SUCCESS' });
+                                        }).catch((err) => {
+                                            dispatch({ type: 'DELETE_ERROR', err });
+                                            console.log("ERROR: ", err)
+                                        })
+                                }).catch((err) => {
+                                    dispatch({ type: 'DELETE_ERROR', err });
+                                    console.log("ERROR: ", err)
+                                })
+                        } else {
+                            console.log("NO ES RESTO")
+                        }
+                        console.log("BORRANDO DEL AUTH")
+                        firebase.auth().currentUser.delete()
+                            .then(() => {
+                                console.log("BORRADO exitosamente DEL AUTH")
+                                dispatch({ type: 'DELETE_SUCCESS' });
+                            }).catch((err) => {
+                                dispatch({ type: 'DELETE_ERROR', err });
+                                console.log("ERROR: ", err)
+                            })
+                    }).catch((err) => {
+                        dispatch({ type: 'DELETE_ERROR', err });
+                        console.log("ERROR: ", err)
+                    })
+                // firebase.auth().currentUser.delete(
+                //     ).then(()=> {
+                //         console.log("BORRA EN USUARIOS")
+                //         return firestore.collection('usuarios').doc(user).delete(
+                //         ).then(() => {
+                //             console.log("EN EL IF")
+                //             if (Resto){
+                //                 console.log("ES RESTO")
+                //                 return firestore.collection('restaurante').doc(user).delete()
+                //                 .then(()=>{
+                //                     dispatch({ type: 'DELETE_SUCCESS' });
+                //                 }).catch((err) => {
+                //                     dispatch({ type: 'DELETE_ERROR', err });
+                //                 })
+                //             }
+                //             else{
+                //                 console.log("NO ES RESTO")
+                //                 dispatch({ type: 'DELETE_SUCCESS' });
+                //             }
+                //         }).catch((err) => {
+                //             dispatch({ type: 'DELETE_ERROR', err });
+                //         })
+                //     }).catch((err) => {
+                //         dispatch({ type: 'DELETE_ERROR', err });
+                //     })
+            })
+    }
+}
+
 export const nuevoResto = (newUser) => {
 
     return (dispatch, getState, { getFirebase, getFirestore }) => {
@@ -35,7 +111,7 @@ export const nuevoResto = (newUser) => {
                 newUser.email,
                 newUser.password
             ).then((resp) => {
-                console.log("UID: ",resp.user.uid)
+                console.log("UID: ", resp.user.uid)
                 return firestore.collection('restaurantes').doc(resp.user.uid).set({
                     nombre: newUser.nombre,
                     initials: newUser.nombre[0],
@@ -77,7 +153,7 @@ export const signUp = (newUser) => {
                 return firestore.collection('usuarios').doc(resp.user.uid).set({
                     nombre: newUser.nombre,
                     apellido: newUser.apellido,
-                    initials: newUser.nombre[0]
+                    initials: newUser.nombre[0] + newUser.apellido[0]
                 });
             }).then(() => {
                 dispatch({ type: 'SIGNUP_SUCCESS' });

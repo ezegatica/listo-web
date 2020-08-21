@@ -1,38 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Lista from '../Productos/Lista'
-// import { auth } from '../../Config/fbConfig'
+import PerfilResto from './P_Resto'
+import PerfilUsuario from './P_User'
+import {Link} from 'react-router-dom'
 
-
-// const sendMail = (credentials) => {
-//     console.log("verificar", credentials)
-//     auth.currentUser.sendEmailVerification()
-//         .then(() => {
-//             console.log("MAIL ENVIADO!")
-//         }).catch((err) => {
-//             console.log("ERROR: ", err.message)
-//         })
-// }
 const Profile = (props) => {
-    // const admin = props.profile.isAdmin ? <div>Admin Mode Owo</div> : null
+    const RestoProductos = props.profile.isResto ?
+        <PerfilResto />
+        :
+        <PerfilUsuario />
+
+    let settings;
+
     if (!props.auth.uid && props.auth.isLoaded) {
         return <Redirect to="/login" />
     }
     else {
-        if (props.profile.isLoaded) {
+        if (props.profile.isLoaded && props.auth.isLoaded) {
+            // CANCELAR EL HECHO DE BORRAR LA CUENTA CON LA CUENTA DE USUARIO PREDETERMINADO
+            settings = props.auth.uid === "iSOcYsCUziVYHIqspg0bfeNlCox2" ?
+             null :
+             <Link to="/settings">Configuracion</Link>
+            
             return (
                 <div className="container nav-center">
                     <div className="carta">
-                        <h1 title={props.profile.nombre + " " +props.profile.apellido}>{props.profile.nombre} {props.profile.apellido}</h1>
+                        <h1 title={props.profile.nombre + " " + props.profile.apellido}>{props.profile.nombre} {props.profile.apellido}</h1>
                         <p className="titulo">{props.auth.email}</p>
-                        {/* {!props.auth.emailVerified ? <button className="waves-effect waves-green btn grey lighten-4 black-text btn-small" onClick={() => sendMail(props.auth.email)}> Verificar mail</button> : null} */}
-                        {/* <div>{admin}</div> */}
+                        {settings}
                         <br />
                     </div>
                     <div>
-                        <h4 className="center">Mis productos:</h4>
-                        <Lista />
+
+                        {props.profile.isLoaded && RestoProductos}
                     </div>
                 </div>
 
@@ -42,9 +43,9 @@ const Profile = (props) => {
             return (
                 <div className="caja">
                     <div className="centrado">
-                    <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
-    <div></div><div></div><div></div><div></div>
-    </div></div>
+                        <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+                            <div></div><div></div><div></div><div></div>
+                        </div></div>
                     </div>
                 </div>
             )

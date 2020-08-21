@@ -22,8 +22,6 @@ export class SignUpResto extends Component {
         this.props.nuevoResto(this.state)
     }
     render() {
-        console.log("PROPS: ",this.props)
-        console.log("STATE: ",this.state)
         const {authError} = this.props;
         // if (auth.uid){
         //     return <Redirect to="/profile"/>

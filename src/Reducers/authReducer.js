@@ -11,7 +11,18 @@ const authReducer = (state = initState, action) =>{
                 ...state, 
                 authError: 'Error al loguearse'
             }
-
+        case 'DELETED_SUCCESS':
+            console.log("ELIMINADO EXITOSAMENTE")
+            return{
+                ...state,
+                authError: null
+            }
+        case 'DELETED_ERROR':
+            console.log("ERROR ELIMINANDO USUARIO")
+            return{
+                ...state,
+                authError: 'ERROR AL ELIMINAR USUARIO'
+            }
         case 'LOGIN_SUCCESS':
             console.log('login success')
             return {
