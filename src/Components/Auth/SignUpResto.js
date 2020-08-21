@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import { signUp } from '../../Actions/authActions'
+import { nuevoResto } from '../../Actions/authActions'
 import {connect} from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
     // REMINDER: NO PUSE EL REDIRECT CUANDO ESTAS LOGUEADO, PERO NO TIENE SENTIDO AHORA, HACER CUANDO TE LOGUEE CUANDO CREAS LA CUENTA
 
-export class SignUp extends Component {
+export class SignUpResto extends Component {
     state = {
         email: '',
         password: '',
-        nombre: '',
-        apellido: ''
+        nombre: ''
     }
     Change = (e) => {
         this.setState({
@@ -19,19 +18,21 @@ export class SignUp extends Component {
     }
     Submit = (e) => { 
         e.preventDefault();
-        this.props.signUp(this.state)
+        console.log("ENVIANDO!", this.state)
+        this.props.nuevoResto(this.state)
     }
     render() {
-        console.log(this.props)
-        const {authError, auth} = this.props;
-        if (auth.uid){
-            return <Redirect to="/profile"/>
-        }
-        else{
+        console.log("PROPS: ",this.props)
+        console.log("STATE: ",this.state)
+        const {authError} = this.props;
+        // if (auth.uid){
+        //     return <Redirect to="/profile"/>
+        // }
+        // else{
             return (
                 <div className="container">
                     <form onSubmit={this.Submit} className="white">
-                        <h5 className="grey-text text-darken-3">Registrarse</h5>
+                        <h5 className="grey-text text-darken-3">Registrar nuevo Restaurante</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>
                             <input type="email" id="email" onChange={this.Change} />
@@ -43,10 +44,6 @@ export class SignUp extends Component {
                         <div className="input-field">
                             <label htmlFor="nombre">Nombre</label>
                             <input type="text" id="nombre" onChange={this.Change} />
-                        </div>
-                        <div className="input-field">
-                            <label htmlFor="apellido">Apellido</label>
-                            <input type="text" id="apellido" onChange={this.Change} />
                         </div>
                         <div>
                             <Link to="/login">¿Ya tienes cuenta? </Link>
@@ -63,21 +60,16 @@ export class SignUp extends Component {
                     </form>
                 </div>
             )
-        }
+        // }
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signUp: (newUser) => dispatch(signUp(newUser))
+        nuevoResto: (newUser) => dispatch(nuevoResto(newUser))
     }
 }
 
-const mapStateToProps = (state) => {
-    return{
-        authError: state.auth.authError,
-        auth: state.firebase.auth
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+
+export default connect(null, mapDispatchToProps)(SignUpResto)

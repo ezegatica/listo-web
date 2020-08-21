@@ -32,7 +32,7 @@ const authReducer = (state = initState, action) =>{
             }
 
         case 'SIGNUP_ERROR':
-            console.log("register bad")
+            console.log("register bad", action.err)
             return {
                 ...state,
                 authError: 'ERROR AL REGISTRARSE'

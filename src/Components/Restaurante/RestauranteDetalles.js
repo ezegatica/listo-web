@@ -12,7 +12,7 @@ export class RestauranteDetalles2 extends Component {
     componentDidMount(){
         let urlID = this.props.match.params.id;
         // console.log(urlID)
-        db.collection('usuarios').doc(urlID).collection('productos').get()
+        db.collection('restaurantes').doc(urlID).collection('productos').get()
         .then(snapshot =>{
             const Productos = []
             snapshot.forEach(doc =>{
@@ -22,7 +22,7 @@ export class RestauranteDetalles2 extends Component {
             })
             this.setState({productos: Productos})
         }).catch(error => console.log(error))
-        db.collection('usuarios').doc(urlID).get()
+        db.collection('restaurantes').doc(urlID).get()
         .then(snapshot => {
             this.setState({nombreRestaurante: snapshot.data().nombre})
         }).catch(error => {

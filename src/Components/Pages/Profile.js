@@ -24,7 +24,7 @@ const Profile = (props) => {
             return (
                 <div className="container nav-center">
                     <div className="carta">
-                        <h1 title={props.profile.nombre}>{props.profile.nombre}</h1>
+                        <h1 title={props.profile.nombre + " " +props.profile.apellido}>{props.profile.nombre} {props.profile.apellido}</h1>
                         <p className="titulo">{props.auth.email}</p>
                         {/* {!props.auth.emailVerified ? <button className="waves-effect waves-green btn grey lighten-4 black-text btn-small" onClick={() => sendMail(props.auth.email)}> Verificar mail</button> : null} */}
                         {/* <div>{admin}</div> */}

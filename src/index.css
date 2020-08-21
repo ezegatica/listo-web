@@ -71,6 +71,10 @@ nav.nav-center ul li a {
   height:2px;border-width:0;color:gray;background-color:gray
 }
 
+.link-disabled{
+  cursor: not-allowed;
+}
+
 @keyframes ldio-at0j3uszb4c {
   0% { opacity: 1 }
   50% { opacity: .5 }

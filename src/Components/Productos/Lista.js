@@ -8,7 +8,7 @@ export class ProductosList extends Component {
         nombreResto: null
     }
     componentDidMount(){
-        db.collection('usuarios').doc(auth.currentUser.uid).collection('productos').get()
+        db.collection('restaurantes').doc(auth.currentUser.uid).collection('productos').get()
         .then(snapshot =>{
             const Productos = []
             snapshot.forEach(doc =>{

@@ -9,7 +9,7 @@ export class Restaurantes extends Component {
     }
     componentDidMount(){
        
-        db.collection('usuarios').get()
+        db.collection('restaurantes').get()
         .then(snapshot =>{
             const Restaurantes = []
             snapshot.forEach(doc =>{

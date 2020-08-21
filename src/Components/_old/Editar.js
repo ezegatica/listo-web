@@ -4,7 +4,7 @@ import {editarProducto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
 import Forbidden from '../Pages/Forbidden'
 import { Redirect } from 'react-router-dom'
-import { Detalles } from './Detalles'
+import { Detalles } from '../../Components/Productos/Detalles'
 
 // ARCHIVO MOVIDO AL FORM DE Detalles.JS
 

@@ -46,7 +46,7 @@ export class Detalles extends Component {
 
         let resID = this.props.match.params.id;
         let proID = this.props.match.params.productoid;
-        db.collection('usuarios').doc(resID).collection('productos').doc(proID).get()
+        db.collection('restaurantes').doc(resID).collection('productos').doc(proID).get()
             .then(snapshot => {
                 const info = snapshot.data()
                 const id = snapshot.id;
@@ -185,7 +185,7 @@ export class Detalles extends Component {
         }
         else{
             return(
-                <div className="center container"> <div className="loadingio-spinner-bars-jl0izsh3cc"><div class="ldio-at0j3uszb4c">
+                <div className="center container"> <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
                 <div></div><div></div><div></div><div></div>
                 </div></div></div>
             )
