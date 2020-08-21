@@ -71,31 +71,6 @@ export const deleteUser = (user) => {
                         dispatch({ type: 'DELETE_ERROR', err });
                         console.log("ERROR: ", err)
                     })
-                // firebase.auth().currentUser.delete(
-                //     ).then(()=> {
-                //         console.log("BORRA EN USUARIOS")
-                //         return firestore.collection('usuarios').doc(user).delete(
-                //         ).then(() => {
-                //             console.log("EN EL IF")
-                //             if (Resto){
-                //                 console.log("ES RESTO")
-                //                 return firestore.collection('restaurante').doc(user).delete()
-                //                 .then(()=>{
-                //                     dispatch({ type: 'DELETE_SUCCESS' });
-                //                 }).catch((err) => {
-                //                     dispatch({ type: 'DELETE_ERROR', err });
-                //                 })
-                //             }
-                //             else{
-                //                 console.log("NO ES RESTO")
-                //                 dispatch({ type: 'DELETE_SUCCESS' });
-                //             }
-                //         }).catch((err) => {
-                //             dispatch({ type: 'DELETE_ERROR', err });
-                //         })
-                //     }).catch((err) => {
-                //         dispatch({ type: 'DELETE_ERROR', err });
-                //     })
             })
     }
 }

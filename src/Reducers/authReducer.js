@@ -59,7 +59,7 @@ const authReducer = (state = initState, action) =>{
             console.log("Recovery link sent!")
             return{
                 ...state,
-                mensaje: "Listo! Recibiras un correo en breve!",
+                mensaje: "Listo! Recibiras un correo en breve con un link para restablecer tu contraseña!",
                 authError: null
             }
         
@@ -67,7 +67,7 @@ const authReducer = (state = initState, action) =>{
             console.log("Error sending Recovery link")
             return{
                 ...state,
-                authError: "El mail que ingresaste parece ser incorrecto",
+                authError: "El mail que ingresaste parece ser incorrecto o no esta registrado",
                 mensaje: null
             }
         case 'RECOVERY_EMPTY':

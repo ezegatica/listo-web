@@ -10,7 +10,8 @@ export class SignUp extends Component {
         email: '',
         password: '',
         nombre: '',
-        apellido: ''
+        apellido: '',
+        loading: false
     }
     Change = (e) => {
         this.setState({
@@ -19,10 +20,19 @@ export class SignUp extends Component {
     }
     Submit = (e) => { 
         e.preventDefault();
+        this.setState({ loading: true })
         this.props.signUp(this.state)
     }
     render() {
         const {authError, auth} = this.props;
+        let asd;
+        if (this.state.loading) {
+            asd = "btn pink lighten-1 z-depth-0 disabled"
+        }
+        else {
+            asd = "btn pink lighten-1 z-depth-0"
+        }
+        const Enviando = this.state.loading ? <div className="center"><h4>Registrando...</h4></div> : null
         if (auth.uid){
             return <Redirect to="/profile"/>
         }
@@ -51,7 +61,7 @@ export class SignUp extends Component {
                             <Link to="/login">¿Ya tienes cuenta? </Link>
                        </div>
                         <div className="input-field">
-                            <button className="btn pink lighten-1 z-depth-0">
+                            <button className={asd}>
                                 Register
                             </button>
                         </div>
@@ -59,6 +69,7 @@ export class SignUp extends Component {
                         <div className="red-text center">
                                 {authError ? <p>{ authError }</p>: null}
                             </div>
+                            {Enviando}
                     </form>
                 </div>
             )

@@ -6,7 +6,8 @@ import { Redirect, Link } from 'react-router-dom'
 export class SignIn extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        loading: false
     }
     Change = (e) => {
         this.setState({
@@ -15,6 +16,7 @@ export class SignIn extends Component {
     }
     Submit = (e) => { 
         e.preventDefault();
+        this.setState({ loading: true })
         this.props.signIn(this.state);
     }
     clearError = () =>{
@@ -22,6 +24,14 @@ export class SignIn extends Component {
     }
     render() {
         const {authError, auth} = this.props;
+        let asd;
+        if (this.state.loading) {
+            asd = "btn pink lighten-1 z-depth-0 disabled"
+        }
+        else {
+            asd = "btn pink lighten-1 z-depth-0"
+        }
+        const Enviando = this.state.loading ? <div className="center"><h4>Entrando...</h4></div> : null
         if (auth.uid){
             return <Redirect to="/profile"/>
         }
@@ -43,12 +53,13 @@ export class SignIn extends Component {
                             <Link to="/register"> ¿No tienes cuenta?</Link> <br/>
                         </div>
                         <div className="input-field">
-                            <button className="btn pink lighten-1 z-depth-0">
+                            <button className={asd}>
                                 Login
                             </button>
                             <div className="red-text center">
                                 {authError ? <p>{authError}</p>: null}
                             </div>
+                            {Enviando}
                         </div>
                     </form>
                 </div>
