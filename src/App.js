@@ -46,7 +46,6 @@ function App() {
         <Route exact path="/restaurantes" component={RestaurantesLista} />
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
         <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
-        
       </Switch>
     </BrowserRouter>
     
