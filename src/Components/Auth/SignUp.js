@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { signUp } from '../../Actions/authActions'
+import { signUp, Clear } from '../../Actions/authActions'
 import {connect} from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 
@@ -15,8 +15,10 @@ export class SignUp extends Component {
     }
     Change = (e) => {
         this.setState({
-            [e.target.id] : e.target.value
+            [e.target.id] : e.target.value,
+            loading: false
         })
+        this.props.clear()
     }
     Submit = (e) => { 
         e.preventDefault();
@@ -79,14 +81,16 @@ export class SignUp extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signUp: (newUser) => dispatch(signUp(newUser))
+        signUp: (newUser) => dispatch(signUp(newUser)),
+        clear: () => dispatch(Clear())
     }
 }
 
 const mapStateToProps = (state) => {
     return{
         authError: state.auth.authError,
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        hecho: state.auth.done
     }
 }
 

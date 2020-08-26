@@ -161,3 +161,8 @@ export const sendLink = (credentials) => {
 
     }
 }
+export const Clear = () => {
+    return (dispatch)=> {
+        dispatch({type: 'CLEAR'})
+    }
+}

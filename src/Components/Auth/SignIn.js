@@ -11,7 +11,8 @@ export class SignIn extends Component {
     }
     Change = (e) => {
         this.setState({
-            [e.target.id] : e.target.value
+            [e.target.id] : e.target.value,
+            loading: false
         })
     }
     Submit = (e) => { 

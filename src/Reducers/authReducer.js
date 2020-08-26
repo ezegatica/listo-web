@@ -1,10 +1,22 @@
 const initState = {
     authError: null,
-    mensaje: null
+    mensaje: null,
+    done: false
+
 }
 const authReducer = (state = initState, action) =>{
     switch(action.type){
-
+        case 'CLEAR':
+            return {
+                authError: null,
+                mensaje: null,
+                done: false
+            }
+        case 'RESET':
+            return {
+                ...state,
+                done: false
+            }
         case 'LOGIN_ERROR':
             console.log('login error')
             return {
@@ -49,10 +61,10 @@ const authReducer = (state = initState, action) =>{
                 authError: 'ERROR AL REGISTRARSE'
             }
         case 'SIGNUP_NONAME':
-            console.log("no name")
             return {
                 ...state,
-                authError: 'Debes especificar un nombre'
+                authError: 'Debes especificar un nombre y un apellido',
+                done: true
             }
         
         case 'RECOVERY_SUCCESS':
