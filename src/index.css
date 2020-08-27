@@ -71,6 +71,12 @@ nav.nav-center ul li a {
   height:2px;border-width:0;color:gray;background-color:gray
 }
 
+.filtros-container img{
+  height: 100px;
+  width: auto;
+  object-fit: scale-down;
+}
+
 .link-disabled{
   cursor: not-allowed;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 // import {auth} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
+import Filtros from '../Layout/Filtros'
 
 export class Restaurantes extends Component {
     state = {
@@ -33,6 +34,7 @@ export class Restaurantes extends Component {
         return (
             <div>
                 <h3 className="center">RESTAURANTES</h3>
+                <Filtros />
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
                         return(

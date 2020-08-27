@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
+import Filtros from '../Layout/Filtros'
 
 export class RestaurantesFiltro extends Component {
     state = {
@@ -37,6 +38,7 @@ export class RestaurantesFiltro extends Component {
         return (
             <div>
                 <h3 className="center">RESTAURANTES</h3>
+                <Filtros />
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
                     // console.log("RESTAURANT: ",restaurant)
