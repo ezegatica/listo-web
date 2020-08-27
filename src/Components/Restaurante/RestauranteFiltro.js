@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
-// import {auth} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
 
-export class Restaurantes extends Component {
+export class RestaurantesFiltro extends Component {
     state = {
         restaurantes: null
     }
@@ -14,8 +13,13 @@ export class Restaurantes extends Component {
             snapshot.forEach(doc =>{
                 const info = doc.data()
                 const id = doc.id;
-                Restaurantes.push({info, id})
-                
+                const categoria = doc.data().categorias
+                const cat = doc.data().cat
+                const cat2 = doc.data().cat2
+                let qwe = this.props.match.params.filtro
+                 if (cat === qwe || cat2 === qwe){
+                    Restaurantes.push({info, id, categoria})
+                }
             })
             this.setState({restaurantes: Restaurantes})
         }).catch(error => console.log(error))
@@ -35,6 +39,7 @@ export class Restaurantes extends Component {
                 <h3 className="center">RESTAURANTES</h3>
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
+                    // console.log("RESTAURANT: ",restaurant)
                         return(
                             <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
                                 <div className="card-content grey-text text-darken-3 lista-proyectos">
@@ -50,4 +55,4 @@ export class Restaurantes extends Component {
     
 }
 
-export default Restaurantes
+export default RestaurantesFiltro

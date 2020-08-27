@@ -37,7 +37,7 @@ export class SignUpResto extends Component {
         }
             return (
                 <div className="container">
-                    <form onSubmit={this.Submit} className="white">
+                    <form onSubmit={this.Submit} className="white" autoComplete="no">
                         <h5 className="grey-text text-darken-3">Registrar nuevo Restaurante</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>

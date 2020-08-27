@@ -20,9 +20,9 @@ export class SignIn extends Component {
         this.setState({ loading: true })
         this.props.signIn(this.state);
     }
-    clearError = () =>{
+    // clearError = () =>{
         
-    }
+    // }
     render() {
         const {authError, auth} = this.props;
         let asd;
