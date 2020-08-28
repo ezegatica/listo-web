@@ -33,7 +33,7 @@ export class Restaurantes extends Component {
        
         return (
             <div>
-                <h3 className="center">RESTAURANTES</h3>
+                <h3 className="center">Pedir comida!</h3>
                 <Filtros />
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
@@ -41,7 +41,7 @@ export class Restaurantes extends Component {
                             <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
                                 <div className="card-content grey-text text-darken-3 lista-proyectos">
                                     <Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link>
-                                    <p>ID RESTAURANTE: {restaurant.id}</p>
+                                    <p>Categorias: {restaurant.info.cat}{restaurant.info.cat2 && ", " + restaurant.info.cat2}</p>
                                 </div>
                             </div>
                         )

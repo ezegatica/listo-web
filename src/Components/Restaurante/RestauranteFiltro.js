@@ -14,12 +14,11 @@ export class RestaurantesFiltro extends Component {
             snapshot.forEach(doc =>{
                 const info = doc.data()
                 const id = doc.id;
-                const categoria = doc.data().categorias
                 const cat = doc.data().cat
                 const cat2 = doc.data().cat2
                 let qwe = this.props.match.params.filtro
                  if (cat === qwe || cat2 === qwe){
-                    Restaurantes.push({info, id, categoria})
+                    Restaurantes.push({info, id})
                 }
             })
             this.setState({restaurantes: Restaurantes})
@@ -37,16 +36,17 @@ export class RestaurantesFiltro extends Component {
        
         return (
             <div>
-                <h3 className="center">RESTAURANTES</h3>
+                <h3 className="center">Pedir {this.props.match.params.filtro}!</h3>
                 <Filtros />
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
-                    // console.log("RESTAURANT: ",restaurant)
+                    console.log("RESTAURANT: ",restaurant)
                         return(
                             <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
                                 <div className="card-content grey-text text-darken-3 lista-proyectos">
                                     <Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link>
-                                    <p>ID RESTAURANTE: {restaurant.id}</p>
+                                    <br />
+                                    <p>Categorias: {restaurant.info.cat}{restaurant.info.cat2 && ", " + restaurant.info.cat2}</p>
                                 </div>
                             </div>
                         )
