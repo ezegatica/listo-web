@@ -181,7 +181,6 @@ export const SetCategorias = (cat1, cat2) => {
         console.log("recibido en el actions de prueba")
         setTimeout(() => {
             const firebase = getFirebase();
-            const firestore = getFirestore();
             const USER = firebase.auth().currentUser.uid
             console.log("RECIBIDO CATEGORIA 1: ", cat1);
             console.log("RECIBIDO CATEGORIA 2: ", cat2);

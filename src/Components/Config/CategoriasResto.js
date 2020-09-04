@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Categorias from './Categorias'
 import {connect} from 'react-redux'
 import {SetCategorias} from '../../Actions/authActions'
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 export class RestoSettings extends Component {
     state={
