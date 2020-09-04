@@ -2,12 +2,27 @@ const initState = {
     authError: null,
     mensaje: null,
     done: false
-
 }
 const authReducer = (state = initState, action) =>{
     switch(action.type){
+
+        case 'CATEGORIA_SUCCESS':
+            console.log("CATEGORIA EDITADA EXITOSAMENTE!")
+            return{
+                ...state,
+                done: true
+            }
+        case 'CATEGORIA_ERROR':
+            console.log("ERROR AL EDITAR CATEGORIA!", action.err)
+            return{
+                ...state
+            }
+
+
         case 'CLEAR':
+            console.log("CLEARING!")
             return {
+                ...state,
                 authError: null,
                 mensaje: null,
                 done: false

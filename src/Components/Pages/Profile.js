@@ -12,7 +12,7 @@ const Profile = (props) => {
         <PerfilUsuario />
 
     let settings;
-
+    let visorCategorias;
     if (!props.auth.uid && props.auth.isLoaded) {
         return <Redirect to="/login" />
     }
@@ -22,12 +22,14 @@ const Profile = (props) => {
             settings = props.auth.uid === "iSOcYsCUziVYHIqspg0bfeNlCox2" ?
              null :
              <Link to="/settings">Configuracion</Link>
-            
-            return (
+
+            visorCategorias = props.profile.isResto ? <div> <span className="titulo">Categorias: </span><span className="categorias">{props.profile.cat && props.profile.cat}{props.profile.cat2 && " y " + props.profile.cat2}</span> </div> : null
+            return (    
                 <div className="container nav-center">
                     <div className="carta">
                         <h1 title={props.profile.nombre + " " + props.profile.apellido}>{props.profile.nombre} {props.profile.apellido}</h1>
                         <p className="titulo">{props.auth.email}</p>
+                        {visorCategorias}
                         {settings}
                         <br />
                     </div>

@@ -142,6 +142,51 @@ export const signUp = (newUser) => {
         }
     }
 }
+export const SetCategorias = (cat1, cat2) => {
+    return (dispatch, getState, {getFirebase, getFirestore})=> {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        const USER = firebase.auth().currentUser.uid
+        console.log("RECIBIDO CATEGORIA 1: ", cat1);
+        console.log("RECIBIDO CATEGORIA 2: ", cat2);
+        console.log("USUARIO LOGUEADO ACTUALMENTE: ", USER)
+        return firestore.collection('usuarios').doc(USER).update({
+            cat: cat1,
+            cat2: cat2
+        }).then(()=> {
+            return firestore.collection('restaurantes').doc(USER).update({
+                cat: cat1,
+                cat2: cat2
+            }).then(()=> {
+                dispatch({type: 'CATEGORIA_SUCCESS'})
+                setTimeout(() => {
+                    dispatch({type: 'RESET'})
+                  }, 100)
+            }).catch((err) => {
+                dispatch({type: 'CATEGORIA_ERROR', err})
+            })
+        }).catch((err) => {
+            dispatch({type: 'CATEGORIA_ERROR', err})
+        })
+    }
+}
+export const SetCategoriasASD = (cat1, cat2) => {
+    return (dispatch, getState, {getFirebase, getFirestore})=> {
+        console.log("recibido en el actions de prueba")
+        setTimeout(() => {
+            const firebase = getFirebase();
+            const firestore = getFirestore();
+            const USER = firebase.auth().currentUser.uid
+            console.log("RECIBIDO CATEGORIA 1: ", cat1);
+            console.log("RECIBIDO CATEGORIA 2: ", cat2);
+            console.log("USUARIO LOGUEADO ACTUALMENTE: ", USER)
+            dispatch({type: 'CATEGORIA_SUCCESS'})
+            setTimeout(() => {
+                dispatch({type: 'CLEAR'})
+              }, 1000)
+          }, 1000)
+    }
+}
 
 export const sendLink = (credentials) => {
     return (dispatch, getState, { getFirebase }) => {

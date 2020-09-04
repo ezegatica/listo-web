@@ -13,8 +13,8 @@ const SignedInLinks= (props) => {
         <div className="nav-wrapper grey darken-3">
             <ul className="right hide-on-med-and-down">
                 {panelResto}
-                <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
                 {panelAdmin}
+                <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
                 <li><a href="#logout" onClick={props.signOut}>Logout</a></li>
                 <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
             </ul>

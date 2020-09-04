@@ -5,26 +5,49 @@ import Filtros from '../Layout/Filtros'
 
 export class RestaurantesFiltro extends Component {
     state = {
-        restaurantes: null
+        restaurantes: null,
+        e404: null
     }
-    componentDidMount(){
+    leerDB () {
         db.collection('restaurantes').get()
         .then(snapshot =>{
+            console.log("REQUESTING DB")
             const Restaurantes = []
             snapshot.forEach(doc =>{
                 const info = doc.data()
                 const id = doc.id;
                 const cat = doc.data().cat
                 const cat2 = doc.data().cat2
-                let qwe = this.props.match.params.filtro
-                 if (cat === qwe || cat2 === qwe){
+                let categoria = this.props.match.params.filtro
+                 if (cat === categoria || cat2 === categoria){
                     Restaurantes.push({info, id})
+                    this.setState({e404: false})
                 }
             })
             this.setState({restaurantes: Restaurantes})
         }).catch(error => console.log(error))
+        .then(()=> {
+            if (this.state.restaurantes.length === 0){
+               this.setState({e404: true})
+            }
+        })
+    }
+    componentDidMount(){
+        this.leerDB()
     }
     render(props) {
+        if (this.state.e404 === true){
+            return(
+                <div className="container center">
+                    <h3>Error 404</h3>
+                    <h5>El restaurante no ha sido encontrado, puede haber sido movido o eliminado</h5>
+                    <Link to="/"><h6>Volver a la home</h6></Link>
+                    <Link to="/restaurantes"><h6>Volver a los restaurantes</h6></Link>
+                </div>
+            )
+        }
+        console.log("STATE: ", this.state.restaurantes)
+        console.log("CAMBIO DE PAGINA")
         let Cargando = this.state.restaurantes ? 
         null :
         <div className="caja">
@@ -40,7 +63,6 @@ export class RestaurantesFiltro extends Component {
                 <Filtros />
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
-                    console.log("RESTAURANT: ",restaurant)
                         return(
                             <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
                                 <div className="card-content grey-text text-darken-3 lista-proyectos">

@@ -18,12 +18,12 @@ const Navbar= (props) => {
                 <Link to="/" className="brand-logo">Listo!</Link>
                 
                 <ul className="right">
-                {auth.isLoaded && profile.isLoaded && links}
+                {auth.isLoaded && links}
                 </ul>
                 
             </div>
             <ul className="show-on-medium-and-down hide-on-med-and-up">
-                {auth.isLoaded && profile.isLoaded && mobile}
+                {auth.isLoaded && mobile}
                 </ul>
         </nav>
     )

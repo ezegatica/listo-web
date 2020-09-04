@@ -24,7 +24,10 @@ code {
 .titulo {
   color: grey;
   font-size: 18px;
-
+}
+.categorias{
+  font-size: 18px;
+color: black
 }
 .centrado {
   margin: 0;

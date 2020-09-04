@@ -4,6 +4,7 @@ import { deleteUser } from '../../Actions/authActions'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
+import RestoSettings from './RestoSettings'
 export class Settings extends Component {
     state={
         borrarPopUp: false,
@@ -45,6 +46,10 @@ export class Settings extends Component {
         }
         else {
             if (this.props.profile.isLoaded) {
+                let ConfigResto
+                if (this.props.profile.isResto){
+                    ConfigResto = <RestoSettings Perfil={this.props.profile}/>
+                }
                 return (
                     <div className="container">
                         <h3 className="center">Configuración</h3>
@@ -53,6 +58,10 @@ export class Settings extends Component {
                             {btnBorrarCuenta}
                             {btnBorrarCuentaConfirmacion}
                         </div>
+                            <br />
+                            <hr/>
+                            <br/>
+                        <div className="center">{ConfigResto && ConfigResto}</div>
                     </div>
                 )
             }
