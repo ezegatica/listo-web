@@ -11,7 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+blue{
+  color: #0074D9;
+}
+blue:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
 .carta {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 100%;
@@ -21,9 +27,29 @@ code {
   font-stretch: expanded;
 }
 
+.mini{
+  font-size: 10px;
+  vertical-align: top;
+}
+
 .titulo {
   color: grey;
   font-size: 18px;
+}
+.aviso{
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.aviso-container{
+  padding: 10px;
+background: #ddd;
+border-radius: 10px;
+width: 90%;
+text-align: center;
+margin-right: auto;
+margin-left: auto;
 }
 .categorias{
   font-size: 18px;

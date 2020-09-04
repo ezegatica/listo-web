@@ -146,7 +146,7 @@ export const signUp = (newUser) => {
         }
     }
 }
-export const SetCategoriasASD = (cat1, cat2) => {
+export const SetCategorias = (cat1, cat2) => {
     return (dispatch, getState, {getFirebase, getFirestore})=> {
         const firebase = getFirebase();
         const firestore = getFirestore();
@@ -176,7 +176,7 @@ export const SetCategoriasASD = (cat1, cat2) => {
         })
     }
 }
-export const SetCategorias = (cat1, cat2) => {
+export const SetCategoriasASD = (cat1, cat2) => {
     return (dispatch, getState, {getFirebase, getFirestore})=> {
         console.log("recibido en el actions de prueba")
         setTimeout(() => {

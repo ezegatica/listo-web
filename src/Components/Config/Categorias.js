@@ -7,6 +7,7 @@ function Categorias() {
             <option value="pollo">Pollo</option>
             <option value="hamburguesas">Hamburguesas</option>
             <option value="empanadas">Empanadas</option>
+            <option value="sandwiches">Sandwiches</option>
         </>
     )
 }
