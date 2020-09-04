@@ -8,7 +8,8 @@ export class RestoSettings extends Component {
     state={
         cat: this.props.Perfil.cat,
         cat2: this.props.Perfil.cat2,
-        loading: false
+        loading: false,
+        error_cat1_vacio: false
     }
     componentDidMount = () => {
         var elems = document.getElementById("sel");
@@ -46,7 +47,7 @@ export class RestoSettings extends Component {
             ClasesBoton = "btn green"
         }
         const Enviando = this.state.loading ? <div className="center"><h4>Guardando...</h4></div> : null
-        if (this.props.hecho){this.setState({loading:false}); return(<Redirect to="/profile"/>);}
+        // if (this.props.hecho){this.setState({loading:false}); return(<Redirect to="/profile"/>);}
         return (
             <>
             <p>CATEGORIAS DE {Perfil.nombre}</p>

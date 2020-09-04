@@ -90,11 +90,15 @@ export const nuevoResto = (newUser) => {
                 return firestore.collection('restaurantes').doc(resp.user.uid).set({
                     nombre: newUser.nombre,
                     initials: newUser.nombre[0],
+                    cat: "",
+                    cat2: ""
                 }).then(() => {
                     return firestore.collection('usuarios').doc(resp.user.uid).set({
                         nombre: newUser.nombre,
                         initials: newUser.nombre[0],
-                        isResto: true
+                        isResto: true,
+                        cat: "",
+                        cat2: ""
                     }).catch((err) => {
                         firebase.auth().currentUser.delete()
                         dispatch({ type: 'SIGNUP_ERROR', err });
@@ -142,7 +146,7 @@ export const signUp = (newUser) => {
         }
     }
 }
-export const SetCategorias = (cat1, cat2) => {
+export const SetCategoriasASD = (cat1, cat2) => {
     return (dispatch, getState, {getFirebase, getFirestore})=> {
         const firebase = getFirebase();
         const firestore = getFirestore();
@@ -150,6 +154,8 @@ export const SetCategorias = (cat1, cat2) => {
         console.log("RECIBIDO CATEGORIA 1: ", cat1);
         console.log("RECIBIDO CATEGORIA 2: ", cat2);
         console.log("USUARIO LOGUEADO ACTUALMENTE: ", USER)
+        if (cat2 === ""){console.log("ESTA VACIO LA CAT2")}
+        if (cat1 === ""){console.log("ESTA VACIO LA CAT")}
         return firestore.collection('usuarios').doc(USER).update({
             cat: cat1,
             cat2: cat2
@@ -170,7 +176,7 @@ export const SetCategorias = (cat1, cat2) => {
         })
     }
 }
-export const SetCategoriasASD = (cat1, cat2) => {
+export const SetCategorias = (cat1, cat2) => {
     return (dispatch, getState, {getFirebase, getFirestore})=> {
         console.log("recibido en el actions de prueba")
         setTimeout(() => {
