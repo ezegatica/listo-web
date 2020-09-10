@@ -154,8 +154,6 @@ export const SetCategorias = (cat1, cat2) => {
         console.log("RECIBIDO CATEGORIA 1: ", cat1);
         console.log("RECIBIDO CATEGORIA 2: ", cat2);
         console.log("USUARIO LOGUEADO ACTUALMENTE: ", USER)
-        if (cat2 === ""){console.log("ESTA VACIO LA CAT2")}
-        if (cat1 === ""){console.log("ESTA VACIO LA CAT")}
         return firestore.collection('usuarios').doc(USER).update({
             cat: cat1,
             cat2: cat2
@@ -176,7 +174,7 @@ export const SetCategorias = (cat1, cat2) => {
         })
     }
 }
-export const SetCategoriasASD = (cat1, cat2) => {
+export const SetCategoriasASD = (cat1, cat2) => { //prueba
     return (dispatch, getState, {getFirebase, getFirestore})=> {
         console.log("recibido en el actions de prueba")
         setTimeout(() => {
