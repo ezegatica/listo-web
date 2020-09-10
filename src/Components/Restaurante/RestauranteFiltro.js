@@ -9,6 +9,7 @@ export class RestaurantesFiltro extends Component {
         e404: null
     }
     leerDB () {
+        this.setState({restaurantes: null})
         db.collection('restaurantes').get()
         .then(snapshot =>{
             console.log("REQUESTING DB")
@@ -46,8 +47,6 @@ export class RestaurantesFiltro extends Component {
                 </div>
             )
         }
-        console.log("STATE: ", this.state.restaurantes)
-        console.log("CAMBIO DE PAGINA")
         let Cargando = this.state.restaurantes ? 
         null :
         <div className="caja">
@@ -60,7 +59,7 @@ export class RestaurantesFiltro extends Component {
         return (
             <div>
                 <h3 className="center">Pedir {this.props.match.params.filtro}!</h3>
-                <Filtros />
+                <div onClick={()=> this.leerDB()}><Filtros /></div>
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
                         return(

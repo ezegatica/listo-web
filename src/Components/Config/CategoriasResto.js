@@ -51,7 +51,7 @@ export class RestoSettings extends Component {
         if (this.state.cat2 === "") { console.log("CAT2 EMPTY"); }
     }
     render() {
-        console.log("[STATE]", this.state)
+        // console.log("[STATE]", this.state)
         const { Perfil } = this.props;
         if (this.state.cat1_vacio){MensajeError = "Debes seleccionar una categoria principal";}
         if (this.state.cats_iguales){MensajeError = "Las 2 categorias no pueden ser iguales"}
