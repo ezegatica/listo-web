@@ -4,7 +4,7 @@ export class RestoSettings extends Component {
     render() {
         return (
             <>
-              <CategoriasResto Perfil={this.props.Perfil}/>  
+                <CategoriasResto Perfil={this.props.Perfil} />
             </>
         )
     }

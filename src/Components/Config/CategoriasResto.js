@@ -45,7 +45,7 @@ export class RestoSettings extends Component {
         MensajeError = ""
         e.preventDefault();
         this.setState({ loading: true })
-        if (this.state.cat === this.state.cat2){return this.setState({cats_iguales: true})}
+        if (this.state.cat === this.state.cat2) { return this.setState({ cats_iguales: true }) }
         if (this.state.cat === "") { console.log("CAT1 EMPTY"); this.setState({ cat1_vacio: true, loading: false }) }
         else { this.props.SetCategorias(this.state.cat, this.state.cat2) }
         if (this.state.cat2 === "") { console.log("CAT2 EMPTY"); }
@@ -53,8 +53,8 @@ export class RestoSettings extends Component {
     render() {
         // console.log("[STATE]", this.state)
         const { Perfil } = this.props;
-        if (this.state.cat1_vacio){MensajeError = "Debes seleccionar una categoria principal";}
-        if (this.state.cats_iguales){MensajeError = "Las 2 categorias no pueden ser iguales"}
+        if (this.state.cat1_vacio) { MensajeError = "Debes seleccionar una categoria principal"; }
+        if (this.state.cats_iguales) { MensajeError = "Las 2 categorias no pueden ser iguales" }
         let ClasesBoton;
         if (this.state.loading) {
             ClasesBoton = "btn green disabled"
@@ -63,7 +63,7 @@ export class RestoSettings extends Component {
             ClasesBoton = "btn green"
         }
         const Enviando = this.state.loading && !MensajeError ? <div className="center"><h4>Guardando...</h4></div> : null
-        if (this.props.hecho){this.setState({loading:false}); return(<Redirect to="/profile"/>);}
+        if (this.props.hecho) { this.setState({ loading: false }); return (<Redirect to="/profile" />); }
         return (
             <>
                 <p id="categoria">CATEGORIAS DE {Perfil.nombre}</p>
@@ -82,7 +82,7 @@ export class RestoSettings extends Component {
                             <Categorias />
                         </select>
                         <label>Categoria secundaria (opcional)</label>
-                        <button className={ClasesBoton}>Submit!</button>
+                        <button className={ClasesBoton}>Enviar!</button>
                         <div className="red-text bold">{MensajeError && MensajeError}</div>
                         {Enviando && Enviando}
                     </div>
