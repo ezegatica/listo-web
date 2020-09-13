@@ -8,6 +8,7 @@ import MobileSpacing from './Components/Layout/MobileSpacing'
 import Home from './Components/Pages/Home'
 import Profile from './Components/Pages/Profile'
 import Settings from './Components/Pages/Settings'
+import e404 from './Components/Pages/404'
 
 // RESTAURANTES
 import RestaurantesLista from './Components/Restaurante/RestaurantesLista'
@@ -36,18 +37,18 @@ function App() {
       </div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/settings" component={Settings} />
-        
-        <Route path="/recovery" component={Recovery} />
+        <Route exact path="/recovery" component={Recovery} />
         <Route exact path="/productos/nuevo" component={Agregar} />
         <Route exact path="/restaurantes" component={RestaurantesLista} />
         <Route exact path="/restaurantes/categoria/:filtro" component={RestauranteFiltro} />
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
         <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
+        <Route path="*" component={e404} />
       </Switch>
     </BrowserRouter>
     

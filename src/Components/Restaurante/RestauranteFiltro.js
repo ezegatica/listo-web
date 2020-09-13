@@ -9,7 +9,7 @@ export class RestaurantesFiltro extends Component {
         e404: null
     }
     leerDB () {
-        this.setState({restaurantes: null})
+            this.setState({restaurantes: null})
         db.collection('restaurantes').get()
         .then(snapshot =>{
             console.log("REQUESTING DB")
@@ -40,8 +40,9 @@ export class RestaurantesFiltro extends Component {
         if (this.state.e404 === true){
             return(
                 <div className="container center">
-                    <h3>Error 404</h3>
-                    <h5>El restaurante no ha sido encontrado, puede haber sido movido o eliminado</h5>
+                    <h3 className="center">Pedir {this.props.match.params.filtro}!</h3>
+                    <div onClick={()=> this.leerDB()}><Filtros /></div>
+                    <h5>La categoria que has intentado buscar no se encuentra disponible! Puede ser que se haya cambiado de nombre o eliminado!</h5>
                     <Link to="/"><h6>Volver a la home</h6></Link>
                     <Link to="/restaurantes"><h6>Volver a los restaurantes</h6></Link>
                 </div>
