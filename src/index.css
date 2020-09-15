@@ -110,10 +110,28 @@ nav.nav-center ul li a {
   cursor: not-allowed;
 }
 
+.FDP-Container img:hover{
+  cursor: pointer;
+  /* opacity: 70%; */
+  animation: fade 0.5s linear;
+  animation-fill-mode:forwards;
+
+}
+.FDP-Container img{
+  width: 256px;
+  height: 256px;
+  object-fit: cover;
+}
+
+
 @keyframes ldio-at0j3uszb4c {
   0% { opacity: 1 }
   50% { opacity: .5 }
   100% { opacity: 1 }
+}
+@keyframes fade {
+  0% { opacity: 1 }
+  100% { opacity: .6 }
 }
 .ldio-at0j3uszb4c div {
   position: absolute;
