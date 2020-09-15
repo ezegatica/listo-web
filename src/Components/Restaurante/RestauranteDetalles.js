@@ -54,7 +54,7 @@ export class RestauranteDetalles2 extends Component {
         }
         if (this.state.productos !== null && this.state.nombreRestaurante !== null) {
             return (
-                <div>
+                <div className="container">
                     <Link to="/restaurantes">Atras</Link>
                     <div className="center container fotoResto-container">
                         <img src={this.state.imagen || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={"LOGO DE " + this.state.nombreRestaurante} className="responsive-img circle z-depth-3" /> <br />
