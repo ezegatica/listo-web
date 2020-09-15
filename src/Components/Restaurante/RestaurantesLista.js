@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
 // import {auth} from '../../Config/fbConfig'
-import {Link} from 'react-router-dom'
 import Filtros from '../Layout/Filtros'
-
+import ShowRestaurante from './ShowRestaurante'
 export class Restaurantes extends Component {
     state = {
         restaurantes: null
@@ -38,12 +37,7 @@ export class Restaurantes extends Component {
                 {Cargando}
                 {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
                         return(
-                            <div className="card z-depth-0 proyect-summary grey lighten-3" key={restaurant.id}>
-                                <div className="card-content grey-text text-darken-3 lista-proyectos">
-                                    <Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link>
-                                    <p>Categorias: {restaurant.info.cat}{restaurant.info.cat2 && ", " + restaurant.info.cat2}</p>
-                                </div>
-                            </div>
+                            <ShowRestaurante restaurant={restaurant} key={restaurant.id}/>
                         )
                 })}
             </div>

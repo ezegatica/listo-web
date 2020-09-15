@@ -1,41 +1,49 @@
 import React, { Component } from 'react'
-import {db} from '../../Config/fbConfig'
-import {Link} from 'react-router-dom'
+import { db } from '../../Config/fbConfig'
+import { Link } from 'react-router-dom'
 
 export class RestauranteDetalles2 extends Component {
     state = {
         productos: null,
         nombreRestaurante: null,
-        e404: null
+        e404: null,
+        imagen: null,
+        cat1: null,
+        cat2: null
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         let urlID = this.props.match.params.id;
         // console.log(urlID)
         db.collection('restaurantes').doc(urlID).collection('productos').get()
-        .then(snapshot =>{
-            const Productos = []
-            snapshot.forEach(doc =>{
-                const info = doc.data()
-                const id = doc.id;
-                Productos.push({info, id})
-            })
-            this.setState({productos: Productos})
-        }).catch(error => console.log(error))
+            .then(snapshot => {
+                const Productos = []
+                snapshot.forEach(doc => {
+                    const info = doc.data()
+                    const id = doc.id;
+                    Productos.push({ info, id })
+                })
+                this.setState({ productos: Productos })
+            }).catch(error => console.log(error))
         db.collection('restaurantes').doc(urlID).get()
-        .then(snapshot => {
-            this.setState({nombreRestaurante: snapshot.data().nombre})
-        }).catch(error => {
-            console.log(error)
-            if (error.message === "Cannot read property 'nombre' of undefined"){
-                console.log("EL ERROR BRO")
-                this.setState({e404: true})
-            } 
-        })
+            .then(snapshot => {
+                this.setState({ 
+                    nombreRestaurante: snapshot.data().nombre, 
+                    imagen: snapshot.data().foto,
+                    cat1: snapshot.data().cat,
+                    cat2: snapshot.data().cat2,
+                })
+            }).catch(error => {
+                console.log(error)
+                if (error.message === "Cannot read property 'nombre' of undefined") {
+                    console.log("EL ERROR BRO")
+                    this.setState({ e404: true })
+                }
+            })
     }
     render() {
-        if (this.state.e404 === true){
-            return(
+        if (this.state.e404 === true) {
+            return (
                 <div className="container center">
                     <h3>Error 404</h3>
                     <h5>El restaurante no ha sido encontrado, puede haber sido movido o eliminado</h5>
@@ -44,39 +52,43 @@ export class RestauranteDetalles2 extends Component {
                 </div>
             )
         }
-        if (this.state.productos !== null && this.state.nombreRestaurante !== null){
+        if (this.state.productos !== null && this.state.nombreRestaurante !== null) {
             return (
                 <div>
                     <Link to="/restaurantes">Atras</Link>
+                    <div className="center container fotoResto-container">
+                        <img src={this.state.imagen || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={"LOGO DE " + this.state.nombreRestaurante} className="responsive-img circle z-depth-3" /> <br />
+                    </div>
                     <h4 className="center">{this.state.nombreRestaurante}</h4>
-                    <hr/>
+                    <p className="center"><b>Categorias:</b> {this.state.cat1}{this.state.cat2 && ", " + this.state.cat2}</p>
+                    <hr />
                     <h4>Productos: </h4>
-                    {this.state.productos && this.state.productos.map (producto =>{
-                        return(
+                    {this.state.productos && this.state.productos.map(producto => {
+                        return (
                             <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.id}>
-                                <Link to={"/restaurantes/" + producto.info.autorUUID+"/"+producto.id}>
-                                <div className="card-content grey-text text-darken-3 lista-proyectos">
-                                    <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
-                                    <p><b>Precio: </b>${producto.info.precio}</p>
-                                    <p><b>restaurante:</b> {this.state.nombreRestaurante}</p>
-                                    <p><b>ID PRODUCTO: </b>{producto.id}</p>
-                                </div>
+                                <Link to={"/restaurantes/" + producto.info.autorUUID + "/" + producto.id}>
+                                    <div className="card-content grey-text text-darken-3 lista-proyectos">
+                                        <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
+                                        <p><b>Precio: </b>${producto.info.precio}</p>
+                                        {/* <p><b>restaurante:</b> {this.state.nombreRestaurante}</p>
+                                        <p><b>ID PRODUCTO: </b>{producto.id}</p> */}
+                                    </div>
                                 </Link>
                             </div>
                         )
-                })}
+                    })}
                 </div>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <div className="center">
-                     <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
-            <div></div><div></div><div></div><div></div>
-            </div></div>
+                    <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+                        <div></div><div></div><div></div><div></div>
+                    </div></div>
                 </div>
             )
         }
-        
+
     }
 }
 export default RestauranteDetalles2

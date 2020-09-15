@@ -32,6 +32,12 @@ blue:hover{
   vertical-align: top;
 }
 
+.imagen-lista{
+  width: 92px;
+  height: 92px!important;
+  object-fit: cover!important;
+}
+
 .titulo {
   color: grey;
   font-size: 18px;
@@ -123,6 +129,11 @@ nav.nav-center ul li a {
   object-fit: cover;
 }
 
+.fotoResto-container img{
+  width: 256px;
+  height: 256px;
+  object-fit: cover;
+}
 
 @keyframes ldio-at0j3uszb4c {
   0% { opacity: 1 }

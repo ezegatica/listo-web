@@ -1,28 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {storage } from '../../Config/fbConfig'
+import {subirImagen} from '../../Actions/authActions'
 
 export class FotoDePerfil extends Component {
+    state = {
+        Cargando: true
+    }
+    
     handleImageChange = (e) => {
         const uid = this.props.uid;
         const image = e.target.files[0];
-        // const formData = new FormData();
-        // formData.append('image', image, image.name);
-        // this.props.subirImagen(formData)
         console.log("USUARIO: ", uid)
-        const upload = storage.ref(`images/${image.name}`).put(image);
+        console.log("IMAGEN: ", image)
+        // try{storage.ref(`imagenes/${uid}`).delete()}
+        // catch(error){console.log(error)}
+        const upload = storage.ref(`imagenes/${uid}`).put(image);
         upload.on("state_changed",
         snapshot => {},
         error => {
-            console.log(error)
+            console.log(error)  
         },
         () => {
             storage
-            .ref("images")
-            .child(image.name)
+            .ref(`imagenes/`)
+            .child(uid)
             .getDownloadURL()
             .then(url => {
                 console.log(url)
+                this.props.subirImagen({uid, url})
             })
         }
         )
@@ -33,14 +39,15 @@ export class FotoDePerfil extends Component {
         fileInput.click()
     };
 
-
     render() {
-        const {profile} = this.props;
+        console.log (this.props.uid)
+        // const {profile} = this.props;
         return (
             <div className="FDP-Container">
-                <img src={profile.foto} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture}/> <br/>
+                <img src={this.props.profile.foto} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture}/> <br/>
                 <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg" hidden="hidden"/>
-                <button onClick={this.handleEditPicture} className="btn waves-effect waves-light blue btn-floating "><i className="material-icons">edit</i></button>
+                <button onClick={this.handleEditPicture} className="btn waves-effect waves-light blue btn-floating "><i className="material-icons">edit</i></button> <br/>
+                <div>{this.state.Cargando && <p className="bold">Subiendo...</p>}</div>
             </div>
         )
     }
@@ -51,5 +58,9 @@ const mapStateToProps = (state) => {
         profile: state.firebase.profile,
     }
 }
-
-export default connect(mapStateToProps)(FotoDePerfil)
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        subirImagen: (data) => dispatch(subirImagen(data))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FotoDePerfil)

@@ -1,3 +1,5 @@
+
+
 export const signIn = (credentials) => {
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
@@ -24,6 +26,25 @@ export const signOut = () => {
     }
 }
 
+export const subirImagen = (data) => {
+    return (dispatch, getState, {getFirestore, getFirebase}) => {
+        const firestore = getFirestore();
+        console.log("DATA: ",data)
+        return firestore.collection('usuarios').doc(data.uid).update({
+            foto: data.url,
+        }).then(() => {
+            return firestore.collection('restaurantes').doc(data.uid).update({
+                foto: data.url
+            }).then(()=> {
+                dispatch({type: 'IMAGEN_SUCCESS'})
+            }).catch((err)=> {
+                dispatch({type: 'IMAGEN_ERROR', err})
+            })
+        }).catch((err)=> {
+            dispatch({type: 'IMAGEN_ERROR', err})
+        })
+    }
+}
 export const deleteUser = (user) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firebase = getFirebase();
@@ -91,14 +112,16 @@ export const nuevoResto = (newUser) => {
                     nombre: newUser.nombre,
                     initials: newUser.nombre[0],
                     cat: "",
-                    cat2: ""
+                    cat2: "",
+                    foto: "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"
                 }).then(() => {
                     return firestore.collection('usuarios').doc(resp.user.uid).set({
                         nombre: newUser.nombre,
                         initials: newUser.nombre[0],
                         isResto: true,
                         cat: "",
-                        cat2: ""
+                        cat2: "",
+                        foto: "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"
                     }).catch((err) => {
                         firebase.auth().currentUser.delete()
                         dispatch({ type: 'SIGNUP_ERROR', err });
