@@ -39,7 +39,7 @@ export class SignIn extends Component {
         else{
             return (
                 <div className="container">
-                    <form onSubmit={this.Submit} className="white">
+                    <form onSubmit={this.Submit} className="white" data-netlify="true">
                         <h5 className="grey-text text-darken-3">Entrar</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>

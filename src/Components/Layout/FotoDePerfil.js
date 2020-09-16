@@ -13,8 +13,6 @@ export class FotoDePerfil extends Component {
         const image = e.target.files[0];
         console.log("USUARIO: ", uid)
         console.log("IMAGEN: ", image)
-        // try{storage.ref(`imagenes/${uid}`).delete()}
-        // catch(error){console.log(error)}
         const upload = storage.ref(`imagenes/${uid}`).put(image);
         upload.on("state_changed",
         snapshot => {},
@@ -30,8 +28,7 @@ export class FotoDePerfil extends Component {
                 console.log(url)
                 this.props.subirImagen({uid, url})
             })
-        }
-        )
+        })
     };
 
     handleEditPicture = (e) => {
@@ -47,7 +44,8 @@ export class FotoDePerfil extends Component {
                 <img src={this.props.profile.foto} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture}/> <br/>
                 <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg" hidden="hidden"/>
                 <button onClick={this.handleEditPicture} className="btn waves-effect waves-light blue btn-floating "><i className="material-icons">edit</i></button> <br/>
-                <div>{this.state.Cargando && <p className="bold">Subiendo...</p>}</div>
+                <div>{this.state.Cargando && <p className="bold">Subiendo...</p>}</div> 
+                {/* ^^^^^^HACER QUE SOLO APAREZCA AL CARGAR! */}
             </div>
         )
     }
