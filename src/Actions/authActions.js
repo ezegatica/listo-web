@@ -45,6 +45,21 @@ export const subirImagen = (data) => {
         })
     }
 }
+
+export const subirImagenProducto = (data) => {
+    return (dispatch, getState, {getFirestore, getFirebase}) => {
+        const firestore = getFirestore();
+        console.log("DATA: ",data)
+            return firestore.collection('restaurantes').doc(data.uid).collection('productos').doc(data.productoId).update({
+                foto: data.url
+            }).then(()=> {
+                dispatch({type: 'IMAGEN_SUCCESS'})
+            }).catch((err)=> {
+                dispatch({type: 'IMAGEN_ERROR', err})
+            })
+    }
+}
+
 export const deleteUser = (user) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firebase = getFirebase();

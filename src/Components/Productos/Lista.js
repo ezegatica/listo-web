@@ -26,11 +26,16 @@ export class ProductosList extends Component {
                     return(
                         <div className="card z-depth-0 proyect-summary grey lighten-3" key={producto.id}>
                             <Link to={"/restaurantes/" + producto.info.autorUUID+"/"+producto.id}>
-                            <div className="card-content grey-text text-darken-3 lista-proyectos">
+                            <div className="card-content grey-text text-darken-3 lista-proyectos row">
+                                <div className="col s4 m4 l3 xl2">
+                                <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3"/> <br/>
+                                </div>
+                                <div className="col s8 m8 l9 xl10">
                                 <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
                                 <p className="red-text">{producto.info.descripcion}</p>
                                 <p><b>Precio: </b>${producto.info.precio}</p>
                                 <p title={"RESTAURANTE: " + producto.info.autorUUID + "\nPRODUCTO: " + producto.id}><b>Restaurante:</b> {producto.info.autorNombre}</p>
+                                </div>
                                 {/* <p><b>ID RESTAURANTE:</b> {producto.info.autorUUID}</p>
                                 <p><b>ID PRODUCTO: </b>{producto.id}</p> 
                                 CAMBIADO POR HOVER AL NOMBRE DEL RESTAURANTE BRO

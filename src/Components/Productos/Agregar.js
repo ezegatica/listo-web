@@ -15,8 +15,6 @@ export class Create extends Component {
         e.preventDefault();
         this.props.crearProducto(this.state)
         this.setState({ loading: true })
-        // this.props.history.push("/profile")
-
     }
     Change = (e) => {
         this.setState({

@@ -4,6 +4,8 @@ import {Link, Redirect} from 'react-router-dom'
 import {editarProducto} from '../../Actions/projectActions'
 import {borrarProducto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
+import {storage } from '../../Config/fbConfig'
+import {subirImagenProducto} from '../../Actions/authActions'
 
 export class Detalles extends Component {
     state = {
@@ -37,13 +39,38 @@ export class Detalles extends Component {
             loading: true
         })
     }
+
+    handleImageChange = (e) => {
+        let uid = this.props.match.params.id;
+        let productoId = this.props.match.params.productoid;
+        let image = e.target.files[0];
+        // console.log("USUARIO: ", uid)
+        // console.log("IMAGEN: ", image)
+        // this.setState({Cargando: true})
+        const upload = storage.ref(`productos/${uid}/${productoId}`).put(image);
+        upload.on("state_changed",
+        snapshot => {},
+        error => {
+            console.log(error)  
+        },
+        () => {
+            storage
+            .ref(`productos/${uid}/`)
+            .child(productoId)
+            .getDownloadURL()
+            .then(url => {
+                console.log(url)
+                this.props.subirImagenProducto({uid, productoId, url})
+                // this.setState({Cargando: false})
+            })
+        })
+    };
+
     componentDidMount() {
         this.setState({
             productoEditarVisible: false,
             productoBorrarVisible: false
         })
-       
-
         let resID = this.props.match.params.id;
         let proID = this.props.match.params.productoid;
         db.collection('restaurantes').doc(resID).collection('productos').doc(proID).get()
@@ -53,7 +80,8 @@ export class Detalles extends Component {
                 this.setState({ producto: info, id,
                     titulo: snapshot.data().titulo,
                     descripcion: snapshot.data().descripcion,
-                    precio: snapshot.data().precio })
+                    precio: snapshot.data().precio,
+                    foto: snapshot.data().foto })
             }).catch(error => {
                 console.log(error)
                 if (error.message === "Cannot read property 'titulo' of undefined"){
@@ -64,32 +92,6 @@ export class Detalles extends Component {
             
     }
     render() {
-        if (this.state.e404 === true){
-            return(
-                <div className="container center">
-                    <h3>Error 404</h3>
-                    <h5>El producto no ha sido encontrado, puede haber sido movido o eliminado</h5>
-                    <Link to="/"><h6>Volver a la home</h6></Link>
-                    <Link to="/restaurantes"><h6>Volver a los restaurantes</h6></Link>
-                </div>
-            )
-        }
-        if (this.state.producto !== null && !auth.currentUser){ //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
-            return(
-                <div>
-                    <div className="container section project-details">
-                        <div className="card z-depth-0">
-                            <div className="card-content">
-                                <span className="card-title">{this.state.producto.titulo}</span>
-                                <hr />
-                                <p>{this.state.producto.descripcion}</p>
-                                <p>${this.state.producto.precio}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }        
         let btnEdit;
         let btnBorrar;
         let msjCargando;
@@ -117,7 +119,7 @@ export class Detalles extends Component {
         </div> 
         : //no es dueño
         null
-
+// FORM BORRAR
         const formBorrar = this.state.productoBorrarVisible === true ?
         <div className="container row center">
             <hr style={{borderTop: "1px dashed red"}}/>
@@ -128,6 +130,41 @@ export class Detalles extends Component {
         </div>
         :
         null
+
+// PAGINA 404
+
+        if (this.state.e404 === true){
+            return(
+                <div className="container center">
+                    <h3>Error 404</h3>
+                    <h5>El producto no ha sido encontrado, puede haber sido movido o eliminado</h5>
+                    <Link to="/"><h6>Volver a la home</h6></Link>
+                    <Link to="/restaurantes"><h6>Volver a los restaurantes</h6></Link>
+                </div>
+            )
+        }
+// CARD DESLOGUEADA
+        if (this.state.producto !== null && !auth.currentUser){ //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
+            return(
+                <div className="producto-detalles">
+                    <div className="container section">
+                        <div className="card z-depth-0">
+                            <div className="card-content">
+                            <div className="center">
+                                    <img src={this.state.producto.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3 imagen-producto"/> <br/>
+                                </div>
+                                <span className="card-title">{this.state.producto.titulo}</span>
+                                <hr />
+                                <p>{this.state.producto.descripcion}</p>
+                                <p>${this.state.producto.precio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }        
+        
+// FORM EDITAR
 
         const formEditar = this.state.productoEditarVisible === true ?
         <div className="container row">
@@ -151,7 +188,7 @@ export class Detalles extends Component {
                 <label className="active" htmlFor="precio">Precio ($)</label>
                 </div>
             </div>
-
+            <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg"/>
             <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">
                     <i className="material-icons left">save</i>
@@ -159,15 +196,16 @@ export class Detalles extends Component {
                 </button>
             </div>
         </form>
-    </div>
-    
-        :
-        null
+    </div>:null
+// PAGINA LOGUEADO
             return (
-                <div>
-                    <div className="container section project-details">
+                <div className="producto-detalles">
+                    <div className="container section">
                         <div className="card z-depth-0">
                             <div className="card-content">
+                                <div className="center">
+                                    <img src={this.state.producto.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3 imagen-producto"/> <br/>
+                                </div>
                                 <span className="card-title">{this.state.producto.titulo}</span>
                                 <hr />
                                 <p>{this.state.producto.descripcion}</p>
@@ -184,6 +222,8 @@ export class Detalles extends Component {
             )
         }
         else{
+// LOGUEADO
+
             return(
                 <div className="center container"> <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
                 <div></div><div></div><div></div><div></div>
@@ -202,7 +242,10 @@ const mapStateToProps= (state) =>{
 const mapDispatchToProps = (dispatch) =>{
     return {
         editarProducto: (producto) => dispatch(editarProducto(producto)),
-        borrarProducto: (producto) => dispatch(borrarProducto(producto))
+        borrarProducto: (producto) => dispatch(borrarProducto(producto)),
+        subirImagenProducto: (data) => dispatch(subirImagenProducto(data))
     }
 }
+
+
 export default connect(mapStateToProps,mapDispatchToProps)(Detalles)

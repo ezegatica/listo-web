@@ -5,7 +5,7 @@ import {subirImagen} from '../../Actions/authActions'
 
 export class FotoDePerfil extends Component {
     state = {
-        Cargando: true
+        Cargando: false
     }
     
     handleImageChange = (e) => {
@@ -13,6 +13,7 @@ export class FotoDePerfil extends Component {
         const image = e.target.files[0];
         console.log("USUARIO: ", uid)
         console.log("IMAGEN: ", image)
+        this.setState({Cargando: true})
         const upload = storage.ref(`imagenes/${uid}`).put(image);
         upload.on("state_changed",
         snapshot => {},
@@ -27,6 +28,7 @@ export class FotoDePerfil extends Component {
             .then(url => {
                 console.log(url)
                 this.props.subirImagen({uid, url})
+                this.setState({Cargando: false})
             })
         })
     };

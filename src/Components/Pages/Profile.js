@@ -32,7 +32,7 @@ const Profile = (props) => {
                 <div className="container nav-center">
                     <div className="carta">
                         {props.profile.isResto && <FotoDePerfil uid={props.auth.uid}/>}
-                        <h1 title={props.profile.nombre + " " + props.profile.apellido}>{props.profile.nombre} {props.profile.apellido}</h1>
+                        <h1 title={props.profile.nombre + " " + props.profile.apellido} className="nombre-perfil">{props.profile.nombre} {props.profile.apellido}</h1>
                         <p className="titulo">{props.auth.email}</p>
                         {visorCategorias}
                         {AvisoCategorias}

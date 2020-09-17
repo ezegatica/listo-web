@@ -6,11 +6,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.producto-detalles .container .card .card-content{
+  padding-top: 0!important;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.imagen-producto{
+max-height: 200px;
+width: auto;  
+
+}
+
 blue{
   color: #0074D9;
 }
@@ -18,6 +28,11 @@ blue:hover{
   text-decoration: underline;
   cursor: pointer;
 }
+
+.nombre-perfil{
+  margin-top: 10px;
+}
+
 .carta {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 100%;
