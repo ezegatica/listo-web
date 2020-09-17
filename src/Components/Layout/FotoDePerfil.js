@@ -43,7 +43,7 @@ export class FotoDePerfil extends Component {
         // const {profile} = this.props;
         return (
             <div className="FDP-Container">
-                <img src={this.props.profile.foto} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture}/> <br/>
+                <img src={this.props.profile.foto} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture} draggable="false"/> <br/>
                 <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg" hidden="hidden"/>
                 <button onClick={this.handleEditPicture} className="btn waves-effect waves-light blue btn-floating "><i className="material-icons">edit</i></button> <br/>
                 <div>{this.state.Cargando && <p className="bold">Subiendo...</p>}</div> 

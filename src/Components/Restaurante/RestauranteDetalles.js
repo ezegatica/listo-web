@@ -57,7 +57,7 @@ export class RestauranteDetalles2 extends Component {
                 <div className="container">
                     <Link to="/restaurantes">Atras</Link>
                     <div className="center container fotoResto-container">
-                        <img src={this.state.imagen || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={"LOGO DE " + this.state.nombreRestaurante} className="responsive-img circle z-depth-3" /> <br />
+                        <img src={this.state.imagen || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={"LOGO DE " + this.state.nombreRestaurante} className="responsive-img circle z-depth-3" draggable="false"/> <br />
                     </div>
                     <h4 className="center">{this.state.nombreRestaurante}</h4>
                     <p className="center"><b>Categorias:</b> {this.state.cat1}{this.state.cat2 && ", " + this.state.cat2}</p>
@@ -69,7 +69,7 @@ export class RestauranteDetalles2 extends Component {
                                 <Link to={"/restaurantes/" + producto.info.autorUUID + "/" + producto.id}>
                                     <div className="card-content grey-text text-darken-3 lista-proyectos row">
                                         <div className="col s4 m4 l3 xl2">
-                                        <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3"/> <br/>
+                                        <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3" draggable="false"/> <br/>
                                         </div>
                                         <div className="col s8 m8 l9 xl10">
                                         <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>

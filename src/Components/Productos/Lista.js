@@ -28,7 +28,7 @@ export class ProductosList extends Component {
                             <Link to={"/restaurantes/" + producto.info.autorUUID+"/"+producto.id}>
                             <div className="card-content grey-text text-darken-3 lista-proyectos row">
                                 <div className="col s4 m4 l3 xl2">
-                                <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3"/> <br/>
+                                <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3" draggable="false"/> <br/>
                                 </div>
                                 <div className="col s8 m8 l9 xl10">
                                 <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>

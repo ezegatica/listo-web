@@ -9,7 +9,9 @@ body {
 .producto-detalles .container .card .card-content{
   padding-top: 0!important;
 }
-
+img{
+  user-select: none;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

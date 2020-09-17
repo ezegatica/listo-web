@@ -21,6 +21,9 @@ export class Create extends Component {
             [e.target.id]: e.target.value
         })
     }
+    handleImageChange = (e) => {
+        console.log("IMAGEN!")
+    }
     render() {
         let asd;
         if (this.state.loading) {
@@ -49,6 +52,8 @@ export class Create extends Component {
                             <label htmlFor="precio">Precio:</label>
                             <input type="number" id="precio" min="1" onChange={this.Change} placeholder="50" required={true} />
                         </div>
+                        <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg"/>
+
                         <div className="input-field">
                             <button className={asd}>
                                 Crear producto
