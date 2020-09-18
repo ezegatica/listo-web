@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { crearProducto } from '../../Actions/projectActions'
+import { subirImagenProducto } from '../../Actions/authActions'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { storage } from '../../Config/fbConfig'
 // import { auth } from '../../Config/fbConfig'
 
 export class Create extends Component {
@@ -9,11 +11,12 @@ export class Create extends Component {
         titulo: "",
         descripcion: "",
         precio: "",
+        foto: null,
         loading: false
     }
     Click = (e) => {
         e.preventDefault();
-        this.props.crearProducto(this.state)
+        this.props.crearProducto(this.state, this.props.auth.uid)
         this.setState({ loading: true })
     }
     Change = (e) => {
@@ -22,7 +25,31 @@ export class Create extends Component {
         })
     }
     handleImageChange = (e) => {
-        console.log("IMAGEN!")
+        console.log(e.target.files[0])
+        this.setState({ foto: e.target.files[0] })
+    }
+    componentDidUpdate = () => {
+        if (this.props.id !== null) {
+            const uid = this.props.auth.uid
+            const productoId = this.props.id
+            const upload = storage.ref(`productos/${uid}/${productoId}`).put(this.state.foto);
+            upload.on("state_changed",
+                snapshot => { },
+                error => {
+                    console.log(error)
+                },
+                () => {
+                    storage
+                        .ref(`productos/${uid}/`)
+                        .child(productoId)
+                        .getDownloadURL()
+                        .then(url => {
+                            console.log(url)
+                            this.props.subirImagenProducto({ uid, productoId, url })
+                        })
+                })
+
+        }
     }
     render() {
         let asd;
@@ -52,7 +79,7 @@ export class Create extends Component {
                             <label htmlFor="precio">Precio:</label>
                             <input type="number" id="precio" min="1" onChange={this.Change} placeholder="50" required={true} />
                         </div>
-                        <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg"/>
+                        <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg" />
 
                         <div className="input-field">
                             <button className={asd}>
@@ -93,14 +120,16 @@ export class Create extends Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
-        hecho: state.project.done,
+        hecho: state.auth.done,
+        id: state.project.id,
         profile: state.firebase.profile
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        crearProducto: (project) => dispatch(crearProducto(project))
+        crearProducto: (data, uid) => dispatch(crearProducto(data, uid)),
+        subirImagenProducto: (data) => dispatch(subirImagenProducto(data))
     }
 }
 

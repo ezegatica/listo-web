@@ -7,6 +7,8 @@ import {connect} from 'react-redux'
 import {storage } from '../../Config/fbConfig'
 import {subirImagenProducto} from '../../Actions/authActions'
 
+let image;
+
 export class Detalles extends Component {
     state = {
         producto: null,
@@ -23,30 +25,9 @@ export class Detalles extends Component {
     }
 
     Editar = (e) => { 
-        e.preventDefault();
-        this.props.editarProducto(this.state)
-        this.setState({
-            productoEditarVisible: false,
-            loading: true
-
-        })   
-        
-    }
-    Borrar = () => {
-        this.props.borrarProducto(this.state)
-        this.setState({
-            productoBorrarVisible: false,
-            loading: true
-        })
-    }
-
-    handleImageChange = (e) => {
         let uid = this.props.match.params.id;
         let productoId = this.props.match.params.productoid;
-        let image = e.target.files[0];
-        // console.log("USUARIO: ", uid)
-        // console.log("IMAGEN: ", image)
-        // this.setState({Cargando: true})
+        e.preventDefault();
         const upload = storage.ref(`productos/${uid}/${productoId}`).put(image);
         upload.on("state_changed",
         snapshot => {},
@@ -60,10 +41,32 @@ export class Detalles extends Component {
             .getDownloadURL()
             .then(url => {
                 console.log(url)
+                this.props.editarProducto(this.state)
                 this.props.subirImagenProducto({uid, productoId, url})
-                // this.setState({Cargando: false})
             })
         })
+        this.setState({
+            productoEditarVisible: false,
+            loading: true
+        })   
+        
+    }
+    Borrar = () => {
+        this.props.borrarProducto(this.state)
+        this.setState({
+            productoBorrarVisible: false,
+            loading: true
+        })
+    }
+
+    handleImageChange = (e) => {
+        // let uid = this.props.match.params.id;
+        // let productoId = this.props.match.params.productoid;
+        image = e.target.files[0];
+        // console.log("USUARIO: ", uid)
+        // console.log("IMAGEN: ", image)
+        // this.setState({Cargando: true})
+        
     };
 
     componentDidMount() {
@@ -92,6 +95,26 @@ export class Detalles extends Component {
             
     }
     render() {
+        // CARD DESLOGUEADA
+        if (this.state.producto !== null && !auth.currentUser){ //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
+            return(
+                <div className="producto-detalles">
+                    <div className="container section">
+                        <div className="card z-depth-0">
+                            <div className="card-content">
+                            <div className="center">
+                                    <img src={this.state.producto.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3 imagen-producto"/> <br/>
+                                </div>
+                                <span className="card-title">{this.state.producto.titulo}</span>
+                                <hr />
+                                <p>{this.state.producto.descripcion}</p>
+                                <p>${this.state.producto.precio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        } 
         let btnEdit;
         let btnBorrar;
         let msjCargando;
@@ -143,26 +166,7 @@ export class Detalles extends Component {
                 </div>
             )
         }
-// CARD DESLOGUEADA
-        if (this.state.producto !== null && !auth.currentUser){ //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
-            return(
-                <div className="producto-detalles">
-                    <div className="container section">
-                        <div className="card z-depth-0">
-                            <div className="card-content">
-                            <div className="center">
-                                    <img src={this.state.producto.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3 imagen-producto"/> <br/>
-                                </div>
-                                <span className="card-title">{this.state.producto.titulo}</span>
-                                <hr />
-                                <p>{this.state.producto.descripcion}</p>
-                                <p>${this.state.producto.precio}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }        
+       
         
 // FORM EDITAR
 

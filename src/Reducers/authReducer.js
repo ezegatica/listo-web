@@ -17,7 +17,12 @@ const authReducer = (state = initState, action) =>{
             return{
                 ...state
             }
-
+        
+            case 'IMAGEN_SUCCESS':
+                return{
+                    ...state,
+                    done: true
+                }
 
         case 'CLEAR':
             console.log("CLEARING!")

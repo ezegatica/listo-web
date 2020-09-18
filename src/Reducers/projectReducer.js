@@ -1,7 +1,8 @@
 const initState = {
     mensaje: null,
     cargando: false,
-    done: false
+    done: false,
+    id: null
 }
 const projectReducer = (state = initState, action, props) =>{
     switch  (action.type) {
@@ -10,7 +11,12 @@ const projectReducer = (state = initState, action, props) =>{
                 ...state,
                 done: false
             }
-            
+        case 'URL_IMAGEN':
+            console.log("ID PRODUCTO: ", action.id)
+            return {
+                ...state,
+                id: action.id
+            }
         case 'CREATE_PROJECT':
             console.log('PROYECTO CREADO: ', action.project);
             return state;
@@ -28,7 +34,7 @@ const projectReducer = (state = initState, action, props) =>{
             return state;
 
         case 'PRODUCTO_SUCCESS':
-            console.log("CREADO PRODUCTO", action.project);
+            console.log("CREADO PRODUCTO");
             return {
                 ...state,
                 mensaje: "HECHO!",

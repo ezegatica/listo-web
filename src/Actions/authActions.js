@@ -54,6 +54,9 @@ export const subirImagenProducto = (data) => {
                 foto: data.url
             }).then(()=> {
                 dispatch({type: 'IMAGEN_SUCCESS'})
+                setTimeout(() => {
+                    dispatch({type: 'RESET'})
+                  }, 500)
             }).catch((err)=> {
                 dispatch({type: 'IMAGEN_ERROR', err})
             })

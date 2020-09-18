@@ -39,8 +39,6 @@ export class FotoDePerfil extends Component {
     };
 
     render() {
-        console.log (this.props.uid)
-        // const {profile} = this.props;
         return (
             <div className="FDP-Container">
                 <img src={this.props.profile.foto} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture} draggable="false"/> <br/>
