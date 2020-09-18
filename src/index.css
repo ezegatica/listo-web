@@ -16,7 +16,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.redondo{
+  border-radius: 20px!important;
+}
 .imagen-producto{
 max-height: 200px;
 width: auto;  
