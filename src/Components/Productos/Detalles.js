@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { db, auth } from '../../Config/fbConfig'
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {editarProducto} from '../../Actions/projectActions'
 import {borrarProducto} from '../../Actions/projectActions'
 import {connect} from 'react-redux'
 import {storage } from '../../Config/fbConfig'
 import {subirImagenProducto} from '../../Actions/authActions'
-
+import E404Producto from '../Pages/404Producto'
 let image;
 
 export class Detalles extends Component {
@@ -14,7 +14,6 @@ export class Detalles extends Component {
         producto: null,
         productoEditarVisible: null,
         productoBorrarVisible: null,
-        e404: false,
         loading: false
     }
 
@@ -60,13 +59,7 @@ export class Detalles extends Component {
     }
 
     handleImageChange = (e) => {
-        // let uid = this.props.match.params.id;
-        // let productoId = this.props.match.params.productoid;
         image = e.target.files[0];
-        // console.log("USUARIO: ", uid)
-        // console.log("IMAGEN: ", image)
-        // this.setState({Cargando: true})
-        
     };
 
     componentDidMount() {
@@ -87,10 +80,7 @@ export class Detalles extends Component {
                     foto: snapshot.data().foto })
             }).catch(error => {
                 console.log(error)
-                if (error.message === "Cannot read property 'titulo' of undefined"){
-                    console.log("EL ERROR BRO")
-                    this.setState({e404: true})
-                }
+
             })
             
     }
@@ -153,20 +143,6 @@ export class Detalles extends Component {
         </div>
         :
         null
-
-// PAGINA 404
-
-        if (this.state.e404 === true){
-            return(
-                <div className="container center">
-                    <h3>Error 404</h3>
-                    <h5>El producto no ha sido encontrado, puede haber sido movido o eliminado</h5>
-                    <Link to="/"><h6>Volver a la home</h6></Link>
-                    <Link to="/restaurantes"><h6>Volver a los restaurantes</h6></Link>
-                </div>
-            )
-        }
-       
         
 // FORM EDITAR
 
@@ -227,12 +203,17 @@ export class Detalles extends Component {
         }
         else{
 // LOGUEADO
-
+            if (!this.state.e404){
+                return(
+                    <div className="center container"> <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+                    <div></div><div></div><div></div><div></div>
+                    </div></div></div>
+                )
+            }
             return(
-                <div className="center container"> <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
-                <div></div><div></div><div></div><div></div>
-                </div></div></div>
+                <E404Producto />
             )
+            
         }
         
     }

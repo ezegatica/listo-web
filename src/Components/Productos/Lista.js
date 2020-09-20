@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import {db} from '../../Config/fbConfig'
-import {auth} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
 export class ProductosList extends Component {
     state = {
         productos: null,
-        nombreResto: null
     }
     componentDidMount(){
-        db.collection('restaurantes').doc(auth.currentUser.uid).collection('productos').get()
+        db.collection('restaurantes').doc(this.props.restaurante).collection('productos').get()
         .then(snapshot =>{
             const Productos = []
             snapshot.forEach(doc =>{
@@ -19,7 +17,7 @@ export class ProductosList extends Component {
             this.setState({productos: Productos})
         }).catch(error => console.log(error))
     }
-    render(props) {
+    render() {
         return (
             <div>
                 {this.state.productos && this.state.productos.map (producto =>{
@@ -31,7 +29,7 @@ export class ProductosList extends Component {
                                 <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3" draggable="false"/> <br/>
                                 </div>
                                 <div className="col s8 m8 l9 xl10">
-                                <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
+                                <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo} (COMPONENTE LISTA)</b></span>
                                 <p className="red-text">{producto.info.descripcion}</p>
                                 <p><b>Precio: </b>${producto.info.precio}</p>
                                 <p title={"RESTAURANTE: " + producto.info.autorUUID + "\nPRODUCTO: " + producto.id}><b>Restaurante:</b> {producto.info.autorNombre}</p>
