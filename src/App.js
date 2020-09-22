@@ -14,6 +14,7 @@ import e404 from './Components/Pages/404'
 import RestaurantesLista from './Components/Restaurante/RestaurantesLista'
 import RestauranteDetalles from './Components/Restaurante/RestauranteDetalles'
 import RestauranteFiltro from './Components/Restaurante/RestauranteFiltro'
+import AliasRedirect from './Components/Restaurante/AliasRedirect'
 
 // PRODUCTOS
 import ProductoDetalles from './Components/Productos/Detalles'
@@ -44,6 +45,7 @@ function App() {
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/recovery" component={Recovery} />
         <Route exact path="/productos/nuevo" component={Agregar} />
+        <Route exact path="/restaurante/:alias" component={AliasRedirect} />
         <Route exact path="/restaurantes" component={RestaurantesLista} />
         <Route exact path="/restaurantes/categoria/:filtro" component={RestauranteFiltro} />
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
