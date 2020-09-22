@@ -86,9 +86,17 @@ export const UpdateAlias = (alias, user, actual) => {
             console.log("^^^^^^^^^^^^^^^^");
             if (snapshot.exists){
                 if (snapshot.data().restaurante !== user){
-                    console.log("NO SOS EL DUEÑO, DEVOLVER ERROR!");
+                    console.log("EXISTE, NO SOS EL DUEÑO, NO TENES PERMISO!");
+                    dispatch({type:'ALIAS_DUEÑO_NO'})
+                    setTimeout(() => {
+                        dispatch({type: 'RESET'})
+                      }, 50)
                 }else{
                     console.log("EXISTE, SOS EL DUEÑO, ES LA MISMA QUE TENES");
+                    dispatch({type:'ALIAS_DUEÑO_IGUAL'})
+                    setTimeout(() => {
+                        dispatch({type: 'RESET'})
+                      }, 50)
                 }
             }else{
                 if (actual === undefined){

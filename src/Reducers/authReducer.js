@@ -1,10 +1,23 @@
 const initState = {
     authError: null,
     mensaje: null,
-    done: false
+    done: false,
+    YaExiste: false,
+    ElMismo: false,
 }
 const authReducer = (state = initState, action) =>{
     switch(action.type){
+
+        case 'ALIAS_DUEÑO_NO':
+            return{
+                ...state,
+                YaExiste: true
+            }
+        case 'ALIAS_DUEÑO_IGUAL':
+            return{
+                ...state,
+                ElMismo: true
+            }
 
         case 'CATEGORIA_SUCCESS':
             console.log("CATEGORIA EDITADA EXITOSAMENTE!")
@@ -35,7 +48,11 @@ const authReducer = (state = initState, action) =>{
         case 'RESET':
             return {
                 ...state,
-                done: false
+                authError: null,
+                mensaje: null,
+                done: false,
+                YaExiste: false,
+                ElMismo: false
             }
         case 'LOGIN_ERROR':
             console.log('login error')

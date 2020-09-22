@@ -7,9 +7,7 @@ let mensajeError;
 export class AliasSettings extends Component {
     state = {
         alias: '',
-        error:{
-            YaExiste: false
-        }
+        loading: false
     }
 
     leerDB = () => {
@@ -28,8 +26,9 @@ export class AliasSettings extends Component {
     }
     Change = (e) => {
         this.setState({
-            alias: e.target.value
+            alias: e.target.value,
         })
+        mensajeError = "";
     }
     Submit = (e) => {
         e.preventDefault();
@@ -45,7 +44,9 @@ export class AliasSettings extends Component {
         this.props.deleteAlias(alias, user)
     }
     render() {
-        if (this.state.error.YaExiste){mensajeError="Este alias ya esta siendo usado!"}
+        if (this.props.YaExiste){mensajeError="Este alias ya esta siendo usado"}
+        if (this.props.ElMismo){mensajeError="El nuevo alias no puede ser igual"}
+
         return (
             <>
                 <h5 className="">Alias:</h5>
@@ -66,10 +67,17 @@ export class AliasSettings extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        YaExiste: state.auth.YaExiste,
+        ElMismo: state.auth.ElMismo,
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         UpdateAlias: (alias, user, actual) => dispatch(UpdateAlias(alias, user, actual)),
         deleteAlias: (alias, user) => dispatch(deleteAlias(alias, user)),
     }
 }
-export default connect(null, mapDispatchToProps)(AliasSettings)
+export default connect(mapStateToProps, mapDispatchToProps)(AliasSettings)
