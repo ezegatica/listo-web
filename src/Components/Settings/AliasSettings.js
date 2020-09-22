@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {auth} from '../../Config/fbConfig'
 import { connect } from 'react-redux'
-import { updateAlias } from '../../Actions/authActions'
+import { UpdateAlias, deleteAlias } from '../../Actions/authActions'
 
 let mensajeError;
 export class AliasSettings extends Component {
@@ -11,13 +11,20 @@ export class AliasSettings extends Component {
             YaExiste: false
         }
     }
-    componentDidMount = () => {
+
+    leerDB = () => {
         if (this.props.Perfil.alias !== undefined){
             this.setState({alias: this.props.Perfil.alias})
         }else{
             this.setState({alias: ''})
         }
+        console.log("BASE DE DATOS LEIDA")
+    }
+
+    componentDidMount = () => {
+        this.leerDB()
         console.log("ALIASSETTINGS MOUNTED")
+
     }
     Change = (e) => {
         this.setState({
@@ -26,7 +33,16 @@ export class AliasSettings extends Component {
     }
     Submit = (e) => {
         e.preventDefault();
-        this.props.updateAlias(auth.currentUser.uid, this.state.alias)
+        const alias = this.state.alias;
+        const user = auth.currentUser.uid;
+        const actual= this.props.Perfil.alias
+        this.props.UpdateAlias(alias, user, actual)
+    }
+    Borrar = (e) => {
+        e.preventDefault();
+        const alias = this.props.Perfil.alias;
+        const user = auth.currentUser.uid;
+        this.props.deleteAlias(alias, user)
     }
     render() {
         if (this.state.error.YaExiste){mensajeError="Este alias ya esta siendo usado!"}
@@ -38,21 +54,22 @@ export class AliasSettings extends Component {
                         <div className="col s12">
                             prueba.proyecto.gati.ga/restaurante/
                             <div className="input-field inline">
-                                <input value={this.state.alias} type="text" onChange={this.Change}  className="margin0 marginTop10"/>
+                                <input value={this.state.alias} type="text" onChange={this.Change} required className="margin0 marginTop10"/>
                                 <span className="helper-text red-text">{mensajeError}</span>
                             </div>
                             <button className="btn pink white-text"><i className="material-icons">save</i></button>
+                            {this.props.Perfil.alias && <button onClick={this.Borrar} className="btn black white-text" style={{marginLeft: 10}}><i className="material-icons">delete</i></button>}
                         </div>
                     </div>
                 </form>
-
             </>
         )
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateAlias: (alias, user) => dispatch(updateAlias(alias, user))
+        UpdateAlias: (alias, user, actual) => dispatch(UpdateAlias(alias, user, actual)),
+        deleteAlias: (alias, user) => dispatch(deleteAlias(alias, user)),
     }
 }
 export default connect(null, mapDispatchToProps)(AliasSettings)
