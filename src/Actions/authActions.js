@@ -46,6 +46,13 @@ export const subirImagen = (data) => {
     }
 }
 
+export const updateAlias = (user, alias) => {
+    return (dispatch, {getFirestore, getFirebase}) => {
+        console.log("ALIAS: ", alias)
+        console.log("USER: ", user)
+    }
+}
+
 export const subirImagenProducto = (data) => {
     return (dispatch, getState, {getFirestore, getFirebase}) => {
         const firestore = getFirestore();

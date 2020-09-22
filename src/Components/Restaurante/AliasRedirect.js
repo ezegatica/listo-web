@@ -24,16 +24,11 @@ export class AliasRedirect extends Component {
     render() {
         const {e404, r, done} = this.state
         if (done && r){
-            return(
-                <Redirect to={"/restaurantes/" + r} />
-
-            )
+            return(<Redirect to={"/restaurantes/" + r} />)
         }
         if (done && e404){
             console.log("ERROR 404, restaurante no encontrado")
-            return(
-                <E404Restaurantes />       
-            )
+            return(<E404Restaurantes />)
         }
         return (
             <div className="caja">

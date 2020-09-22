@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Categorias from './Categorias'
+import Categorias from './CategoriasLista'
 import { connect } from 'react-redux'
 import { SetCategorias } from '../../Actions/authActions'
 import { Redirect } from "react-router-dom";
@@ -57,7 +57,7 @@ export class RestoSettings extends Component {
         if (this.state.cats_iguales) { MensajeError = "Las 2 categorias no pueden ser iguales" }
         let ClasesBoton;
         if (this.state.loading) {
-            ClasesBoton = "btn green disabled"
+            ClasesBoton = "btn green disabled "
         }
         else {
             ClasesBoton = "btn green"
@@ -66,7 +66,7 @@ export class RestoSettings extends Component {
         if (this.props.hecho) { this.setState({ loading: false }); return (<Redirect to="/profile" />); }
         return (
             <>
-                <p id="categoria">CATEGORIAS DE {Perfil.nombre}</p>
+                <p id="categoria" className="center">CATEGORIAS DE {Perfil.nombre}</p>
                 <form onSubmit={this.Submit} >
                     <div className="input-field col s12">
                         <select value={this.state.cat} id="sel" onChange={this.Change}>
@@ -82,7 +82,9 @@ export class RestoSettings extends Component {
                             <Categorias />
                         </select>
                         <label>Categoria secundaria (opcional)</label>
-                        <button className={ClasesBoton}>Enviar!</button>
+                        <div className="center">
+                            <button className={ClasesBoton}>Enviar!</button>
+                        </div>
                         <div className="red-text bold">{MensajeError && MensajeError}</div>
                         {Enviando && Enviando}
                     </div>

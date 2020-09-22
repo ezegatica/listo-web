@@ -12,6 +12,13 @@ body {
 img{
   user-select: none;
 }
+
+.margin0{
+  margin: 0!important
+}
+.marginTop10{
+  margin-top: 10px!important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

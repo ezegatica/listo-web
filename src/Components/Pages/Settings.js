@@ -18,7 +18,6 @@ export class Settings extends Component {
         this.setState({ borrarPopUp: false, borrarConfirmacion: false })
     }
     render() {
-
         const btnBorrarCuenta = this.state.borrarPopUp ?
             <>
                 <div>
@@ -53,7 +52,7 @@ export class Settings extends Component {
                 return (
                     <div className="container">
                         <h3 className="center">Configuración</h3>
-                        <div className="center">{ConfigResto && ConfigResto}</div>
+                        <div className="a">{ConfigResto && ConfigResto}</div>
                         <br />
                         <hr />
                         <br />
