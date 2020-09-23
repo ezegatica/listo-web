@@ -27,27 +27,27 @@ export const signOut = () => {
 }
 
 export const subirImagen = (data) => {
-    return (dispatch, getState, {getFirestore, getFirebase}) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore();
-        console.log("DATA: ",data)
+        console.log("DATA: ", data)
         return firestore.collection('usuarios').doc(data.uid).update({
             foto: data.url,
         }).then(() => {
             return firestore.collection('restaurantes').doc(data.uid).update({
                 foto: data.url
-            }).then(()=> {
-                dispatch({type: 'IMAGEN_SUCCESS'})
-            }).catch((err)=> {
-                dispatch({type: 'IMAGEN_ERROR', err})
+            }).then(() => {
+                dispatch({ type: 'IMAGEN_SUCCESS' })
+            }).catch((err) => {
+                dispatch({ type: 'IMAGEN_ERROR', err })
             })
-        }).catch((err)=> {
-            dispatch({type: 'IMAGEN_ERROR', err})
+        }).catch((err) => {
+            dispatch({ type: 'IMAGEN_ERROR', err })
         })
     }
 }
 
 export const deleteAlias = (alias, user) => {
-    return (dispatch, getState, {getFirestore, getFirebase})=>{
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore()
         return firestore.collection('restaurantes').doc(user).update({
             alias: firestore.FieldValue.delete()
@@ -59,8 +59,8 @@ export const deleteAlias = (alias, user) => {
                 ).then(() => {
                     console.log("BORRADO!")
                     setTimeout(() => {
-                        dispatch({type: 'RESET'})
-                      }, 500)
+                        dispatch({ type: 'RESET' })
+                    }, 500)
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -78,44 +78,72 @@ export const UpdateAlias = (alias, user, actual) => {
     return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore();
         firestore.collection('alias').doc(alias).get()
-        .then((snapshot)=> {
-            console.log("-----------------");
-            console.log("ALIAS: ", alias)
-            console.log("ALIAS ACTUAL: ", actual)
-            console.log("USER: ", user)
-            console.log("^^^^^^^^^^^^^^^^");
-            if (snapshot.exists){
-                if (snapshot.data().restaurante !== user){
-                    console.log("EXISTE, NO SOS EL DUEÑO, NO TENES PERMISO!");
-                    dispatch({type:'ALIAS_DUEÑO_NO'})
-                    setTimeout(() => {
-                        dispatch({type: 'RESET'})
-                      }, 50)
-                }else{
-                    console.log("EXISTE, SOS EL DUEÑO, ES LA MISMA QUE TENES");
-                    dispatch({type:'ALIAS_DUEÑO_IGUAL'})
-                    setTimeout(() => {
-                        dispatch({type: 'RESET'})
-                      }, 50)
-                }
-            }else{
-                if (actual === undefined){
-                    if (alias === ""){
-                        console.log("NO TIENE ACTUAL, Y EL NUEVO ESTA VACIO, NO HACER NADA");
-                    }else{
+            .then((snapshot) => {
+                console.log("-----------------");
+                console.log("ALIAS: ", alias)
+                console.log("ALIAS ACTUAL: ", actual)
+                console.log("USER: ", user)
+                console.log("^^^^^^^^^^^^^^^^");
+                if (snapshot.exists) {
+                    if (snapshot.data().restaurante !== user) {
+                        console.log("EXISTE, NO SOS EL DUEÑO, NO TENES PERMISO!");
+                        dispatch({ type: 'ALIAS_DUEÑO_NO' })
+                        setTimeout(() => {
+                            dispatch({ type: 'RESET' })
+                        }, 50)
+                    } else {
+                        console.log("EXISTE, SOS EL DUEÑO, ES LA MISMA QUE TENES");
+                        dispatch({ type: 'ALIAS_DUEÑO_IGUAL' })
+                        setTimeout(() => {
+                            dispatch({ type: 'RESET' })
+                        }, 50)
+                    }
+                } else {
+                    if (actual === undefined) {
+                        console.log("NO TIENE ALIAS, CREANDO UNO...");
                         return firestore.collection('restaurantes').doc(user).set({
                             alias: alias
-                        }, {merge: true}).then(() => {
+                        }, { merge: true }).then(() => {
                             return firestore.collection('usuarios').doc(user).set({
                                 alias: alias
-                            }, {merge: true}).then(() => {
+                            }, { merge: true }).then(() => {
                                 return firestore.collection('alias').doc(alias).set({
                                     restaurante: user
                                 }).then(() => {
                                     console.log("HECHO!")
                                     setTimeout(() => {
-                                        dispatch({type: 'RESET'})
-                                      }, 500)
+                                        dispatch({ type: 'RESET' })
+                                    }, 500)
+                                }).catch((err) => {
+                                    console.log(err)
+                                })
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                    }
+                    if (actual !== alias && alias !== "" && actual !== undefined) {
+                        console.log("YA TIENE UN ALIAS, ACTUALIZANDOLO AL NUEVO...");
+                        return firestore.collection('restaurantes').doc(user).update({
+                            alias: alias
+                        }).then(() => {
+                            return firestore.collection('usuarios').doc(user).update({
+                                alias: alias
+                            }).then(() => {
+                                return firestore.collection('alias').doc(actual).delete(
+                                ).then(() => {
+                                    return firestore.collection('alias').doc(alias).set({
+                                        restaurante: user
+                                    }).then(() => {
+                                        console.log("HECHO!")
+                                        setTimeout(() => {
+                                            dispatch({ type: 'RESET' })
+                                        }, 500)
+                                    }).catch((err) => {
+                                        console.log(err)
+                                    })
                                 }).catch((err) => {
                                     console.log(err)
                                 })
@@ -127,135 +155,105 @@ export const UpdateAlias = (alias, user, actual) => {
                         })
                     }
                 }
-                if (actual !== alias && alias !== "" && actual !== undefined){
-                    return firestore.collection('restaurantes').doc(user).update({
-                        alias: alias
-                    }).then(() => {
-                        return firestore.collection('usuarios').doc(user).update({
-                            alias: alias
-                        }).then(() => {
-                            return firestore.collection('alias').doc(actual).delete(
-                            ).then(() => {
-                                return firestore.collection('alias').doc(alias).set({
-                                    restaurante: user
-                                }).then(() => {
-                                        console.log("HECHO!")
-                                        setTimeout(() => {
-                                            dispatch({type: 'RESET'})
-                                          }, 500)
-                                    }).catch((err) => {
-                                        console.log(err)
-                                    })
-                            }).catch((err) => {
-                                console.log(err)
-                            })
-                        }).catch((err) => {
-                            console.log(err)
-                        })
-                    }).catch((err) => {
-                        console.log(err)
-                    })
-                }
-            }
-            
-        })
+
+            })
     }
 }
 
 export const UpdateAliasBASE = (alias, user, actual) => {
-    return(dispatch, getState, { getFirestore, getFirebase}) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
         console.log("-----------------");
-            console.log("ALIAS: ", alias)
-            console.log("ALIAS ACTUAL: ", actual)
-            console.log("USER: ", user)
-        if (actual === alias){
+        console.log("ALIAS: ", alias)
+        console.log("ALIAS ACTUAL: ", actual)
+        console.log("USER: ", user)
+        if (actual === alias) {
             return console.log("EL NUEVO ES IGUAL AL MISMO");
         }
-        if (alias === ""){
+        if (alias === "") {
             console.log("ALIAS VACIO!");
-            if (actual !== undefined){
+            if (actual !== undefined) {
                 console.log("borrar alias");
             }
         }
-        if (actual === undefined){
-            if (alias === ""){
+        if (actual === undefined) {
+            if (alias === "") {
                 console.log("NO TIENE ACTUAL, Y EL NUEVO ESTA VACIO, NO HACER NADA");
-            }else{
+            } else {
                 console.log("CREAR ALIAS EN ", alias)
             }
         }
-        if (actual !== alias && alias !== "" && actual !== undefined){
+        if (actual !== alias && alias !== "" && actual !== undefined) {
             console.log("PONER ALIAS EN: ", alias);
         }
     }
 }
 export const UpdateAliasFUNCIONES = (alias, user, actual) => {
-    return(dispatch, getState, { getFirestore, getFirebase}) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore()
         console.log("-----------------");
-            console.log("ALIAS: ", alias)
-            console.log("ALIAS ACTUAL: ", actual)
-            console.log("USER: ", user)
-            if (actual === alias){
-                return console.log("EL NUEVO ES IGUAL AL MISMO");
-            }
-            if (alias === ""){
-                console.log("ALIAS VACIO!");
-                if (actual !== undefined){
-                    return firestore.collection('restaurantes').doc(user).update({
+        console.log("ALIAS: ", alias)
+        console.log("ALIAS ACTUAL: ", actual)
+        console.log("USER: ", user)
+        if (actual === alias) {
+            return console.log("EL NUEVO ES IGUAL AL MISMO");
+        }
+        if (alias === "") {
+            console.log("ALIAS VACIO!");
+            if (actual !== undefined) {
+                return firestore.collection('restaurantes').doc(user).update({
+                    alias: firestore.FieldValue.delete()
+                }).then(() => {
+                    return firestore.collection('usuarios').doc(user).update({
                         alias: firestore.FieldValue.delete()
                     }).then(() => {
-                        return firestore.collection('usuarios').doc(user).update({
-                            alias: firestore.FieldValue.delete()
-                        }).then(() => {
-                            return firestore.collection('alias').doc(actual).delete(
-                            ).then(() => {
-                                console.log("HECHO!")
-                                setTimeout(() => {
-                                    dispatch({type: 'RESET'})
-                                  }, 500)
-                            }).catch((err) => {
-                                console.log(err)
-                            })
+                        return firestore.collection('alias').doc(actual).delete(
+                        ).then(() => {
+                            console.log("HECHO!")
+                            setTimeout(() => {
+                                dispatch({ type: 'RESET' })
+                            }, 500)
                         }).catch((err) => {
                             console.log(err)
                         })
                     }).catch((err) => {
                         console.log(err)
                     })
-                }
+                }).catch((err) => {
+                    console.log(err)
+                })
             }
-            if (actual === undefined){
-                if (alias === ""){
-                    console.log("NO TIENE ACTUAL, Y EL NUEVO ESTA VACIO, NO HACER NADA");
-                }else{
-                    return firestore.collection('restaurantes').doc(user).set({
+        }
+        if (actual === undefined) {
+            if (alias === "") {
+                console.log("NO TIENE ACTUAL, Y EL NUEVO ESTA VACIO, NO HACER NADA");
+            } else {
+                return firestore.collection('restaurantes').doc(user).set({
+                    alias: alias
+                }, { merge: true }).then(() => {
+                    return firestore.collection('usuarios').doc(user).set({
                         alias: alias
-                    }, {merge: true}).then(() => {
-                        return firestore.collection('usuarios').doc(user).set({
-                            alias: alias
-                        }, {merge: true}).then(() => {
-                            return firestore.collection('alias').doc(alias).set({
-                                restaurante: user
-                            }).then(() => {
-                                console.log("HECHO!")
-                                setTimeout(() => {
-                                    dispatch({type: 'RESET'})
-                                  }, 500)
-                            }).catch((err) => {
-                                console.log(err)
-                            })
+                    }, { merge: true }).then(() => {
+                        return firestore.collection('alias').doc(alias).set({
+                            restaurante: user
+                        }).then(() => {
+                            console.log("HECHO!")
+                            setTimeout(() => {
+                                dispatch({ type: 'RESET' })
+                            }, 500)
                         }).catch((err) => {
                             console.log(err)
                         })
                     }).catch((err) => {
                         console.log(err)
                     })
-                }
+                }).catch((err) => {
+                    console.log(err)
+                })
             }
-            if (actual !== alias && alias !== "" && actual !== undefined){
-                console.log("PONER ALIAS EN: ", alias);
-            }
+        }
+        if (actual !== alias && alias !== "" && actual !== undefined) {
+            console.log("PONER ALIAS EN: ", alias);
+        }
     }
 }
 
@@ -263,19 +261,19 @@ export const UpdateAliasFUNCIONES = (alias, user, actual) => {
 
 
 export const subirImagenProducto = (data) => {
-    return (dispatch, getState, {getFirestore, getFirebase}) => {
+    return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore();
-        console.log("DATA: ",data)
-            return firestore.collection('restaurantes').doc(data.uid).collection('productos').doc(data.productoId).update({
-                foto: data.url
-            }).then(()=> {
-                dispatch({type: 'IMAGEN_SUCCESS'})
-                setTimeout(() => {
-                    dispatch({type: 'RESET'})
-                  }, 500)
-            }).catch((err)=> {
-                dispatch({type: 'IMAGEN_ERROR', err})
-            })
+        console.log("DATA: ", data)
+        return firestore.collection('restaurantes').doc(data.uid).collection('productos').doc(data.productoId).update({
+            foto: data.url
+        }).then(() => {
+            dispatch({ type: 'IMAGEN_SUCCESS' })
+            setTimeout(() => {
+                dispatch({ type: 'RESET' })
+            }, 500)
+        }).catch((err) => {
+            dispatch({ type: 'IMAGEN_ERROR', err })
+        })
     }
 }
 
@@ -404,7 +402,7 @@ export const signUp = (newUser) => {
     }
 }
 export const SetCategorias = (cat1, cat2) => {
-    return (dispatch, getState, {getFirebase, getFirestore})=> {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const USER = firebase.auth().currentUser.uid
@@ -414,25 +412,25 @@ export const SetCategorias = (cat1, cat2) => {
         return firestore.collection('usuarios').doc(USER).update({
             cat: cat1,
             cat2: cat2
-        }).then(()=> {
+        }).then(() => {
             return firestore.collection('restaurantes').doc(USER).update({
                 cat: cat1,
                 cat2: cat2
-            }).then(()=> {
-                dispatch({type: 'CATEGORIA_SUCCESS'})
+            }).then(() => {
+                dispatch({ type: 'CATEGORIA_SUCCESS' })
                 setTimeout(() => {
-                    dispatch({type: 'RESET'})
-                  }, 100)
+                    dispatch({ type: 'RESET' })
+                }, 100)
             }).catch((err) => {
-                dispatch({type: 'CATEGORIA_ERROR', err})
+                dispatch({ type: 'CATEGORIA_ERROR', err })
             })
         }).catch((err) => {
-            dispatch({type: 'CATEGORIA_ERROR', err})
+            dispatch({ type: 'CATEGORIA_ERROR', err })
         })
     }
 }
 export const SetCategoriasASD = (cat1, cat2) => { //prueba
-    return (dispatch, getState, {getFirebase, getFirestore})=> {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
         console.log("recibido en el actions de prueba")
         setTimeout(() => {
             const firebase = getFirebase();
@@ -440,11 +438,11 @@ export const SetCategoriasASD = (cat1, cat2) => { //prueba
             console.log("RECIBIDO CATEGORIA 1: ", cat1);
             console.log("RECIBIDO CATEGORIA 2: ", cat2);
             console.log("USUARIO LOGUEADO ACTUALMENTE: ", USER)
-            dispatch({type: 'CATEGORIA_SUCCESS'})
+            dispatch({ type: 'CATEGORIA_SUCCESS' })
             setTimeout(() => {
-                dispatch({type: 'CLEAR'})
-              }, 1000)
-          }, 1000)
+                dispatch({ type: 'CLEAR' })
+            }, 1000)
+        }, 1000)
     }
 }
 
@@ -467,7 +465,7 @@ export const sendLink = (credentials) => {
     }
 }
 export const Clear = () => {
-    return (dispatch)=> {
-        dispatch({type: 'CLEAR'})
+    return (dispatch) => {
+        dispatch({ type: 'CLEAR' })
     }
 }

@@ -5,16 +5,25 @@ import {subirImagen} from '../../Actions/authActions'
 
 export class FotoDePerfil extends Component {
     state = {
-        Cargando: false
+        Cargando: false,
+        image: null
     }
     
     handleImageChange = (e) => {
+        this.setState({
+            image: e.target.files[0],
+        })
+        setTimeout(() => {
+            this.uploadImage()
+        }, 100);
+        
+    };
+    uploadImage = () => {
         const uid = this.props.uid;
-        const image = e.target.files[0];
         console.log("USUARIO: ", uid)
-        console.log("IMAGEN: ", image)
+        console.log("IMAGEN STATE: ", this.state.image)
         this.setState({Cargando: true})
-        const upload = storage.ref(`imagenes/${uid}`).put(image);
+        const upload = storage.ref(`imagenes/${uid}`).put(this.state.image);
         upload.on("state_changed",
         snapshot => {},
         error => {
@@ -31,7 +40,7 @@ export class FotoDePerfil extends Component {
                 this.setState({Cargando: false})
             })
         })
-    };
+    }
 
     handleEditPicture = (e) => {
         const fileInput = document.getElementById("imageInput");
