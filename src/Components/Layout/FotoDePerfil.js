@@ -12,22 +12,22 @@ export class FotoDePerfil extends Component {
         image: null,
         croppedImage: null,
         src: null,
-        newUrl: null,
         crop: {
             unit: '%',
-            width: 50,
-            height: 50,
-            x: 25,
-            y: 25,
+            width: 90,
             aspect: 1 / 1
-        }
+        },
+        newUrl: null,
+        
     }
-    leerImagenNueva = () => {
-        this.setState({ image: this.state.newUrl })
-    }
+    
     componentDidMount = () => {
         this.setState({ image: this.props.profile.foto })
     }
+    handleEditPicture = (e) => {
+        const fileInput = document.getElementById("imageInput");
+        fileInput.click()
+    };
     handleImageChange = (e) => {
         const fileReader = new FileReader()
         fileReader.onloadend = () => {
@@ -35,38 +35,9 @@ export class FotoDePerfil extends Component {
         }
         try{
             fileReader.readAsDataURL(e.target.files[0])
-        }catch(err){console.log(err);}
+        }catch(err){console.log(err);} 
     };
-    handleSubmitImage = () => {
-        const uid = this.props.uid;
-        console.log("USUARIO: ", uid)
-        console.log("IMAGEN STATE: ", this.state.image)
-        this.setState({ Cargando: true })
-        const upload = storage.ref(`imagenes/${uid}`).put(this.state.croppedImage);
-        upload.on("state_changed",
-            snapshot => { },
-            error => {
-                console.log(error)
-            },
-            () => {
-                storage
-                    .ref(`imagenes/`)
-                    .child(uid)
-                    .getDownloadURL()
-                    .then(url => {
-                        const actual = this.props.profile.foto
-                        console.log(url)
-                        this.props.subirImagen({ uid, url, actual })
-                        this.setState({ Cargando: false, imagenPorSubir: false, src: null, newUrl: url, croppedImage: null })
-                        this.leerImagenNueva()
-                    })
-            })
-    }
-
-    handleEditPicture = (e) => {
-        const fileInput = document.getElementById("imageInput");
-        fileInput.click()
-    };
+    
     onImageLoaded = image => {
         this.imageRef = image
     }
@@ -81,9 +52,9 @@ export class FotoDePerfil extends Component {
             this.setState({ croppedImageUrl })
         }
     }
-
     getCroppedImg(image, crop) {
         const canvas = document.createElement("canvas");
+        
         const scaleX = image.naturalWidth / image.width;
         const scaleY = image.naturalHeight / image.height;
         canvas.width = crop.width;
@@ -123,19 +94,51 @@ export class FotoDePerfil extends Component {
         let croppedImage = new File([u8arr], filename, { type: mime });
         this.setState({ croppedImage: croppedImage })
     }
+    handleSubmitImage = () => {
+        const uid = this.props.uid;
+        console.log("USUARIO: ", uid)
+        console.log("IMAGEN STATE: ", this.state.image)
+        this.setState({ Cargando: true })
+        const upload = storage.ref(`imagenes/${uid}`).put(this.state.croppedImage);
+        upload.on("state_changed",
+            snapshot => { },
+            error => {
+                console.log(error)
+            },
+            () => {
+                storage
+                    .ref(`imagenes/`)
+                    .child(uid)
+                    .getDownloadURL()
+                    .then(url => {
+                        const actual = this.props.profile.foto
+                        console.log(url)
+                        this.props.subirImagen({ uid, url, actual })
+                        this.setState({ Cargando: false, imagenPorSubir: false, src: null, newUrl: url, croppedImage: null })
+                        this.leerImagenNueva()
+                    })
+            })
+    }
+    leerImagenNueva = () => {
+        this.setState({ image: this.state.newUrl })
+    }
     render() {
         const { crop, src } = this.state
 
         return (
             <div className="FDP-Container">
                 {src && (
+                    <>
                     <ReactCrop
                         src={src}
                         crop={crop}
                         onImageLoaded={this.onImageLoaded}
                         onComplete={this.onCropComplete}
                         onChange={this.onCropChange}
+                        keepSelection 
+                        circularCrop
                     />
+                    </>
                 )}
                 {!src && <img src={this.state.image} alt="" className="responsive-img circle z-depth-3" onClick={this.handleEditPicture} draggable="false" />} <br />
                 <input type="file" id="imageInput" onChange={this.handleImageChange} accept=".png, .jpg, .jpeg" hidden="hidden" />
@@ -143,7 +146,6 @@ export class FotoDePerfil extends Component {
 
                 {this.state.imagenPorSubir && <button onClick={this.handleSubmitImage} className="btn blue"><i className="material-icons">save</i>Subir!</button>}
                 <div>{this.state.Cargando && <p className="bold">Subiendo...</p>}</div>
-                {/* ^^^^^^HACER QUE SOLO APAREZCA AL CARGAR! */}
             </div>
         )
     }
