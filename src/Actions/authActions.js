@@ -30,19 +30,27 @@ export const subirImagen = (data) => {
     return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore();
         console.log("DATA: ", data)
-        return firestore.collection('usuarios').doc(data.uid).update({
-            foto: data.url,
-        }).then(() => {
-            return firestore.collection('restaurantes').doc(data.uid).update({
-                foto: data.url
+        if (data.actual !== "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"){
+            dispatch({ type: 'IMAGEN_SUCCESS' })
+            console.log("YA TIENE LA NUEVA IMAGEN, SKIPPING");
+        }
+        else{
+            console.log("NO TIENE IMAGEN PERONALIZADA, SETTEANDO LA NUEVA");
+
+            return firestore.collection('usuarios').doc(data.uid).update({
+                foto: data.url,
             }).then(() => {
-                dispatch({ type: 'IMAGEN_SUCCESS' })
+                return firestore.collection('restaurantes').doc(data.uid).update({
+                    foto: data.url
+                }).then(() => {
+                    dispatch({ type: 'IMAGEN_SUCCESS' })
+                }).catch((err) => {
+                    dispatch({ type: 'IMAGEN_ERROR', err })
+                })
             }).catch((err) => {
                 dispatch({ type: 'IMAGEN_ERROR', err })
             })
-        }).catch((err) => {
-            dispatch({ type: 'IMAGEN_ERROR', err })
-        })
+        }
     }
 }
 

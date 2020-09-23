@@ -15,11 +15,11 @@ const SignedInLinks= (props) => {
                 {panelResto}
                 {panelAdmin}
                 <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
-                <li><a href="#logout" onClick={props.signOut}>Logout</a></li>
+                <li><NavLink to={"/"}><hover onClick={props.signOut}>Logout</hover></NavLink></li>
                 <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
             </ul>
             <ul className="show-on-medium-and-down hide-on-med-and-up right">
-                <li><a href="/#logoutMobile" style={{padding:0, margin:0}} onClick={props.signOut}><i className="material-icons left white-text">logout</i></a></li>
+                <li><NavLink to="/"><hover style={{padding:0, margin:0}} onClick={props.signOut}><i className="material-icons left white-text">logout</i></hover></NavLink></li>
                 <li><Link to="/profile" className="btn btn-floating red lighten-1" style={{padding:0, margin:0}}>{props.profile.initials}</Link></li>
             </ul>
         </div>          

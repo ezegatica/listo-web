@@ -12,7 +12,9 @@ body {
 img{
   user-select: none;
 }
-
+hover{
+  cursor: pointer;
+}
 .margin0{
   margin: 0!important
 }
