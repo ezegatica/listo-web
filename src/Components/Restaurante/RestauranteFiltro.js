@@ -3,6 +3,7 @@ import {db} from '../../Config/fbConfig'
 import {Link} from 'react-router-dom'
 import Filtros from '../Layout/Filtros'
 import ShowRestaurante from './ShowRestaurante'
+import { connect } from 'react-redux'
 
 export class RestaurantesFiltro extends Component {
     state = {
@@ -75,9 +76,9 @@ export class RestaurantesFiltro extends Component {
                 <div onClick={()=> this.leerDB()}><Filtros /></div>
                 {Cargando}
                 <div className="lista-restaurantes row">
-                {this.state.restaurantes && this.state.restaurantes.map (restaurant =>{
+                {this.state.restaurantes && this.props.profile.isLoaded && this.state.restaurantes.map (restaurant =>{
                         return(
-                            <ShowRestaurante restaurant={restaurant} key={restaurant.id}/>
+                            <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={this.props.profile}/>
 
                         )
                 })}
@@ -87,5 +88,9 @@ export class RestaurantesFiltro extends Component {
     }
     
 }
-
-export default RestaurantesFiltro
+const mapStateToProps = (state) => {
+    return {
+        profile: state.firebase.profile
+    }
+}
+export default connect(mapStateToProps)(RestaurantesFiltro)

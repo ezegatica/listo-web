@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { db } from '../../Config/fbConfig'
 import Filtros from '../Layout/Filtros'
 import ShowRestaurante from './ShowRestaurante'
+import { connect } from 'react-redux'
+
 export class Restaurantes extends Component {
     state = {
         restaurantes: null
@@ -34,9 +36,9 @@ export class Restaurantes extends Component {
                 <Filtros />
                 {Cargando}
                 <div className="lista-restaurantes row">
-                {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
+                {this.state.restaurantes && this.props.profile.isLoaded && this.state.restaurantes.map(restaurant => {
                     return (
-                        <ShowRestaurante restaurant={restaurant} key={restaurant.id} />
+                        <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={this.props.profile}/>
                     )
                 })}
                 </div>
@@ -46,4 +48,9 @@ export class Restaurantes extends Component {
 
 }
 
-export default Restaurantes
+const mapStateToProps = (state) => {
+    return {
+        profile: state.firebase.profile
+    }
+}
+export default connect(mapStateToProps)(Restaurantes)
