@@ -10,35 +10,45 @@ export class RestaurantesFiltro extends Component {
         e404: null
     }
     leerDB () {
-            this.setState({restaurantes: null})
-        db.collection('restaurantes').get()
-        .then(snapshot =>{
-            console.log("REQUESTING DB")
-            const Restaurantes = []
-            snapshot.forEach(doc =>{
-                const info = doc.data()
-                const id = doc.id;
-                const cat = doc.data().cat
-                const cat2 = doc.data().cat2
-                let categoria = this.props.match.params.filtro
-                 if (cat === categoria || cat2 === categoria){
+        setTimeout(() => {
+            this.setState({restaurantes: null, e404:null})
+            db.collection('restaurantes').where('cat', '==', this.props.match.params.filtro).get()
+            .then(snapshot =>{
+                console.log("REQUESTING DB")
+                const Restaurantes = []
+                snapshot.forEach(doc =>{
+                    console.log("RESTAURANTES: ",doc.data())
+                    const info = doc.data()
+                    const id = doc.id;
                     Restaurantes.push({info, id})
                     this.setState({e404: false})
-                }
-            })
-            this.setState({restaurantes: Restaurantes})
-        }).catch(error => console.log(error))
-        .then(()=> {
-            if (this.state.restaurantes.length === 0){
-               this.setState({e404: true})
-            }
-        })
+                })
+                db.collection('restaurantes').where('cat2', '==', this.props.match.params.filtro).get()
+                .then(snapshot=>{
+                    snapshot.forEach(doc =>{
+                        console.log("RESTAURANTES: ",doc.data())
+                        const info = doc.data()
+                        const id = doc.id;
+                        Restaurantes.push({info, id})
+                        this.setState({e404: false})
+                    })
+                    this.setState({restaurantes: Restaurantes})
+                }).then(()=> {
+                
+                    if (this.state.restaurantes.length === 0){
+                    this.setState({e404: true})
+                    }
+                })
+            }).catch(error => console.log(error))
+            
+        }, 0);
+        
     }
     componentDidMount(){
         this.leerDB()
     }
     render(props) {
-        console.log(this.props);
+        // console.log(this.props);
         if (this.state.e404 === true){
             return(
                 <div className="container center">

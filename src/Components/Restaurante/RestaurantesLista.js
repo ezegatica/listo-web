@@ -7,7 +7,7 @@ export class Restaurantes extends Component {
         restaurantes: null
     }
     componentDidMount() {
-        db.collection('restaurantes').get()
+        db.collection('restaurantes').orderBy("nombre", "asc").get()
             .then(snapshot => {
                 const Restaurantes = []
                 snapshot.forEach(doc => {

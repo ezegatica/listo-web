@@ -1,9 +1,11 @@
 import React from 'react'
-function PerfilUsuario() {
+function PerfilUsuario(props) {
+    const perfil = props.profile
+    console.log("PERFIL: ", perfil);
     return (
         <>
-            <h4 className="center">Mis pedidos:</h4>
-            <p>si</p>
+            <h4 className="center">Mis restaurantes favoritos:</h4>
+            
         </>
     )
 }

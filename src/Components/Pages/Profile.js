@@ -10,7 +10,7 @@ const Profile = (props) => {
     const RestoProductos = props.profile.isResto ?
         <PerfilResto />
         :
-        <PerfilUsuario />
+        <PerfilUsuario profile={props.profile}/>
 
     let settings;
     let visorCategorias;
