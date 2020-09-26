@@ -30,11 +30,11 @@ export const subirImagen = (data) => {
     return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore();
         console.log("DATA: ", data)
-        if (data.actual !== "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"){
+        if (data.actual !== "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media") {
             dispatch({ type: 'IMAGEN_SUCCESS' })
             console.log("YA TIENE LA NUEVA IMAGEN, SKIPPING");
         }
-        else{
+        else {
             console.log("NO TIENE IMAGEN PERONALIZADA, SETTEANDO LA NUEVA");
 
             return firestore.collection('usuarios').doc(data.uid).update({
@@ -300,7 +300,7 @@ export const deleteUser = (user) => {
                     .then(() => {
                         console.log("BORRADO USUARIOS")
                         if (Resto) {
-                            console.log("BORRANDO RESTO")
+                            console.log("ES RESTO RESTO")
                             return firestore.collection('restaurantes').doc(user).delete()
                                 .then(() => {
                                     console.log("BORRADO EXITOSO DEL RESTAURANTE")
@@ -317,17 +317,17 @@ export const deleteUser = (user) => {
                                     console.log("ERROR: ", err)
                                 })
                         } else {
-                            console.log("NO ES RESTO")
+                            console.log("NO ES RESTO (ES USUARIO)")
+                            console.log("BORRANDO USUARIO DEL AUTH")
+                            firebase.auth().currentUser.delete()
+                                .then(() => {
+                                    console.log("BORRADO exitosamente DEL AUTH")
+                                    dispatch({ type: 'DELETE_SUCCESS' });
+                                }).catch((err) => {
+                                    dispatch({ type: 'DELETE_ERROR', err });
+                                    console.log("ERROR: ", err)
+                                })
                         }
-                        console.log("BORRANDO DEL AUTH")
-                        firebase.auth().currentUser.delete()
-                            .then(() => {
-                                console.log("BORRADO exitosamente DEL AUTH")
-                                dispatch({ type: 'DELETE_SUCCESS' });
-                            }).catch((err) => {
-                                dispatch({ type: 'DELETE_ERROR', err });
-                                console.log("ERROR: ", err)
-                            })
                     }).catch((err) => {
                         dispatch({ type: 'DELETE_ERROR', err });
                         console.log("ERROR: ", err)

@@ -34,11 +34,13 @@ export class Restaurantes extends Component {
                 <h3 className="center">Pedir comida!</h3>
                 <Filtros />
                 {Cargando}
+                <div className="lista-restaurantes row">
                 {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
                     return (
                         <ShowRestaurante restaurant={restaurant} key={restaurant.id} />
                     )
                 })}
+                </div>
             </div>
         )
     }
