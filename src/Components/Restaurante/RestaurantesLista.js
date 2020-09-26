@@ -19,7 +19,6 @@ export class Restaurantes extends Component {
             }).catch(error => console.log(error))
     }
     render() {
-        console.log("STATE: ", this.state)
         let Cargando = this.state.restaurantes ?
             null :
             <div className="caja">

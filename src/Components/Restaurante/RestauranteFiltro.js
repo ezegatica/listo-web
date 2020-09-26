@@ -10,8 +10,8 @@ export class RestaurantesFiltro extends Component {
         e404: null
     }
     leerDB () {
+        this.setState({restaurantes: null, e404:null})
         setTimeout(() => {
-            this.setState({restaurantes: null, e404:null})
             db.collection('restaurantes').where('cat', '==', this.props.match.params.filtro).get()
             .then(snapshot =>{
                 console.log("REQUESTING DB")
