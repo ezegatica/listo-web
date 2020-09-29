@@ -32,11 +32,7 @@ export class PerfilUsuario extends Component {
         this.leerDB()
     }
     render(props) {
-        // if (this.props.UpdateProfile && this.state.updated === false){
-        //     this.leerDB()
-        //     console.log("UPDATE EN LOS FAVS!");
-        //     this.setState({updated: true})
-        // }
+        
         const perfil = this.props.profile
         return (
             <>

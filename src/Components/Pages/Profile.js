@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import FotoDePerfil from '../Layout/FotoDePerfil'
 
 const Profile = (props) => {
-    const RestoProductos = props.profile.isResto ?
+    const TipoPerfil = props.profile.isResto ?
         <PerfilResto />
         :
         <PerfilUsuario profile={props.profile}/>
@@ -45,7 +45,7 @@ const Profile = (props) => {
                         <br />
                     </div>
                     <div>
-                        {props.profile.isLoaded && RestoProductos}
+                        {props.profile.isLoaded && TipoPerfil}
                     </div>
                 </div>
 
