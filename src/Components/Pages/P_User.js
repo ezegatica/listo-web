@@ -50,8 +50,8 @@ export class PerfilUsuario extends Component {
                         icon: "success",
                     });
                 } else {
-
-                }
+                    
+                }   
             });
     }
     render() {
@@ -60,7 +60,7 @@ export class PerfilUsuario extends Component {
         return (
             <>
                 <h4 className="center">Mis restaurantes favoritos:</h4>
-                <div className="hover" style={{ userSelect: 'none' }} onClick={this.clearFavs}><p className="red-text"><i className="material-icons">delete</i>Borrar todos los favoritos</p></div>
+                {this.props.profile.favoritos && <div className="hover" style={{ userSelect: 'none' }} onClick={this.clearFavs}><p className="red-text"><i className="material-icons">delete</i>Borrar todos los favoritos</p></div>}
                 {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
                     return (
                         <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={perfil} />
