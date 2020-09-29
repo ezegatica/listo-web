@@ -107,9 +107,9 @@ export class RestauranteDetalles2 extends Component {
                 <div className="container">
                     <div>
                         <Link to="/restaurantes">Atras</Link>
-                        <span style={{ float: 'right' }}>
-                            <i className="material-icons hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>
-                        </span>
+                        {!this.props.auth.isEmpty && this.props.auth.isLoaded && <span style={{ float: 'right' }}>
+                           <i className="material-icons hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>
+                        </span>}
                     </div>
                     <div className="center container fotoResto-container">
                         <img src={this.state.imagen || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={"LOGO DE " + this.state.nombreRestaurante} className="responsive-img circle z-depth-3" draggable="false" /> <br />
