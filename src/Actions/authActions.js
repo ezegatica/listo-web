@@ -25,6 +25,16 @@ export const signOut = () => {
     }
 }
 
+// export const UpdateProfileWithNewFavs = () => {
+//     return (dispatch, getState, { getFirebase }) => {
+//         console.log("EN EL ACTIONS!");
+//         dispatch({type: 'UpdateProfile'})
+//         setTimeout(() => {
+//             dispatch({type: 'ResetProfileUpdater'})
+//         }, 500);
+//     }
+// }
+
 export const subirImagen = (data) => {
     return (dispatch, getState, { getFirestore, getFirebase }) => {
         const firestore = getFirestore();

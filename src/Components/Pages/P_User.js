@@ -1,27 +1,16 @@
 import React, { Component } from 'react'
 import ShowRestaurante from '../Restaurante/ShowRestaurante'
-import { db, auth, fb } from '../../Config/fbConfig'
+import { db, } from '../../Config/fbConfig'
+import { connect } from 'react-redux'
 
 export class PerfilUsuario extends Component {
     state = {
-        restaurante: null
+        restaurante: null,
+        update: false,
+        updated: false
     }
-    borrarFav = (id) => {
-        const uid = auth.currentUser.uid
-        console.log("ID :",id);
-        db.collection('usuarios').doc(uid).update({"favoritos": fb.firestore.FieldValue.arrayRemove(id)}).then(() => {
-            console.log("success!");
-            this.leerDB()
-
-        }).catch((err) => {console.log(err);})
-    }
-    addFav = () => {
-        const uid = auth.currentUser.uid
-        db.collection('usuarios').doc(uid).update({"favoritos": fb.firestore.FieldValue.arrayUnion("Fw0JV2TtEXN3xHM2JD1q9EtN9Ov2")}).then(() => {
-            console.log("success!");
-            this.leerDB()
-        }).catch((err) => {console.log(err);})
-    }
+    
+    
     leerDB = () => {
         const Restaurantes = []
         const favs = this.props.profile.favoritos
@@ -40,24 +29,15 @@ export class PerfilUsuario extends Component {
         this.leerDB()
     }
     render(props) {
+        // if (this.props.UpdateProfile && this.state.updated === false){
+        //     this.leerDB()
+        //     console.log("UPDATE EN LOS FAVS!");
+        //     this.setState({updated: true})
+        // }
         const perfil = this.props.profile
         return (
             <>
                 <h4 className="center">Mis restaurantes favoritos:</h4>
-                {
-                    perfil.favoritos && perfil.favoritos.map(id => {
-                        return (
-                            <div key={id}>
-                            <p >ID: {id}</p>
-                            <button className="btn red" onClick={() => this.borrarFav(id)}><i className="material-icons" >delete</i>borrar</button>
-                            <button className="btn red" onClick={() => this.addFav()}><i className="material-icons" >add</i>agregar prueba</button>
-                            <br/>
-                            <br/>
-                            </div>
-                        )
-                    })
-                }
-                <hr />
                 {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
                     return (
                         <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={perfil}/>
@@ -67,5 +47,9 @@ export class PerfilUsuario extends Component {
         )
     }
 }
-
-export default PerfilUsuario
+const mapStateToProps = (state) => {
+    return {
+        UpdateProfile: state.auth.UpdateProfile,
+    }
+}
+export default connect(mapStateToProps, null)(PerfilUsuario)

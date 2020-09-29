@@ -4,10 +4,21 @@ const initState = {
     done: false,
     YaExiste: false,
     ElMismo: false,
+    // UpdateProfile: false
 }
 const authReducer = (state = initState, action) =>{
     switch(action.type){
 
+        // case 'UpdateProfile':
+        //     return{
+        //         ...state,
+        //         UpdateProfile: true
+        //     }
+        // case 'ResetProfileUpdater':
+        //     return{
+        //         ...state,
+        //         UpdateProfile: false
+        //     }
         case 'ALIAS_DUEÑO_NO':
             return{
                 ...state,
