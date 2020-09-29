@@ -14,7 +14,8 @@ export class Detalles extends Component {
         producto: null,
         productoEditarVisible: null,
         productoBorrarVisible: null,
-        loading: false
+        loading: false,
+        e404: false,
     }
 
     Change = (e) => {
@@ -79,12 +80,15 @@ export class Detalles extends Component {
                     precio: snapshot.data().precio,
                     foto: snapshot.data().foto })
             }).catch(error => {
-                console.log(error)
-
+                console.log(error);
+                this.setState({e404: true})
             })
             
     }
     render() {
+        if (this.state.e404){
+                return(<E404Producto />)
+        }
         // CARD DESLOGUEADA
         if (this.state.producto !== null && !auth.currentUser){ //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
             return(
