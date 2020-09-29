@@ -16,7 +16,7 @@ export class ShowRestaurante extends Component {
         else {
             this.setState({ logged: true, uid: auth.currentUser.uid })
         }
-        if (this.props.perfil.favoritos.includes(this.props.restaurant.id)) { 
+        if (this.props.perfil.favoritos && this.props.perfil.favoritos.includes(this.props.restaurant.id)) { 
             this.setState({ liked: true }) 
         } 
         else {

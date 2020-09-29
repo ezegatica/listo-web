@@ -15,15 +15,18 @@ export class PerfilUsuario extends Component {
         const Restaurantes = []
         const favs = this.props.profile.favoritos
         console.log("favoritos", favs);
-        favs.forEach(id => {
-            db.collection('restaurantes').doc(id).get()
-            .then(snapshot => {
-                const info = snapshot.data()
-                const id = snapshot.id;
-                Restaurantes.push({ info, id })
-                this.setState({ restaurantes: Restaurantes })
-            }).catch(error => console.log(error))
-        })
+        if (favs){
+            favs.forEach(id => {
+                db.collection('restaurantes').doc(id).get()
+                .then(snapshot => {
+                    const info = snapshot.data()
+                    const id = snapshot.id;
+                    Restaurantes.push({ info, id })
+                    this.setState({ restaurantes: Restaurantes })
+                }).catch(error => console.log(error))
+            })
+        }
+        
     }
     componentDidMount() {
         this.leerDB()
