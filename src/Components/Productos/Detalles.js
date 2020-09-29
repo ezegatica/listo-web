@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
 import {storage } from '../../Config/fbConfig'
 import {subirImagenProducto} from '../../Actions/authActions'
 import E404Producto from '../Pages/404Producto'
-let image;
 
 export class Detalles extends Component {
     state = {
@@ -16,6 +15,7 @@ export class Detalles extends Component {
         productoBorrarVisible: null,
         loading: false,
         e404: false,
+        image: null
     }
 
     Change = (e) => {
@@ -28,23 +28,28 @@ export class Detalles extends Component {
         let uid = this.props.match.params.id;
         let productoId = this.props.match.params.productoid;
         e.preventDefault();
-        const upload = storage.ref(`productos/${uid}/${productoId}`).put(image);
-        upload.on("state_changed",
-        snapshot => {},
-        error => {
-            console.log(error)  
-        },
-        () => {
-            storage
-            .ref(`productos/${uid}/`)
-            .child(productoId)
-            .getDownloadURL()
-            .then(url => {
-                console.log(url)
-                this.props.editarProducto(this.state)
-                this.props.subirImagenProducto({uid, productoId, url})
+        if (this.state.image){
+            const upload = storage.ref(`productos/${uid}/${productoId}`).put(this.state.image);
+            upload.on("state_changed",
+            snapshot => {},
+            error => {
+                console.log(error)  
+            },
+            () => {
+                storage
+                .ref(`productos/${uid}/`)
+                .child(productoId)
+                .getDownloadURL()
+                .then(url => {
+                    console.log(url)
+                    this.props.editarProducto(this.state)
+                    this.props.subirImagenProducto({uid, productoId, url})
+                })
             })
-        })
+        }else{
+            this.props.editarProducto(this.state)
+        }
+        
         this.setState({
             productoEditarVisible: false,
             loading: true
@@ -60,7 +65,9 @@ export class Detalles extends Component {
     }
 
     handleImageChange = (e) => {
-        image = e.target.files[0];
+        this.setState({
+            image: e.target.files[0]
+        })
     };
 
     componentDidMount() {
