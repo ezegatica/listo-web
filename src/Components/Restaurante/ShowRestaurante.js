@@ -51,7 +51,7 @@ export class ShowRestaurante extends Component {
     render() {
         const { restaurant } = this.props
         let Fav = ""
-        if (this.state.logged) {
+        if (this.state.logged && !this.props.perfil.isResto) {
             Fav = this.state.liked ? "favorite" : "favorite_border"
         }
         return (
@@ -61,7 +61,7 @@ export class ShowRestaurante extends Component {
                         <img src={restaurant.info.foto || 'https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media'} alt={"IMG"} draggable="false" className=" circle z-depth-3 imagen-lista" /> <br />
                     </div>
                     <div className="col s8 m9 l10 xl11">
-                        <div><i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i><Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link></div>
+                        <div>{Fav && <i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>}<Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link></div>
                         <div><p>Categorias: {restaurant.info.cat}{restaurant.info.cat2 && ", " + restaurant.info.cat2}</p></div>
                     </div>
                 </div>
