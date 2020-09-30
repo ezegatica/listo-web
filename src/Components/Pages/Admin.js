@@ -10,7 +10,6 @@ export class Admin extends Component {
             if (this.props.profile.isAdmin) {
                 return (
                     <>
-                        <h1 className="center">Hola Admin!</h1>
                         <h3 className="center">Bienvenido al panel de control ultra-secreto</h3>
                         <hr />
                         <div className="container">

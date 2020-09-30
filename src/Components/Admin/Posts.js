@@ -50,6 +50,9 @@ export class Posts extends Component {
             console.log(err);
         })    
     }
+    edit = (id) => {
+        console.log("EDITAR: ",id);
+    }
     render() {
         return (
             <div className="container">
@@ -60,7 +63,7 @@ export class Posts extends Component {
                             <p className="col s3 ">{message.info.titulo}</p>
                             <p className="col s5 ">{message.id}</p>
                             <p className="col s2 ">{moment(message.info.createdAt.toDate()).calendar()}</p>
-                            <p className="col s2 "><span >editar</span> | <span onClick={() => this.delete(message.id)}>borrar</span></p>
+                            <p className="col s2 "><span onClick={() => this.edit(message.id)}>editar</span> | <span onClick={() => this.delete(message.id)}>borrar</span></p>
                             <p></p>
                         </div>
                     )

@@ -21,7 +21,6 @@ export class Preview extends Component {
             })
     }
     render() {
-        console.log(this.state);
         return (
             <>
                 {this.state.posts && this.state.posts.map(message => {
