@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import SignUpResto from '../Auth/SignUpResto'
 import ConvertToResto from '../Admin/ConvertToResto'
 import Posts from '../Admin/Posts'
+import MakeAdmin from '../Admin/MakeAdmin'
 export class Admin extends Component {
     render() {
         if (this.props.profile.isLoaded) {
@@ -18,6 +19,10 @@ export class Admin extends Component {
                         <hr/>
                         <div className="container">
                             <Posts/>
+                        </div>
+                        <hr/>
+                        <div className="container">
+                            <MakeAdmin/>
                         </div>
                         <hr/>
                         <div className="container">

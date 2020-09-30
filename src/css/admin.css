@@ -3,11 +3,13 @@
 .admin-post-list p span {
   color: #0074D9;
   cursor: pointer;
+  user-select: none;
 }
 
 .admin-post-list p span:hover {
   color: #718fa8;
-  text-decoration: underline;
+  text-decoration: underline;  
+  user-select: none;
 }
 
 .admin-post-list{
