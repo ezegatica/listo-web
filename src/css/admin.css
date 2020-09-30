@@ -1,0 +1,18 @@
+/* POSTEOS */
+
+.admin-post-list p span {
+  color: #0074D9;
+  cursor: pointer;
+}
+
+.admin-post-list p span:hover {
+  color: #718fa8;
+  text-decoration: underline;
+}
+
+.admin-post-list{
+  background-color: #eee;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 1.2rem;
+}

@@ -9,6 +9,7 @@ body {
 .producto-detalles .container .card .card-content{
   padding-top: 0!important;
 }
+
 img{
   user-select: none;
 }
@@ -133,7 +134,18 @@ nav.nav-center ul li a {
 .barra-fachera{
   height:2px;border-width:0;color:gray;background-color:gray
 }
+.loading-text p, .loading-text span, .loading-text .post-date{
+  color: transparent!important;
+  background: #01467c!important;
+}
+.loading-text p{
+  width: 60%;
 
+}
+.loading-text span, .loading-text .post-date{
+  width: 30%;
+
+}
 .filtros-container img{
   max-height: 100px;
   height: 11vw;

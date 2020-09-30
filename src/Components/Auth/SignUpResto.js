@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { nuevoResto } from '../../Actions/authActions'
 import {connect} from 'react-redux'
-import { Link } from 'react-router-dom'
 
     // REMINDER: NO PUSE EL REDIRECT CUANDO ESTAS LOGUEADO, PERO NO TIENE SENTIDO AHORA, HACER CUANDO TE LOGUEE CUANDO CREAS LA CUENTA
 
@@ -51,9 +50,6 @@ export class SignUpResto extends Component {
                             <label htmlFor="nombre">Nombre</label>
                             <input type="text" id="nombre" onChange={this.Change} required/>
                         </div>
-                        <div>
-                            <Link to="/login">¿Ya tienes cuenta? </Link>
-                       </div>
                         <div className="input-field">
                             <button className={asd}>
                                 Register

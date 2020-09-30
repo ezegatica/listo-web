@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import SignUpResto from '../Auth/SignUpResto'
 import ConvertToResto from '../Admin/ConvertToResto'
+import Posts from '../Admin/Posts'
 export class Admin extends Component {
     render() {
         if (this.props.profile.isLoaded) {
@@ -14,6 +15,10 @@ export class Admin extends Component {
                         <hr />
                         <div className="container">
                             <SignUpResto />
+                        </div>
+                        <hr/>
+                        <div className="container">
+                            <Posts/>
                         </div>
                         <hr/>
                         <div className="container">
