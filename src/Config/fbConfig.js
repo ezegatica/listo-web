@@ -4,13 +4,13 @@ import 'firebase/auth'
 import 'firebase/storage'
 // Your web app's Firebase configuration
 var config = {
-    apiKey: "AIzaSyAcPMH0qYuAqvTCJaq9LSLZECh0V9cApV0",
-    authDomain: "prueba-proyecto-tic.firebaseapp.com",
-    databaseURL: "https://prueba-proyecto-tic.firebaseio.com",
-    projectId: "prueba-proyecto-tic",
-    storageBucket: "prueba-proyecto-tic.appspot.com",
-    messagingSenderId: "68477335290",
-    appId: "1:68477335290:web:fb7914e85889cc30293b43"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIRESTORE_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID
   };
   // Initialize Firebase
   firebase.initializeApp(config);

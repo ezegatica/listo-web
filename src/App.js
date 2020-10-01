@@ -30,6 +30,7 @@ import Admin from './Components/Pages/Admin'
 
 
 function App() {
+  console.log("ENV:", process.env);
   return (
     <BrowserRouter>
       <div className="App">
