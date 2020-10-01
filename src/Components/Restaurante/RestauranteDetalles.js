@@ -63,6 +63,7 @@ export class RestauranteDetalles2 extends Component {
         }).catch((err) => {console.log(err);})
     }
     componentDidMount() {
+        document.title = process.env.REACT_APP_NAME;
         let urlID = this.props.match.params.id;
         this.setState({
             id: urlID
@@ -71,6 +72,7 @@ export class RestauranteDetalles2 extends Component {
         this.leerDB(false)
         db.collection('restaurantes').doc(urlID).get()
             .then(snapshot => {
+                document.title = process.env.REACT_APP_NAME + ' - ' + snapshot.data().nombre;
                 this.setState({
                     nombreRestaurante: snapshot.data().nombre,
                     imagen: snapshot.data().foto,

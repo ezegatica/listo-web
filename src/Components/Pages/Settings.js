@@ -10,6 +10,9 @@ export class Settings extends Component {
         borrarPopUp: false,
         borrarConfirmacion: false,
     }
+    componentDidMount(){
+        document.title = process.env.REACT_APP_NAME + ' - Configuracion';
+    }
     BorrarCuentaSi = (e) => {
         e.preventDefault();
         this.props.deleteUser(this.props.auth.uid)

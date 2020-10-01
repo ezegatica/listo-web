@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import FotoDePerfil from '../Layout/FotoDePerfil'
 
 const Profile = (props) => {
+    document.title = process.env.REACT_APP_NAME + ' - Perfil';
+
     const TipoPerfil = props.profile.isResto ?
         <PerfilResto />
         :

@@ -9,6 +9,7 @@ export class Restaurantes extends Component {
         restaurantes: null
     }
     componentDidMount() {
+        document.title = process.env.REACT_APP_NAME + ' - Restaurantes';
         db.collection('restaurantes').orderBy("nombre", "asc").get()
             .then(snapshot => {
                 const Restaurantes = []

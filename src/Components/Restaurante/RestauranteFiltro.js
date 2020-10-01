@@ -43,9 +43,9 @@ export class RestaurantesFiltro extends Component {
             }).catch(error => console.log(error))
             
         }, 0);
-        
     }
     componentDidMount(){
+        document.title = process.env.REACT_APP_NAME + ' - Restaurantes';
         this.leerDB()
     }
     render(props) {

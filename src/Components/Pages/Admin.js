@@ -9,6 +9,7 @@ export class Admin extends Component {
     render() {
         if (this.props.profile.isLoaded) {
             if (this.props.profile.isAdmin) {
+                document.title = process.env.REACT_APP_NAME + ' - Admin';
                 return (
                     <>
                         <h3 className="center">Bienvenido al panel de control ultra-secreto</h3>

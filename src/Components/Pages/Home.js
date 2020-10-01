@@ -2,6 +2,8 @@ import React from 'react'
 // import {Link} from 'react-router-dom'
 import Preview from '../Posts/Preview'
 const Home = () =>{
+    document.title = process.env.REACT_APP_NAME + '';
+
     return(
         <div>
             <div className="container">

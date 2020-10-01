@@ -30,7 +30,7 @@ import Admin from './Components/Pages/Admin'
 
 
 function App() {
-  console.log("ENV:", process.env);
+  document.title = process.env.REACT_APP_NAME;
   return (
     <BrowserRouter>
       <div className="App">

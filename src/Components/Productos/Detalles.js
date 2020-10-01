@@ -71,6 +71,7 @@ export class Detalles extends Component {
     };
 
     componentDidMount() {
+        document.title = process.env.REACT_APP_NAME + ' - Producto';
         this.setState({
             productoEditarVisible: false,
             productoBorrarVisible: false
@@ -80,8 +81,11 @@ export class Detalles extends Component {
         db.collection('restaurantes').doc(resID).collection('productos').doc(proID).get()
             .then(snapshot => {
                 const info = snapshot.data()
+                console.log(info);
                 const id = snapshot.id;
-                this.setState({ producto: info, id,
+                document.title = process.env.REACT_APP_NAME + ' - ' + info.autorNombre + ' > ' + info.titulo;
+                this.setState({ 
+                    producto: info, id,
                     titulo: snapshot.data().titulo,
                     descripcion: snapshot.data().descripcion,
                     precio: snapshot.data().precio,
