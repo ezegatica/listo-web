@@ -63,7 +63,7 @@ export class ShowRestaurante extends Component {
                         </div>
                         <div className="col s8 m9 l10 xl11">
                             <div>{Fav && <i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>}<Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link></div>
-                            <div><p>Categorias: {restaurant.info.cat}{restaurant.info.cat2 && ", " + restaurant.info.cat2}</p></div>
+                            <div className="categorias-display"><p>Categorias: <span className="cat1">{restaurant.info.cat}</span><span className="cat2">{restaurant.info.cat2 && ", " + restaurant.info.cat2}</span></p></div>
                         </div>
                     </div>
                 </div>
@@ -74,11 +74,5 @@ export class ShowRestaurante extends Component {
        
     }
 }
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         UpdateProfileWithNewFavs: () => dispatch(UpdateProfileWithNewFavs())
-//     }
-// }
 
-// export default connect(null, mapDispatchToProps)(ShowRestaurante)
 export default ShowRestaurante

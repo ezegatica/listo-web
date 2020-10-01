@@ -7,7 +7,7 @@ export class MakeAdmin extends Component {
         user: null
     }
     leerDB(){
-        db.collection('usuarios').where('isAdmin', '==', true).orderBy('nombre', 'desc').get()
+        db.collection('usuarios').where('isAdmin', '==', true).orderBy('nombre', 'asc').get()
             .then((snapshot) => {
                 const Usuarios = []
                 snapshot.forEach(doc => {

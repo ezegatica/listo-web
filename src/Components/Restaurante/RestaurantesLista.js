@@ -32,7 +32,7 @@ export class Restaurantes extends Component {
 
         return (
             <div>
-                <h3 className="center">Pedir comida!</h3>
+                <h3 className="center">Pedir Comida!</h3>
                 <Filtros />
                 {Cargando}
                 <div className="lista-restaurantes row">

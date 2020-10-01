@@ -10,6 +10,12 @@ body {
   padding-top: 0!important;
 }
 
+.categorias-display span{
+  text-transform: capitalize;
+}
+.nombre-filtro-lista{
+  text-transform: capitalize;
+}
 img{
   user-select: none;
 }

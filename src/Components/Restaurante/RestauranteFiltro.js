@@ -72,7 +72,7 @@ export class RestaurantesFiltro extends Component {
        
         return (
             <>
-                <h3 className="center">Pedir {this.props.match.params.filtro}!</h3>
+                <h3 className="center">Pedir <span className="nombre-filtro-lista">{this.props.match.params.filtro}</span>!</h3>
                 <div onClick={()=> this.leerDB()}><Filtros /></div>
                 {Cargando}
                 <div className="lista-restaurantes row">
