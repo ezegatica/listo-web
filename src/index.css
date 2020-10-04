@@ -1,55 +1,61 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.producto-detalles .container .card .card-content{
+
+.producto-detalles .container .card .card-content {
   padding-top: 0!important;
 }
 
-.categorias-display span{
+.categorias-display span {
   text-transform: capitalize;
 }
-.nombre-filtro-lista{
+
+.nombre-filtro-lista {
   text-transform: capitalize;
 }
-img{
+
+img {
   user-select: none;
 }
-.hover{
+
+.hover {
   cursor: pointer;
 }
-.margin0{
+
+.margin0 {
   margin: 0!important
 }
-.marginTop10{
+
+.marginTop10 {
   margin-top: 10px!important;
 }
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-.redondo{
+
+.redondo {
   border-radius: 20px!important;
 }
-.imagen-producto{
-max-height: 200px;
-width: auto;  
 
+.imagen-producto {
+  max-height: 200px;
+  width: auto;
 }
 
-blue{
+blue {
   color: #0074D9;
 }
-blue:hover{
+
+blue:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.nombre-perfil{
+.nombre-perfil {
   margin-top: 10px;
 }
 
@@ -62,12 +68,12 @@ blue:hover{
   font-stretch: expanded;
 }
 
-.mini{
+.mini {
   font-size: 10px;
   vertical-align: top;
 }
 
-.imagen-lista{
+.imagen-lista {
   width: 92px;
   height: 92px!important;
   object-fit: cover!important;
@@ -77,25 +83,28 @@ blue:hover{
   color: grey;
   font-size: 18px;
 }
-.aviso{
+
+.aviso {
   color: red;
   font-size: 18px;
   font-weight: bold;
 }
 
-.aviso-container{
+.aviso-container {
   padding: 10px;
-background: #ddd;
-border-radius: 10px;
-width: 90%;
-text-align: center;
-margin-right: auto;
-margin-left: auto;
+  background: #ddd;
+  border-radius: 10px;
+  width: 90%;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
 }
-.categorias{
+
+.categorias {
   font-size: 18px;
-color: black
+  color: black
 }
+
 .centrado {
   margin: 0;
   position: absolute;
@@ -104,117 +113,140 @@ color: black
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-.caja{
-    height: 500px;
-    position: relative;
+
+.caja {
+  height: 500px;
+  position: relative;
+} 
+
+nav.nav-center ul {
+  text-align: center;
 }
 
-/* <div className="caja">
-      <div className="centrado"> 
-         <p>Cargando...</p>
-      </div>
-   </div> */
-
-   nav.nav-center ul {
-    text-align: center;
-}
 nav.nav-center ul li {
-    display: inline;
-    float: none;
-}
-nav.nav-center ul li a {
-    display: inline-block;
+  display: inline;
+  float: none;
 }
 
-.lista-proyectos a:any-link{
+nav.nav-center ul li a {
+  display: inline-block;
+}
+
+.lista-proyectos a:any-link {
   color: #555555
 }
-.lista-proyectos a:hover{
+
+.lista-proyectos a:hover {
   color: #999999
 }
 
-.boton-form{
+.boton-form {
   margin: 10px;
 }
 
-.barra-fachera{
-  height:2px;border-width:0;color:gray;background-color:gray
+.barra-fachera {
+  height: 2px;
+  border-width: 0;
+  color: gray;
+  background-color: gray
 }
-.loading-text p, .loading-text span, .loading-text .post-date{
+
+.loading-text p, .loading-text span, .loading-text .post-date {
   color: transparent!important;
   background: #01467c!important;
 }
-.loading-text p{
+
+.loading-text p {
   width: 60%;
-
 }
-.loading-text span, .loading-text .post-date{
+
+.loading-text span, .loading-text .post-date {
   width: 30%;
-
 }
-.filtros-container img{
+
+.filtros-container img {
   max-height: 100px;
   height: 11vw;
   width: auto;
   object-fit: scale-down;
-
 }
 
-.link-disabled{
+.link-disabled {
   cursor: not-allowed;
 }
 
-.FDP-Container img:hover{
+.FDP-Container img:hover {
   cursor: pointer;
   /* opacity: 70%; */
   animation: fade 0.5s linear;
-  animation-fill-mode:forwards;
-
+  animation-fill-mode: forwards;
 }
-.FDP-Container img{
+
+.FDP-Container img {
   width: 256px;
   height: 256px;
   object-fit: cover;
 }
 
-.fotoResto-container img{
+.fotoResto-container img {
   width: 256px;
   height: 256px;
   object-fit: cover;
 }
 
 @keyframes ldio-at0j3uszb4c {
-  0% { opacity: 1 }
-  50% { opacity: .5 }
-  100% { opacity: 1 }
+  0% {
+    opacity: 1
+  }
+  50% {
+    opacity: .5
+  }
+  100% {
+    opacity: 1
+  }
 }
+
 @keyframes fade {
-  0% { opacity: 1 }
-  100% { opacity: .6 }
+  0% {
+    opacity: 1
+  }
+  100% {
+    opacity: .6
+  }
 }
+
 .ldio-at0j3uszb4c div {
   position: absolute;
   width: 10px;
   height: 40px;
   top: 30px;
-  animation: ldio-at0j3uszb4c 0.6134969325153374s cubic-bezier(0.5,0,0.5,1) infinite;
-}.ldio-at0j3uszb4c div:nth-child(1) {
-  transform: translate(15px,0);
+  animation: ldio-at0j3uszb4c 0.6134969325153374s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.ldio-at0j3uszb4c div:nth-child(1) {
+  transform: translate(15px, 0);
   background: #93dbe9;
   animation-delay: -0.36809815950920244s;
-}.ldio-at0j3uszb4c div:nth-child(2) {
-  transform: translate(35px,0);
+}
+
+.ldio-at0j3uszb4c div:nth-child(2) {
+  transform: translate(35px, 0);
   background: #689cc5;
   animation-delay: -0.24539877300613497s;
-}.ldio-at0j3uszb4c div:nth-child(3) {
-  transform: translate(55px,0);
+}
+
+.ldio-at0j3uszb4c div:nth-child(3) {
+  transform: translate(55px, 0);
   background: #5e6fa3;
   animation-delay: -0.12269938650306748s;
-}.ldio-at0j3uszb4c div:nth-child(4) {
-  transform: translate(75px,0);
+}
+
+.ldio-at0j3uszb4c div:nth-child(4) {
+  transform: translate(75px, 0);
   background: #3b4368;
   animation-delay: -0.6134969325153374s;
 }
+
 .loadingio-spinner-bars-jl0izsh3cc {
   width: 94px;
   height: 94px;
@@ -222,13 +254,19 @@ nav.nav-center ul li a {
   overflow: hidden;
   background: none;
 }
+
 .ldio-at0j3uszb4c {
   width: 100%;
   height: 100%;
   position: relative;
   transform: translateZ(0) scale(0.94);
   backface-visibility: hidden;
-  transform-origin: 0 0; /* see note above */
+  transform-origin: 0 0;
+  /* see note above */
 }
-.ldio-at0j3uszb4c div { box-sizing: content-box; }
+
+.ldio-at0j3uszb4c div {
+  box-sizing: content-box;
+}
+
 /* generated by https://loading.io/ */

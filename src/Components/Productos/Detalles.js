@@ -40,9 +40,8 @@ export class Detalles extends Component {
             })
 
     }
-    render() {
-        console.log(this.props.profile);
-
+    render() { 
+        console.log(this.props.profile)  
         if (this.state.e404) {
             return (<E404Producto />)
         }
@@ -82,7 +81,7 @@ export class Detalles extends Component {
                                 <p>{this.state.producto.descripcion}</p>
                                 <p>${this.state.producto.precio}</p>
                                 {auth.currentUser.uid === this.state.producto.autorUUID && <DetallesResto state={this.state} match={this.props.match} />}
-                                {this.props.profile.isLoaded && !this.props.profile.isEmpty && !this.props.profile.isResto && <AddToCart />}
+                                {this.props.profile.isLoaded && !this.props.profile.isEmpty && !this.props.profile.isResto && <AddToCart resto={this.props.match.params.id} producto={this.props.match.params.productoid} />}
                             </div>
                         </div>
                     </div>

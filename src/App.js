@@ -28,6 +28,8 @@ import Recovery from './Components/Auth/Recovery'
 // ADMIN
 import Admin from './Components/Pages/Admin'
 
+// CARRITO
+import CartWrapper from './Components/Carrito/CartWrapper'
 
 function App() {
   document.title = process.env.REACT_APP_NAME;
@@ -51,6 +53,7 @@ function App() {
         <Route exact path="/restaurantes/categoria/:filtro" component={RestauranteFiltro} />
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
         <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
+        <Route exact path="/carrito" component={CartWrapper} />
         <Route path="*" component={e404} />
       </Switch>
     </BrowserRouter>

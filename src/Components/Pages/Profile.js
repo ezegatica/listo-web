@@ -6,7 +6,7 @@ import PerfilUsuario from './P_User'
 import { Link } from 'react-router-dom'
 import FotoDePerfil from '../Layout/FotoDePerfil'
 
-const Profile = (props) => {
+const Profile = (props) => {  
     document.title = process.env.REACT_APP_NAME + ' - Perfil';
 
     const TipoPerfil = props.profile.isResto ?
@@ -23,7 +23,7 @@ const Profile = (props) => {
         return <Redirect to="/login" />
     }
     else {
-        if (props.profile.isLoaded && props.auth.isLoaded) {
+        if (props.profile.isLoaded && props.auth.isLoaded) {  
             if (props.profile.cat === "" || props.profile.alias === undefined){MostrarAviso=true}
             // CANCELAR EL HECHO DE BORRAR LA CUENTA CON LA CUENTA DE USUARIO PREDETERMINADO
             settings = props.auth.uid === "iSOcYsCUziVYHIqspg0bfeNlCox2" ?

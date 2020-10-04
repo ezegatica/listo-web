@@ -24,10 +24,8 @@ export class ShowRestaurante extends Component {
         }
     }
     handleFav =  () => {
-        // console.log("user: ", this.state.uid, " \nresto: ", this.props.restaurant.info.nombre, "\nestá likeado? ",this.state.liked);
         if (this.state.liked){
             this.borrarFav()
-            // this.props.UpdateProfileWithNewFavs()
         }else{
             this.addFav()
 
