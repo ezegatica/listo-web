@@ -32,9 +32,6 @@ import firebase from './Config/fbConfig'
     presence: 'presence',
     sessions: 'sessions'
   };
-
- 
-
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
