@@ -14,7 +14,6 @@ export class CartItem extends Component {
     }
     leerDB = () => {
         const { item } = this.props
-        console.log("ITEM: ", item);
         db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
             .then((snapshot) => {
                 const info = snapshot.data()
@@ -55,7 +54,6 @@ export class CartItem extends Component {
         })
     }
     render() {
-        console.log("STATE: ", this.state);
         const { item } = this.props
         return (
             <div className="row">

@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {signOut} from '../../Actions/authActions'
 import {Link} from 'react-router-dom'
 const SignedInLinks= (props) => {
-    console.log(props.profile);
     const panelAdmin = props.profile.isAdmin ? 
     <li><NavLink to="/admin">Admin</NavLink></li> : null
     const panelResto = props.profile.isResto ?
@@ -12,16 +11,11 @@ const SignedInLinks= (props) => {
     let carrito;
     if (props.profile.cart){
         if (props.profile.cart.length > 0){
-            console.log("carrito con cosas");
             carrito =  <li><NavLink to="/carrito">Carrito ({props.profile.cart.length})</NavLink></li>
         }else{
-            console.log("carrito vacio");
             carrito = null
         }
-       
     }else{
-        console.log("carrito vacio");
-
         carrito = null
     }
 

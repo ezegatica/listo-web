@@ -17,9 +17,9 @@ export class AddToCart extends Component {
         console.log(resto, "\n", producto);
         db.collection("usuarios").doc(uid).update({
             "cart": fb.firestore.FieldValue.arrayUnion({
-                cantidad: '1',
+                restaurante: resto,
                 producto: producto,
-                restaurante: resto
+                cantidad: '1',
             })
         }).then(()=>{
             console.log("success!");
