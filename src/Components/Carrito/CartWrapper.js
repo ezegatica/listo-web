@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Cart from './Cart'
+import {auth} from '../../Config/fbConfig'
 import '../../css/cart.css'
 export class CartWrapper extends Component {
     render() {
         if (this.props.profile.isLoaded && !this.props.profile.isResto && !this.props.profile.isEmpty) {
             return (
                 <div className="container">
-                    <Cart profile={this.props.profile}/>
+                    <Cart profile={this.props.profile} auth={auth}/>
                 </div>
             )
         } else {

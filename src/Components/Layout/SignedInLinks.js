@@ -4,10 +4,26 @@ import {connect} from 'react-redux'
 import {signOut} from '../../Actions/authActions'
 import {Link} from 'react-router-dom'
 const SignedInLinks= (props) => {
+    console.log(props.profile);
     const panelAdmin = props.profile.isAdmin ? 
     <li><NavLink to="/admin">Admin</NavLink></li> : null
     const panelResto = props.profile.isResto ?
     <li><NavLink to="/productos/nuevo">Nuevo producto</NavLink></li> : null
+    let carrito;
+    if (props.profile.cart){
+        if (props.profile.cart.length > 0){
+            console.log("carrito con cosas");
+            carrito =  <li><NavLink to="/carrito">Carrito ({props.profile.cart.length})</NavLink></li>
+        }else{
+            console.log("carrito vacio");
+            carrito = null
+        }
+       
+    }else{
+        console.log("carrito vacio");
+
+        carrito = null
+    }
 
     return(
         <div className="nav-wrapper grey darken-3">
@@ -16,6 +32,7 @@ const SignedInLinks= (props) => {
                 {panelAdmin}
                 <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
                 <li><NavLink to="/" onClick={props.signOut}>Logout</NavLink></li>
+                {carrito}
                 <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
             </ul>
             <ul className="show-on-medium-and-down hide-on-med-and-up right">
