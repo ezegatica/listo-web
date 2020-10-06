@@ -4,6 +4,7 @@ import E404Producto from '../Pages/404Producto'
 import DetallesResto from './DetallesResto'
 import { connect } from 'react-redux'
 import AddToCart from '../Carrito/AddToCart'
+import { Link } from 'react-router-dom'
 export class Detalles extends Component {
     state = {
         producto: null,
@@ -40,7 +41,7 @@ export class Detalles extends Component {
             })
 
     }
-    render() { 
+    render() {
         if (this.state.e404) {
             return (<E404Producto />)
         }
@@ -48,6 +49,7 @@ export class Detalles extends Component {
             //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
             return (
                 <div className="producto-detalles">
+                    <Link to={"/restaurantes/" + this.props.match.params.id}><p className="container">Atras</p></Link>
                     <div className="container section">
                         <div className="card z-depth-0">
                             <div className="card-content">
@@ -69,6 +71,7 @@ export class Detalles extends Component {
             // PAGINA LOGUEADO
             return (
                 <div className="producto-detalles">
+                    <Link to={"/restaurantes/" + this.props.match.params.id}><p className="container">Atras</p></Link>
                     <div className="container section">
                         <div className="card z-depth-0">
                             <div className="card-content">
@@ -80,7 +83,7 @@ export class Detalles extends Component {
                                 <p>{this.state.producto.descripcion}</p>
                                 <p>${this.state.producto.precio}</p>
                                 {auth.currentUser.uid === this.state.producto.autorUUID && <DetallesResto state={this.state} match={this.props.match} />}
-                                {this.props.profile.isLoaded && !this.props.profile.isEmpty && !this.props.profile.isResto && <AddToCart resto={this.props.match.params.id} producto={this.props.match.params.productoid} uid={auth.currentUser.uid} precio={this.state.producto.precio}/>}
+                                {this.props.profile.isLoaded && !this.props.profile.isEmpty && !this.props.profile.isResto && <AddToCart resto={this.props.match.params.id} producto={this.props.match.params.productoid} uid={auth.currentUser.uid} precio={this.state.producto.precio} />}
                             </div>
                         </div>
                     </div>

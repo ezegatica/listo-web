@@ -3,7 +3,8 @@ import CartItem from './CartItem'
 export class Cart extends Component {
     state = {
         comentarios: '',
-        subtotal: 0
+        subtotal: 0,
+        info: [{}]
     }
     pedir = () => {
         console.log(
@@ -18,11 +19,7 @@ export class Cart extends Component {
             [e.target.id]: e.target.value
         })
     }
-    componentDidMount(){
-        var options
-        var elems = document.querySelectorAll('.modal');
-        var instances = window.M.Modal.init(elems, options);
-        options = instances //PARA ELIMINAR LA WARNING
+    updateSubtotal = () => {
         let total = 0
         this.props.profile.cart.forEach(element => {
             var precioInt = parseInt(element.precio, 10)
@@ -32,15 +29,30 @@ export class Cart extends Component {
             subtotal: total
         })
     }
+    buscarData = () => {
+        console.log(this.state.info);
+    }
+    componentDidMount() {
+        var options
+        var elems = document.querySelectorAll('.modal');
+        var instances = window.M.Modal.init(elems, options);
+        options = instances //PARA ELIMINAR LA WARNING
+        this.updateSubtotal()
+        this.buscarData()
+    }
     render() {
+        let index = 0
         return (
             <>
                 <h3 className="center">Carrito!</h3>
                 {this.props.profile.cart && this.props.profile.cart.map(item => {
-                    
+                    console.log("INDEX: ",index, item.producto);
+                    console.log("STATE CON INDEX ",this.state.info[index]);
+                    index = index + 1;
                     return (
-                        <CartItem item={item} key={item.restaurante + ":" + item.producto} auth={this.props.auth} />
+                        <CartItem key={item.restaurante + ":" + item.producto} item={item} auth={this.props.auth} />
                     )
+                    
                 })}
                 <br />
                 <p><b>Subtotal: </b>${this.state.subtotal}</p>
@@ -63,12 +75,12 @@ export class Cart extends Component {
                 <div id="modal1" className="modal">
                     <div className="modal-content">
                         <h4><b>Resumen del pedido</b></h4>
-                        <p><b>Comentarios para el restaurante</b>: <i>{this.state.comentarios?this.state.comentarios : 'vacio'}</i></p>
+                        <p><b>Comentarios para el restaurante</b>: <i>{this.state.comentarios ? this.state.comentarios : 'vacio'}</i></p>
                         <p><b>Cantidad de productos: </b>{this.props.profile.cart.length}</p>
                     </div>
                     <div className="modal-footer">
-                        <button className="btn red modal-close" style={{marginRight: '10px'}}>Cancelar</button>
-                        <button className="waves-effect waves-green green btn">Pedir</button>
+                        <button className="btn red modal-close" style={{ marginRight: '10px' }}>Cancelar</button>
+                        <button className="waves-effect waves-green green btn" onClick={() => this.pedir()}>Pedir</button>
                     </div>
                 </div>
                 {/* TERMINA POPUP */}

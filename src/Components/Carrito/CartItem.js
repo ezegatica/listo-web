@@ -35,7 +35,6 @@ export class CartItem extends Component {
         const resto = item.restaurante
         const producto = item.producto
         const cantidad = item.cantidad
-        const precio = item.precio
         console.log(
             "borrar!\n",
             "user: ", uid, "\n",
@@ -47,7 +46,6 @@ export class CartItem extends Component {
                 cantidad: cantidad,
                 producto: producto,
                 restaurante: resto,
-                precio: precio
             })
         }).then(()=>{
             console.log("success!");
@@ -56,6 +54,7 @@ export class CartItem extends Component {
         })
     }
     render() {
+        console.log("PROPS CARTITEM", this.props);
         const { item } = this.props
         return (
             <div className="row">
