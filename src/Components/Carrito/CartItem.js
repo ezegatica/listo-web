@@ -35,6 +35,7 @@ export class CartItem extends Component {
         const resto = item.restaurante
         const producto = item.producto
         const cantidad = item.cantidad
+        const precio = item.precio
         console.log(
             "borrar!\n",
             "user: ", uid, "\n",
@@ -45,7 +46,8 @@ export class CartItem extends Component {
             "cart": fb.firestore.FieldValue.arrayRemove({
                 cantidad: cantidad,
                 producto: producto,
-                restaurante: resto
+                restaurante: resto,
+                precio: precio
             })
         }).then(()=>{
             console.log("success!");

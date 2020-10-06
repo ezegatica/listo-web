@@ -13,12 +13,14 @@ export class AddToCart extends Component {
         this.setState({cargando: true, mensaje: 'Agregando...'})
         const resto = this.props.resto;
         const producto = this.props.producto;
+        const precio = this.props.precio;
         const uid = this.props.uid;
         console.log(resto, "\n", producto);
         db.collection("usuarios").doc(uid).update({
             "cart": fb.firestore.FieldValue.arrayUnion({
                 restaurante: resto,
                 producto: producto,
+                precio: precio,
                 cantidad: '1',
             })
         }).then(()=>{
@@ -29,6 +31,7 @@ export class AddToCart extends Component {
         })
     }
     render() {
+        console.log(this.props);
         let classBoton = this.state.cargando ? "btn red btn-wave disabled" : "btn red btn-wave"
         return (
             <>
