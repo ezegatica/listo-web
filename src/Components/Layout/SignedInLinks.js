@@ -25,8 +25,8 @@ const SignedInLinks= (props) => {
                 {panelResto}
                 {panelAdmin}
                 <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
-                <li><NavLink to="/" onClick={props.signOut}>Logout</NavLink></li>
                 {carrito}
+                <li><NavLink to="/" onClick={props.signOut}>Logout</NavLink></li>
                 <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
             </ul>
             <ul className="show-on-medium-and-down hide-on-med-and-up right">

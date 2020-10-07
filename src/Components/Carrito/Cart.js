@@ -1,10 +1,37 @@
 import React, { Component } from 'react'
+import { db } from '../../Config/fbConfig';
 import CartItem from './CartItem'
 export class Cart extends Component {
     state = {
         comentarios: '',
-        subtotal: 0,
-        info: [{}]
+        subtotal: '0',
+        productos: [],
+        cargado: false,
+        rendered: false,
+    }
+    componentDidMount = () => {
+        var options
+        var elems = document.querySelectorAll('.modal');
+        var instances = window.M.Modal.init(elems, options);
+        options = instances
+        this.leerDB()
+    }
+    leerDB = () => {
+        let productos = []
+
+        if (this.props.profile.cart) {
+            this.props.profile.cart.map((item) => {
+                db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
+                    .then(async (resp) => {
+                        const data = resp.data()
+                        const { precio, foto, titulo } = data
+                        productos.push({ precio: precio, foto: foto, titulo: titulo })
+                    }).catch(error => console.log(error))
+                return { ...this.state }
+            })
+            this.setState({ productos })
+            this.setState({ cargado: true })
+        }
     }
     pedir = () => {
         console.log(
@@ -19,73 +46,84 @@ export class Cart extends Component {
             [e.target.id]: e.target.value
         })
     }
-    updateSubtotal = () => {
-        let total = 0
-        this.props.profile.cart.forEach(element => {
-            var precioInt = parseInt(element.precio, 10)
-            total = total + precioInt
-        })
-        this.setState({
-            subtotal: total
-        })
-    }
-    buscarData = () => {
-        console.log(this.state.info);
-    }
-    componentDidMount() {
-        var options
-        var elems = document.querySelectorAll('.modal');
-        var instances = window.M.Modal.init(elems, options);
-        options = instances //PARA ELIMINAR LA WARNING
-        this.updateSubtotal()
-        this.buscarData()
-    }
+
+
     render() {
         let index = 0
-        return (
-            <>
-                <h3 className="center">Carrito!</h3>
-                {this.props.profile.cart && this.props.profile.cart.map(item => {
-                    console.log("INDEX: ",index, item.producto);
-                    console.log("STATE CON INDEX ",this.state.info[index]);
-                    index = index + 1;
-                    return (
-                        <CartItem key={item.restaurante + ":" + item.producto} item={item} auth={this.props.auth} />
-                    )
-                    
-                })}
-                <br />
-                <p><b>Subtotal: </b>${this.state.subtotal}</p>
-                <br />
-                <div className="row " style={{ marginBottom: '0px', paddingBottom: '0px' }}>
-                    <form className="col s12">
-                        <div className="row">
-                            <div className="input-field col s12" style={{ marginBottom: '0px', paddingBottom: '0px' }}>
-                                <i className="material-icons prefix">message</i>
-                                <textarea id="comentarios" className="materialize-textarea" onChange={this.change} maxLength="100"></textarea>
-                                <label htmlFor="comentarios">Comentarios para el restaurante</label>
-                                <span className="helper-text" style={{ marginTop: '0', paddingTop: '0' }}>{this.state.comentarios.length + "/100"}</span>
+        console.log("STATE: ", this.state);
+        // if (!this.state.rendered && this.state.cargado){
+        //     setTimeout(() => {
+        //         console.log("uwu");
+        //         this.setState({
+        //             rendered: true
+        //         })
+        //     }, 500);
+        // }
+        if (this.state.productos.length !== 0) {
+            console.log("HAY PRODUCTOS!");
+            return (
+                <>
+                    <h3 className="center">Carrito!</h3>
+                    {this.props.profile.cart && this.props.profile.cart.map(item => {
+                        // console.log("INDEX: ",index, item.producto);
+                        // console.log("STATE CON INDEX [", index, "]", this.state.productos[index]);
+                        index = index + 1;
+                        return (
+                            <CartItem key={item.restaurante + ":" + item.producto} item={item} auth={this.props.auth} data={this.state.productos[index - 1]} />
+                        )
+
+                    })}
+                    <br />
+                    <p><b>Subtotal: </b>${this.state.subtotal.toString()}</p>
+                    <br />
+                    <div className="row " style={{ marginBottom: '0px', paddingBottom: '0px' }}>
+                        <form className="col s12">
+                            <div className="row">
+                                <div className="input-field col s12" style={{ marginBottom: '0px', paddingBottom: '0px' }}>
+                                    <i className="material-icons prefix">message</i>
+                                    <textarea id="comentarios" className="materialize-textarea" onChange={this.change} maxLength="100"></textarea>
+                                    <label htmlFor="comentarios">Comentarios para el restaurante</label>
+                                    <span className="helper-text" style={{ marginTop: '0', paddingTop: '0' }}>{this.state.comentarios.length + "/100"}</span>
+                                </div>
                             </div>
+                        </form>
+                    </div>
+                    <button data-target="modal1" className="btn modal-trigger blue">Ir a pagar!</button><br />
+                    <button data-target="modal1" className="btn modal-trigger">Modal</button>
+
+                    <div id="modal1" className="modal">
+                        <div className="modal-content">
+                            <h4>Modal Header</h4>
+                            <p>A bunch of text</p>
                         </div>
-                    </form>
-                </div>
-                {/* <button className="btn blue" onClick={() => this.pedir()}>Ir a pagar!</button> */}
-                <button data-target="modal1" className="btn modal-trigger blue">Ir a pagar!</button>
-                {/* POPUP */}
-                <div id="modal1" className="modal">
-                    <div className="modal-content">
-                        <h4><b>Resumen del pedido</b></h4>
-                        <p><b>Comentarios para el restaurante</b>: <i>{this.state.comentarios ? this.state.comentarios : 'vacio'}</i></p>
-                        <p><b>Cantidad de productos: </b>{this.props.profile.cart.length}</p>
+                        <div className="modal-footer">
+                            <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+                        </div>
                     </div>
-                    <div className="modal-footer">
-                        <button className="btn red modal-close" style={{ marginRight: '10px' }}>Cancelar</button>
-                        <button className="waves-effect waves-green green btn" onClick={() => this.pedir()}>Pedir</button>
+                </>
+            )
+        } else {
+            if (!this.state.rendered && this.state.cargado) {
+                setTimeout(() => {
+                    console.log("uwu");
+                    this.setState({
+                        rendered: true
+                    })
+                }, 500);
+            }
+            console.log("NO HAY PRODUCTOS");
+            console.log(this.state);
+            return (
+                <div className="caja">
+                    <div className="centrado">
+                        <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+                            <div></div><div></div><div></div><div></div>
+                        </div></div>
                     </div>
                 </div>
-                {/* TERMINA POPUP */}
-            </>
-        )
+            )
+        }
+
     }
 }
 
