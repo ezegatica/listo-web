@@ -27,6 +27,7 @@ import Recovery from './Components/Auth/Recovery'
 
 // ADMIN
 import Admin from './Components/Pages/Admin'
+import Test from './Components/Pages/Test'
 
 // CARRITO
 import CartWrapper from './Components/Carrito/CartWrapper'
@@ -54,6 +55,7 @@ function App() {
         <Route exact path="/restaurantes/:id" component={RestauranteDetalles} />
         <Route exact path="/restaurantes/:id/:productoid" component={ProductoDetalles} />
         <Route exact path="/carrito" component={CartWrapper} />
+        <Route exact path="/test" component={Test} />
         <Route path="*" component={e404} />
       </Switch>
     </BrowserRouter>

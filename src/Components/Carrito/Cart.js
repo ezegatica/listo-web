@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { db } from '../../Config/fbConfig';
 import CartItem from './CartItem'
+import M from 'materialize-css'
+import Pedir from './Pedir'
 export class Cart extends Component {
     state = {
         comentarios: '',
@@ -12,7 +14,7 @@ export class Cart extends Component {
     componentDidMount = () => {
         var options
         var elems = document.querySelectorAll('.modal');
-        var instances = window.M.Modal.init(elems, options);
+        var instances = M.Modal.init(elems, options);
         options = instances
         this.leerDB()
     }
@@ -51,22 +53,13 @@ export class Cart extends Component {
     render() {
         let index = 0
         console.log("STATE: ", this.state);
-        // if (!this.state.rendered && this.state.cargado){
-        //     setTimeout(() => {
-        //         console.log("uwu");
-        //         this.setState({
-        //             rendered: true
-        //         })
-        //     }, 500);
-        // }
         if (this.state.productos.length !== 0) {
             console.log("HAY PRODUCTOS!");
+            console.log("HAY: ",this.state);
             return (
                 <>
                     <h3 className="center">Carrito!</h3>
                     {this.props.profile.cart && this.props.profile.cart.map(item => {
-                        // console.log("INDEX: ",index, item.producto);
-                        // console.log("STATE CON INDEX [", index, "]", this.state.productos[index]);
                         index = index + 1;
                         return (
                             <CartItem key={item.restaurante + ":" + item.producto} item={item} auth={this.props.auth} data={this.state.productos[index - 1]} />
@@ -88,18 +81,8 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    <button data-target="modal1" className="btn modal-trigger blue">Ir a pagar!</button><br />
-                    <button data-target="modal1" className="btn modal-trigger">Modal</button>
+                    <Pedir cart={this.props.profile.cart} data={this.state.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'}/>
 
-                    <div id="modal1" className="modal">
-                        <div className="modal-content">
-                            <h4>Modal Header</h4>
-                            <p>A bunch of text</p>
-                        </div>
-                        <div className="modal-footer">
-                            <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
-                        </div>
-                    </div>
                 </>
             )
         } else {
