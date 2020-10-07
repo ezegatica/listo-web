@@ -6,7 +6,16 @@ function SignedInMobile(props) {
     <li><NavLink to="/admin">Admin</NavLink></li> : null
     const panelResto = props.profile.isResto ?
     <li><NavLink to="/productos/nuevo">Nuevo producto</NavLink></li> : null
-
+    let carrito;
+    if (props.profile.cart){
+        if (props.profile.cart.length > 0){
+            carrito =  <li><NavLink to="/carrito">Carrito ({props.profile.cart.length})</NavLink></li>
+        }else{
+            carrito = null
+        }
+    }else{
+        carrito = null
+    }
     return (
         <div>
             <br />
@@ -16,6 +25,7 @@ function SignedInMobile(props) {
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
                     {panelAdmin}
+                    {carrito}
                     {panelResto}
                 </ul>
                 </div>

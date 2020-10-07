@@ -1,40 +1,44 @@
 import React, { Component } from 'react'
 import { db, fb } from '../../Config/fbConfig';
-import CartItem from './CartItem'
+import CartItem from './CartItem2'
 import M from 'materialize-css'
 import Pedir from './Pedir'
 import swal from 'sweetalert'
+
 export class Cart extends Component {
     state = {
         comentarios: '',
-        subtotal: '0',
+        subtotal: 0,
         productos: [],
         cargado: false,
         rendered: false,
     }
+    
     componentDidMount = () => {
         var options
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, options);
         options = instances
-        this.leerDB()
+        this.updateSubtotal()      
     }
-    leerDB = () => {
-        let productos = []
-
-        if (this.props.profile.cart) {
-            this.props.profile.cart.map((item) => {
-                db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
-                    .then(async (resp) => {
-                        const data = resp.data()
-                        const { precio, foto, titulo } = data
-                        productos.push({ precio: precio, foto: foto, titulo: titulo })
-                    }).catch(error => console.log(error))
-                return { ...this.state }
+    updateSubtotal = () => {
+        // console.log("updating subtotal");
+        let total = 0        
+        this.props.productos.forEach(element => {
+            var precioInt = parseInt(element.precio, 10)
+            total = total + precioInt
+        })
+        if (total !== this.state.subtotal){
+            console.log("no es igual, cambiando");
+            this.setState({
+                subtotal: total
             })
-            this.setState({ productos })
-            this.setState({ cargado: true })
+        }else{
+            console.log("es igual, no cambiando");
         }
+        // console.log("TOTAL: ", total);
+        // console.log("SUBTOTAL: ", this.state.subtotal);
+        // console.log("TODOS LOS PRODUCTOS: ", this.props.productos);        
     }
     borrarCarrito = () => {
         const uid = this.props.auth.currentUser.uid
@@ -43,11 +47,12 @@ export class Cart extends Component {
             text: "Quieres vaciar el carrito?",
             icon: "warning",
             buttons: {
-                cancel: "Cancelar", 
+                cancel: "Cancelar",
                 ok: {
                     text: 'Ok',
                     value: true
-                }},
+                }
+            },
             dangerMode: true,
         })
             .then((willDelete) => {
@@ -59,8 +64,8 @@ export class Cart extends Component {
                         timer: 2000
                     });
                 } else {
-                    
-                }   
+
+                }
             });
     }
     change = (e) => {
@@ -80,18 +85,16 @@ export class Cart extends Component {
                     <p>No hay productos en tu carrito, puedes agregarlos y volver acá cuando los haya!</p>
                 </div>
             )
-        }
-        // console.log("STATE: ", this.state);
-        if (this.state.productos.length !== 0) {
-            // console.log("HAY PRODUCTOS!");
-            // console.log("HAY: ",this.state);
+        } else {
             return (
                 <>
-                    <h3 className="center">Carrito!   <span><i onClick={()=> this.borrarCarrito()} className="material-icons delete">delete_forever</i></span></h3>
+                    <h3 className="center">Carrito!   <span><i onClick={() => this.borrarCarrito()} className="material-icons delete">delete_forever</i></span></h3>
                     {this.props.profile.cart && this.props.profile.cart.map(item => {
                         index = index + 1;
                         return (
-                            <CartItem key={item.restaurante + ":" + item.producto} item={item} auth={this.props.auth} data={this.state.productos[index - 1]} />
+                            <div className="cart-item" key={item.restaurante + ":" + item.producto}>
+                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} />
+                            </div>
                         )
 
                     })}
@@ -110,31 +113,13 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    <Pedir cart={this.props.profile.cart} data={this.state.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} />
-
+                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()}/>}
+                    <br/>
                 </>
             )
-        } else {
-            if (!this.state.rendered && this.state.cargado) {
-                setTimeout(() => {
-                    console.log("uwu");
-                    this.setState({
-                        rendered: true
-                    })
-                }, 500);
-            }
-            // console.log("NO HAY PRODUCTOS");
-            // console.log(this.state);
-            return (
-                <div className="caja">
-                    <div className="centrado">
-                        <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
-                            <div></div><div></div><div></div><div></div>
-                        </div></div>
-                    </div>
-                </div>
-            )
         }
+
+
 
     }
 }

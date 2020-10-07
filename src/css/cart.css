@@ -1,6 +1,12 @@
 .imagen-carrito-producto{
-    width: 200px;
+    width: 100%;
     height: auto;
+    max-width: 200px;
+}
+.imagen-resumen-producto{
+    width: 100%;
+    height: auto;
+    max-width: 100px;
 }
 
 .titulo-producto{
@@ -8,4 +14,22 @@
 }
 .titulo-producto:hover{
     text-decoration: underline;
+}
+
+.delete{
+    font-size: 32px;
+    vertical-align: bottom;
+    color: black;
+    transition: color 250ms linear;
+    user-select: none;
+}
+.delete:hover{
+    color: red;
+    cursor: pointer;
+    transition: color 250ms linear;
+}
+
+.card-pedir{
+    padding: 20px;
+    border-radius: 20px;
 }
