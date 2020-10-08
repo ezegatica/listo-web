@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import M from 'materialize-css'
 import swal from 'sweetalert'
+let classMetodosDePago;
 export class Pedir extends Component {
     state = {
-
+        metodo_de_pago: null,
+        dimissed: null
     }
     componentDidMount = () => {
-        // console.log("PROPS PEDIR: ", this.props);
+        this.setState({
+            dimissed: true
+        })
+        console.log("PROPS PEDIR: ", this.props);
         var options
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, options);
@@ -27,26 +32,63 @@ export class Pedir extends Component {
     metodoDePagoChange = (e) => {
         console.log("Metodo de pago:");
         console.log(e.target.value);
+        this.setState({
+            metodo_de_pago: e.target.value
+        })
     }
     setHoraEntrega = (e) => {
         console.log(e);
     }
-    pedir (e) {
-        e.preventDefault()
-        console.log("pedir!");
-        swal("hola")
+    pedir() {
+        console.log(this.state.metodo_de_pago);
+        if (this.state.metodo_de_pago) {
+            console.log("pedido: ")
+            console.log("usuario: ", this.props.auth);
+            console.log("Comida: ", this.props.cart);
+            console.log("Comentario: ", this.props.comentario);
+            console.log("Metodo de pago: ", this.state.metodo_de_pago);
+            console.log("Horario de entrega: ");
+            swal(
+                "Enviando pedido", "Comunicandose con la base de datos...", {
+                buttons: false,
+            }
+            )
+            setTimeout(() => {
+                swal(
+                    "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success")
+            }, 2000);
+            setTimeout(() => {
+                swal(
+                    "Error", 'Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste ', "error")
+            }, 5000);
+        } else {
+            if (this.state.dimissed) {
+                console.log("TOAST!");
+                this.setState({ dimissed: false })
+                M.toast({ html: 'Te falta poner un metodo de pago!', classes: 'red rounded', completeCallback: () => {this.dimissed()} })
+            }
+        }
+    }
+    dimissed = () => {
+        console.log("DIMISSED!");
+        this.setState({ dimissed: true })
     }
     render() {
+        if (!this.state.dimissed && !this.state.metodo_de_pago){
+            classMetodosDePago = "rojo"
+        }else{
+            classMetodosDePago= ""
+        }
         let indice = 0;
         return (
             <div>
                 <button data-target="modal1" className="btn modal-trigger">Ir a pagar!</button>
                 <div id="modal1" className="modal">
-                    <form onSubmit={this.pedir}>
+                    <form >
                         <div className="modal-content">
                             <h4><b>Resumen del pedido</b></h4>
                             <p><b>Comentarios para el restaurante</b>: <i>{this.props.comentario}</i></p>
-                            <p style={{margin: '0px'}}><b>Horario de entrega: </b> <span className="inline input-field" style={{margin: '0px'}}><input type="text" className="timepicker" placeholder="Haz click para seleccionar tu horario de entrega" onChange={this.setHoraEntrega} /></span></p>
+                            <p style={{ margin: '0px' }}><b>Horario de entrega: </b> <span className="inline input-field" style={{ margin: '0px' }}><input type="text" className="timepicker" placeholder="Haz click para seleccionar tu horario de entrega" onChange={this.setHoraEntrega} /></span></p>
                             <p><b>Cantidad de productos: </b>{this.props.cart.length} items</p>
                             <p><b>Tus productos:</b></p>
                             <div>
@@ -69,9 +111,9 @@ export class Pedir extends Component {
                                 <div>
                                     <div className="input-field col s12">
                                         <p><b>Metodo de pago: </b></p>
-                                        <p>
-                                            <label>
-                                                <input className="with-gap right" name="01" value={"01"} id="01" type="radio" checked onChange={this.metodoDePagoChange} />
+                                        <p className={classMetodosDePago}>
+                                            <label >
+                                                <input className="with-gap right" name="01" value={"01"} id="metodo_de_pago" type="radio" onChange={this.metodoDePagoChange} />
                                                 <span style={{ color: 'black' }}>Efectivo</span>
                                             </label><br />
                                             {/* <label title={"Proximanente..."}>
@@ -92,11 +134,11 @@ export class Pedir extends Component {
 
                             </div>
                         </div>
-                        <div className="modal-footer">
-                            <button className="modal-close waves-effect waves-white btn red">Cancelar</button>
-                            <button className="waves-effect waves-green btn-flat" onClick={this.pedir}>Confirmar y pedir!</button>
-                        </div>
                     </form>
+                    <div className="modal-footer">
+                        <button className="modal-close waves-effect waves-white btn red">Cancelar</button>
+                        <button className="waves-effect waves-green btn-flat" onClick={() => this.pedir()}>Confirmar y pedir!</button>
+                    </div>
                 </div>
                 <br />
             </div>

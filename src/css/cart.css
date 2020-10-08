@@ -33,3 +33,20 @@
     padding: 20px;
     border-radius: 20px;
 }
+
+.rojo{
+    animation: pulse 1s;
+    opacity: 80%;
+}
+
+@keyframes pulse {
+    0% {
+      background-color: transparent;
+    }
+    50% {
+      background-color:red;
+    }
+    100%{
+        background-color: transparent;
+    }
+  }
