@@ -29,7 +29,7 @@ export class AddToCart extends Component {
         })
     }
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         let classBoton = this.state.cargando ? "btn red btn-wave disabled" : "btn red btn-wave"
         return (
             <>

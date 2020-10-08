@@ -29,16 +29,13 @@ export class Cart extends Component {
             total = total + precioInt
         })
         if (total !== this.state.subtotal){
-            console.log("no es igual, cambiando");
+            // console.log("no es igual, cambiando subtotal");
             this.setState({
                 subtotal: total
             })
         }else{
-            console.log("es igual, no cambiando");
-        }
-        // console.log("TOTAL: ", total);
-        // console.log("SUBTOTAL: ", this.state.subtotal);
-        // console.log("TODOS LOS PRODUCTOS: ", this.props.productos);        
+            // console.log("es igual, no cambiando");
+        }       
     }
     borrarCarrito = () => {
         const uid = this.props.auth.currentUser.uid
@@ -73,12 +70,10 @@ export class Cart extends Component {
             [e.target.id]: e.target.value
         })
     }
-
-
     render() {
         let index = 0
         if (!this.props.profile.cart || this.props.profile.cart.length === 0) {
-            console.log("NO HAY CARRITO!");
+            // console.log("NO HAY CARRITO!");
             return (
                 <div className="center container">
                     <h4><b>Carrito vacio!</b></h4>
@@ -96,7 +91,6 @@ export class Cart extends Component {
                                 <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} />
                             </div>
                         )
-
                     })}
                     <br />
                     <p><b>Subtotal: </b>${this.state.subtotal.toString()}</p>
@@ -106,9 +100,9 @@ export class Cart extends Component {
                             <div className="row">
                                 <div className="input-field col s12" style={{ marginBottom: '0px', paddingBottom: '0px' }}>
                                     <i className="material-icons prefix">message</i>
-                                    <textarea id="comentarios" className="materialize-textarea" onChange={this.change} maxLength="100"></textarea>
+                                    <textarea id="comentarios" className="materialize-textarea" onChange={this.change} maxLength="200"></textarea>
                                     <label htmlFor="comentarios">Comentarios para el restaurante</label>
-                                    <span className="helper-text" style={{ marginTop: '0', paddingTop: '0' }}>{this.state.comentarios.length + "/100"}</span>
+                                    <span className="helper-text" style={{ marginTop: '0', paddingTop: '0' }}>{this.state.comentarios.length + "/200"}</span>
                                 </div>
                             </div>
                         </form>
@@ -118,9 +112,6 @@ export class Cart extends Component {
                 </>
             )
         }
-
-
-
     }
 }
 

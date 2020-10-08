@@ -13,8 +13,9 @@ export class CartWrapper extends Component {
         B: false,
     }
     leerDB() {
-        console.log("leyendo db");
+        // console.log("leyendo db");
         if (!done) {
+            // console.log("EJECUTANDO FUNCION!");
             done = true
             let productos = []
 
@@ -41,11 +42,21 @@ export class CartWrapper extends Component {
         done = false
     }
     render() {
-
         const { A, B } = this.state
 
         if (this.props.profile.isLoaded && !this.props.profile.isResto && !this.props.profile.isEmpty) {
             if (this.state.productos && this.state.productos[0]) {
+                if(this.props.profile.cart.length !== this.state.productos.length){
+                    // console.log("NO ES LA MISMA LONGITUD");
+                    done=false;
+                    this.setState({
+                        A: false,
+                        B: false,
+                    })
+                    this.leerDB()
+                }else{
+                    // console.log("ES LA MISMA LONGITUD");
+                }
                 return (
                     <div className="container">
                         <Cart profile={this.props.profile} auth={auth} productos={this.state.productos} />
@@ -57,6 +68,7 @@ export class CartWrapper extends Component {
 
                 if (!A && B) {
                     setTimeout(() => {
+                        console.log("owo");
                         this.setState({
                             A: true
                         })
