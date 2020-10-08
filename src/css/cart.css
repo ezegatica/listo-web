@@ -39,7 +39,7 @@
 
 .rojo {
     animation: pulse 2s linear;
-    opacity: 100%!important;
+    /* opacity: 100%!important; */
 }
 
 @keyframes pulse {
