@@ -44,18 +44,18 @@
 
 @keyframes pulse {
     0% {
-        background-color: inherit;
+        background: white;
     }
     25% {
-        background-color: red;
+        background: red;
     }
     50% {
-        background-color: inherit;
+        background: white;
     }
     75% {
-        background-color: red;
+        background: red;
     }
     100% {
-        background-color: inherit;
+        background: white;
     }
 }

@@ -51,6 +51,7 @@ export class Pedir extends Component {
             swal(
                 "Enviando pedido", "Comunicandose con la base de datos...", {
                 buttons: false,
+                closeOnEsc: false
             }
             )
             setTimeout(() => {
