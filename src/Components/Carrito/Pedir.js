@@ -52,26 +52,25 @@ export class Pedir extends Component {
                 "Enviando pedido", "Comunicandose con la base de datos...", {
                 buttons: false,
                 closeOnEsc: false
-            }
-            )
+            })
             setTimeout(() => {
                 swal(
-                    "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success")
+                    "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
+                    );
             }, 2000);
             setTimeout(() => {
                 swal(
-                    "Error", 'Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste ', "error")
+                    "Error", 'Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste ', "error"
+                    );
             }, 5000);
         } else {
             if (this.state.dimissed) {
-                console.log("TOAST!");
                 this.setState({ dimissed: false })
                 M.toast({ html: 'Te falta poner un metodo de pago!', classes: 'red rounded', completeCallback: () => {this.dimissed()} })
             }
         }
     }
     dimissed = () => {
-        console.log("DIMISSED!");
         this.setState({ dimissed: true })
     }
     render() {

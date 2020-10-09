@@ -73,11 +73,7 @@ blue:hover {
   vertical-align: top;
 }
 
-.imagen-lista {
-  width: 92px;
-  height: 92px!important;
-  object-fit: cover!important;
-}
+
 
 .titulo {
   color: grey;

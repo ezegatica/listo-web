@@ -88,7 +88,7 @@ export class Cart extends Component {
                         index = index + 1;
                         return (
                             <div className="cart-item" key={item.restaurante + ":" + item.producto}>
-                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} />
+                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1}/>
                             </div>
                         )
                     })}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { auth, db, fb } from '../../Config/fbConfig'
-// import { connect } from 'react-redux'
-// import {UpdateProfileWithNewFavs} from '../../Actions/authActions'
+import '../../css/restaurantes.css'
+// import M from 'materialize-css'
 export class ShowRestaurante extends Component {
     state = {
         logged: null,
@@ -10,6 +10,10 @@ export class ShowRestaurante extends Component {
         liked: null,
     }
     componentDidMount = () => {
+        // var options
+        // var elems = document.querySelectorAll('.materialboxed');
+        // var instances = M.Materialbox.init(elems, options);
+        // options = instances
         if (this.props.perfil.isEmpty && this.props.perfil.isLoaded) {
             this.setState({ logged: false })
         }
@@ -56,10 +60,10 @@ export class ShowRestaurante extends Component {
             return (
                 <div className="card z-depth-0 proyect-summary grey lighten-3">
                     <div className="card-content grey-text text-darken-3 lista-proyectos row">
-                        <div className="col s4 m3 l2 xl1">
-                            <img src={restaurant.info.foto || 'https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media'} alt={"IMG"} draggable="false" className=" circle z-depth-3 imagen-lista" /> <br />
+                        <div className="col s4 m3 l3 xl2 xxl1">
+                            <img src={restaurant.info.foto || 'https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media'} alt={"IMG"} draggable="false" className=" circle z-depth-3 imagen-lista resposive-img" /> <br />
                         </div>
-                        <div className="col s8 m9 l10 xl11">
+                        <div className="col s8 m9 l9 xl10 xxl11">
                             <div>{Fav && <i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>}<Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link></div>
                             <div className="categorias-display"><p>Categorias: <span className="cat1">{restaurant.info.cat}</span><span className="cat2">{restaurant.info.cat2 && ", " + restaurant.info.cat2}</span></p></div>
                         </div>
