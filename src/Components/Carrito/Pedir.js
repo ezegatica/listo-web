@@ -56,17 +56,17 @@ export class Pedir extends Component {
             setTimeout(() => {
                 swal(
                     "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
-                    );
+                );
             }, 2000);
             setTimeout(() => {
                 swal(
                     "Error", 'Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste ', "error"
-                    );
+                );
             }, 5000);
         } else {
             if (this.state.dimissed) {
                 this.setState({ dimissed: false })
-                M.toast({ html: 'Te falta poner un metodo de pago!', classes: 'red rounded', completeCallback: () => {this.dimissed()} })
+                M.toast({ html: 'Te falta poner un metodo de pago!', classes: 'red rounded', completeCallback: () => { this.dimissed() } })
             }
         }
     }
@@ -74,10 +74,10 @@ export class Pedir extends Component {
         this.setState({ dimissed: true })
     }
     render() {
-        if (!this.state.dimissed && !this.state.metodo_de_pago){
+        if (!this.state.dimissed && !this.state.metodo_de_pago) {
             classMetodosDePago = "rojo"
-        }else{
-            classMetodosDePago= ""
+        } else {
+            classMetodosDePago = ""
         }
         let indice = 0;
         return (
@@ -93,6 +93,9 @@ export class Pedir extends Component {
                             <p><b>Tus productos:</b></p>
                             <div>
                                 {this.props.cart.map(item => {
+                                    var cantidad = item.cantidad
+                                    var precioInt = parseInt(this.props.data[indice].precio, 10)
+                                    var precio = precioInt * cantidad
                                     indice = indice + 1
                                     return (
 
@@ -102,7 +105,8 @@ export class Pedir extends Component {
                                             </div>
                                             <div className="col s7 m7 l8 xl11">
                                                 <div>{this.props.data[indice - 1].titulo} (x{item.cantidad})</div>
-                                                <div>${this.props.data[indice - 1].precio}</div>
+                                                {/* <div>${this.props.data[indice - 1].precio}</div> */}
+                                                <div>${precio}</div>
                                             </div>
                                         </div>
 
