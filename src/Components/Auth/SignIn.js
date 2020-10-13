@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signIn} from '../../Actions/authActions'
+import {signIn, signInDefault} from '../../Actions/authActions'
 import { Redirect, Link } from 'react-router-dom'
 
 export class SignIn extends Component {
@@ -19,6 +19,11 @@ export class SignIn extends Component {
         e.preventDefault();
         this.setState({ loading: true })
         this.props.signIn(this.state);
+    }
+    defaultUser = () => {
+        this.setState({ loading: true })
+        this.props.signInDefault();
+
     }
     // clearError = () =>{
         
@@ -63,6 +68,7 @@ export class SignIn extends Component {
                             {Enviando}
                         </div>
                     </form>
+                    <button className={asd} onClick={this.defaultUser}>Login con usuario predeterminado</button>
                 </div>
             )
         }
@@ -78,7 +84,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        signIn: (creds) => dispatch(signIn(creds))
+        signIn: (creds) => dispatch(signIn(creds)),
+        signInDefault: () => dispatch(signInDefault())
     }
 }
 

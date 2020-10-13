@@ -33,29 +33,27 @@ export class CartWrapper extends Component {
             }
         }
     }
+    
     componentWillUnmount = () => {
         this.setState({
-            productos: null,
+            // productos: null,
             A: false,
             B: false,
         })
         done = false
     }
-    render() {
+    render =()=> {
         const { A, B } = this.state
 
         if (this.props.profile.isLoaded && !this.props.profile.isResto && !this.props.profile.isEmpty) {
             if (this.state.productos && this.state.productos[0]) {
                 if(this.props.profile.cart.length !== this.state.productos.length){
-                    // console.log("NO ES LA MISMA LONGITUD");
                     done=false;
                     this.setState({
                         A: false,
                         B: false,
                     })
                     this.leerDB()
-                }else{
-                    // console.log("ES LA MISMA LONGITUD");
                 }
                 return (
                     <div className="container">
@@ -63,7 +61,6 @@ export class CartWrapper extends Component {
                     </div>
                 )
             } else {
-                // console.log("leer db");
                 this.leerDB()
 
                 if (!A && B) {

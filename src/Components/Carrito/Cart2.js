@@ -19,14 +19,17 @@ export class Cart extends Component {
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, options);
         options = instances
-        this.updateSubtotal()      
+        this.updateSubtotal()    
     }
     updateSubtotal = () => {
         // console.log("updating subtotal");
-        let total = 0        
+        let total = 0
+        var indice = 0        
         this.props.productos.forEach(element => {
+            var cantidad = parseInt(this.props.profile.cart[indice].cantidad, 10)
             var precioInt = parseInt(element.precio, 10)
-            total = total + precioInt
+            total = total + (precioInt * cantidad)
+            indice = indice + 1
         })
         if (total !== this.state.subtotal){
             // console.log("no es igual, cambiando subtotal");
@@ -88,7 +91,7 @@ export class Cart extends Component {
                         index = index + 1;
                         return (
                             <div className="cart-item" key={item.restaurante + ":" + item.producto}>
-                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1}/>
+                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1} uid={this.props.auth.currentUser.uid} />
                             </div>
                         )
                     })}

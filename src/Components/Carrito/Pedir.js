@@ -11,7 +11,7 @@ export class Pedir extends Component {
         this.setState({
             dimissed: true
         })
-        console.log("PROPS PEDIR: ", this.props);
+        // console.log("PROPS PEDIR: ", this.props);
         var options
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, options);

@@ -18,3 +18,7 @@ export const subirImagen = (user, url) => {
         })
     }
 }
+
+export const Prueba = () => {
+    console.log("ANDA!");
+}

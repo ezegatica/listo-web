@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { db, fb } from '../../Config/fbConfig';
 import CartItem from './CartItem'
 import M from 'materialize-css'
-import Pedir from './Pedir'
+import Pedir from '../Carrito/Pedir'
 import swal from 'sweetalert'
 export class Cart extends Component {
     state = {

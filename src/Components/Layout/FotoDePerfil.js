@@ -4,7 +4,7 @@ import { storage } from '../../Config/fbConfig'
 import { subirImagen } from '../../Actions/authActions'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
-
+let croppedImage;
 export class FotoDePerfil extends Component {
     state = {
         Cargando: false,
@@ -91,7 +91,7 @@ export class FotoDePerfil extends Component {
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
         }
-        let croppedImage = new File([u8arr], filename, { type: mime });
+        croppedImage = new File([u8arr], filename, { type: mime });
         this.setState({ croppedImage: croppedImage })
     }
     handleSubmitImage = () => {
@@ -99,7 +99,7 @@ export class FotoDePerfil extends Component {
         console.log("USUARIO: ", uid)
         console.log("IMAGEN STATE: ", this.state.image)
         this.setState({ Cargando: true })
-        const upload = storage.ref(`imagenes/${uid}`).put(this.state.croppedImage);
+        const upload = storage.ref(`imagenes/${uid}`).put(croppedImage);
         upload.on("state_changed",
             snapshot => { },
             error => {
