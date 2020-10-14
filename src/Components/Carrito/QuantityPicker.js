@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import '../../css/quanitypicker.css'
-import {db, fb} from '../../Config/fbConfig'
+import { db, fb } from '../../Config/fbConfig'
+import {PreventCartToUpdateTRUE, PreventCartToUpdateFALSE, DisableQuantityFalse, DisableQuantityTrue} from '../../Actions/userActions'
+import {connect} from 'react-redux'
+
 export class QuantityPicker extends Component {
     state = {
         boton_decrecer: '',
@@ -77,39 +80,40 @@ export class QuantityPicker extends Component {
         }
     }
     guardar = () => {
-        const uid = this.props.uid
-        const resto = this.props.item.restaurante
-        const producto = this.props.item.producto
-        const cantidad = this.props.item.cantidad
-        console.log("GUARDAR!");
-        console.log("ITEM: ", this.props.item);
-        console.log("UID: ", this.props.uid);
-        console.log("NUEVA CANTIDAD: ", this.state.cantidad);
+        this.props.PreventCartToUpdateTRUE()
+        console.log("GUARDANDO!");
         this.setState({
             disabled: true
         })
-        db.collection('usuarios').doc(uid).update({
+        this.props.DisableQuantityTrue()
+        db.collection('usuarios').doc(this.props.uid).update({
             "cart": fb.firestore.FieldValue.arrayRemove({
-                cantidad: cantidad,
-                producto: producto,
-                restaurante: resto,
+                cantidad: this.props.item.cantidad,
+                producto: this.props.item.producto,
+                restaurante: this.props.item.restaurante,
             }),
-        }).then(()=>{
-            db.collection('usuarios').doc(uid).update({
+        }).then(() => {
+            db.collection('usuarios').doc(this.props.uid).update({
                 "cart": fb.firestore.FieldValue.arrayUnion({
                     cantidad: this.state.cantidad,
-                    producto: producto,
-                    restaurante: resto,
+                    producto: this.props.item.producto,
+                    restaurante: this.props.item.restaurante,
                 }),
-            }).then(()=>{
+            }).then(() => {
+                this.props.PreventCartToUpdateFALSE()
+                this.props.DisableQuantityFalse()
+                this.setState({
+                    disabled: false
+                })
+                // window.location.reload();
                 console.log("hecho!");
-            }).catch((err)=>{
+            }).catch((err) => {
                 console.log(err);
             })
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         })
-        
+
 
     }
     render() {
@@ -118,11 +122,25 @@ export class QuantityPicker extends Component {
                 <button className={this.state.boton_decrecer} onClick={() => this.decrecer()}>{"-"}</button>
                 <span className="cantidad-numero">x{this.state.cantidad}</span>
                 <button className={this.state.boton_incrementar} onClick={() => this.incremetear()}>{"+"}</button>
-                {this.state.cambiando && <button className="btn btn-small btn-floating black " disabled={this.state.disabled} onClick={this.guardar}><i className="material-icons white-text black waves-effect waves-light btn btn-floating" disabled={this.state.disabled}>save</i></button>}
+                {this.state.cambiando && <button className="btn btn-small btn-floating black " disabled={this.props.disableButton} onClick={this.guardar}><i className="material-icons white-text black waves-effect waves-light btn btn-floating" disabled={this.props.disableButton}>save</i></button>}
                 {/* <button onClick={() => { console.log("ITEM: ", this.props.item); console.log("INCREMENTAR: ", this.state.boton_incrementar); console.log("DECRECER:", this.state.boton_decrecer); console.log("-----------------"); }}>log</button> */}
             </span>
         )
     }
 }
 
-export default QuantityPicker
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        PreventCartToUpdateTRUE: () => dispatch(PreventCartToUpdateTRUE()),
+        PreventCartToUpdateFALSE: () => dispatch(PreventCartToUpdateFALSE()),
+        DisableQuantityTrue: () => dispatch(DisableQuantityTrue()),
+        DisableQuantityFalse: () => dispatch(DisableQuantityFalse()),
+    }
+}
+const mapStateToProps = (state) => {
+    return {
+        disableButton: state.usuario.disq
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(QuantityPicker)
+

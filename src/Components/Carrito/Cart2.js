@@ -4,6 +4,8 @@ import CartItem from './CartItem2'
 import M from 'materialize-css'
 import Pedir from './Pedir'
 import swal from 'sweetalert'
+import { connect } from 'react-redux'
+let hacer = false
 
 export class Cart extends Component {
     state = {
@@ -20,6 +22,18 @@ export class Cart extends Component {
         var instances = M.Modal.init(elems, options);
         options = instances
         this.updateSubtotal()    
+    }
+    componentDidUpdate= ()=>{
+        // console.log("HACER: ",hacer);
+        if (this.props.prevent){
+            // console.log("EN PREVENIR");
+            hacer = true
+        }
+        if (!this.props.prevent && hacer){
+            // console.log("EN UPDATE");
+            hacer = false
+            this.updateSubtotal()
+        }
     }
     updateSubtotal = () => {
         // console.log("updating subtotal");
@@ -117,5 +131,9 @@ export class Cart extends Component {
         }
     }
 }
-
-export default Cart
+const mapStateToProps = (state) => {
+    return {
+        prevent: state.usuario.prev
+    }
+}
+export default connect(mapStateToProps)(Cart)

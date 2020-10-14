@@ -5,20 +5,21 @@ import Cart from './Cart2'
 import { auth } from '../../Config/fbConfig'
 import '../../css/cart.css'
 import { db } from '../../Config/fbConfig'
+
 let done = false
 export class CartWrapper extends Component {
     state = {
         productos: null,
+        cart: null,
         A: false,
         B: false,
     }
     leerDB() {
         // console.log("leyendo db");
-        if (!done) {
+        if (!done && !this.props.prevent) {
             // console.log("EJECUTANDO FUNCION!");
             done = true
             let productos = []
-
             if (this.props.profile.cart) {
                 this.props.profile.cart.map((item) => {
                     db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
@@ -33,7 +34,12 @@ export class CartWrapper extends Component {
             }
         }
     }
-    
+    leerProfile = () => {
+        this.setState({cart: this.props.profile.cart})
+    }    
+    componentDidUpdate=()=>{
+        
+    }
     componentWillUnmount = () => {
         this.setState({
             // productos: null,
@@ -43,16 +49,22 @@ export class CartWrapper extends Component {
         done = false
     }
     render =()=> {
+        // console.log("PREVENIR:" ,this.props.prevent);
+        // console.log("STATE: ", this.state);
         const { A, B } = this.state
 
         if (this.props.profile.isLoaded && !this.props.profile.isResto && !this.props.profile.isEmpty) {
+            // console.log("CART: ", this.props.profile.cart);
             if (this.state.productos && this.state.productos[0]) {
-                if(this.props.profile.cart.length !== this.state.productos.length){
+                if(this.props.profile.cart && this.props.profile.cart.length !== this.state.productos.length){
+                    // console.log("EL CARRITO NO ES IGUAL A LOS PRODUCTOS");
                     done=false;
-                    this.setState({
-                        A: false,
-                        B: false,
-                    })
+                    if (!this.props.prevent){
+                        this.setState({
+                            A: false,
+                            B: false,
+                        })
+                    }
                     this.leerDB()
                 }
                 return (
@@ -65,7 +77,7 @@ export class CartWrapper extends Component {
 
                 if (!A && B) {
                     setTimeout(() => {
-                        console.log("owo");
+                        console.log("MAGIC UPDATE");
                         this.setState({
                             A: true
                         })
@@ -106,7 +118,8 @@ export class CartWrapper extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        profile: state.firebase.profile
+        profile: state.firebase.profile,
+        prevent: state.usuario.prev
     }
 }
 export default connect(mapStateToProps)(CartWrapper)

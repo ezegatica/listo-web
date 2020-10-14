@@ -59,6 +59,7 @@ export class CartItem extends Component {
     }
     render() {
         const { item, data } = this.props
+        // console.log("PROPS: ", this.props.data.titulo, this.props);
         // console.log("PROPS CARTITEM", item.producto, this.props);
         return (
             <div className="row">

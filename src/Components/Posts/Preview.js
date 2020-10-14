@@ -31,6 +31,7 @@ export class Preview extends Component {
                                     <span className="card-title">{message.info.titulo}</span>
                                     <p>{message.info.body}</p>
                                     <hr />
+                                    <p className="grey-text text-lighten-3">- El equipo de {process.env.REACT_APP_NAME}</p>
                                     <p className="grey-text text-lighten-2 ">{moment (message.info.createdAt.toDate()).format('L')}</p>
                                 </div>
                             </div>
@@ -45,6 +46,7 @@ export class Preview extends Component {
                                     <span className="card-title">---------</span>
                                     <p>---<br/>---</p>
                                     <hr />
+                                    <p className="grey-text text-lighten-2 post-date">----</p>
                                     <p className="grey-text text-lighten-2 post-date">------</p>
                                 </div>
                             </div>

@@ -1,7 +1,9 @@
 const initState = {
     mensaje: null,
     cargando: false,
-    done: false
+    done: false,
+    prev: false,
+    disq: false
 }
 const userReducer = (state = initState, action, props) => {
     switch (action.type) {
@@ -19,7 +21,20 @@ const userReducer = (state = initState, action, props) => {
         case 'IMAGEN_ERROR':
             console.log(action.err)
             return { ...state }
-
+        case 'PREVENT_TRUE':
+            console.log("PREVINIENDO");
+            return{...state,
+            prev: true}
+        case 'PREVENT_FALSE':
+            console.log("PREVINIENDO");
+            return{...state,
+            prev: false}
+        case 'DISABLE_QUANTITY':
+        return{...state,
+            disq: true}
+        case 'ENABLE_QUANTITY':
+        return{...state,
+            disq: false}
         default:
             return state;
     }
