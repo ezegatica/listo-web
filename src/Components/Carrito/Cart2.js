@@ -11,25 +11,24 @@ export class Cart extends Component {
     state = {
         comentarios: '',
         subtotal: 0,
-        productos: [],
-        cargado: false,
-        rendered: false,
     }
-    
+
     componentDidMount = () => {
+        // console.log("PROPS CART: ", this.props);
         var options
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, options);
         options = instances
-        this.updateSubtotal()    
+        this.updateSubtotal()
     }
-    componentDidUpdate= ()=>{
+    componentDidUpdate = () => {
+        // console.log("RESTAURANTE: ", "a");
         // console.log("HACER: ",hacer);
-        if (this.props.prevent){
+        if (this.props.prevent) {
             // console.log("EN PREVENIR");
             hacer = true
         }
-        if (!this.props.prevent && hacer){
+        if (!this.props.prevent && hacer) {
             // console.log("EN UPDATE");
             hacer = false
             this.updateSubtotal()
@@ -38,21 +37,21 @@ export class Cart extends Component {
     updateSubtotal = () => {
         // console.log("updating subtotal");
         let total = 0
-        var indice = 0        
+        var indice = 0
         this.props.productos.forEach(element => {
             var cantidad = parseInt(this.props.profile.cart[indice].cantidad, 10)
             var precioInt = parseInt(element.precio, 10)
             total = total + (precioInt * cantidad)
             indice = indice + 1
         })
-        if (total !== this.state.subtotal){
+        if (total !== this.state.subtotal) {
             // console.log("no es igual, cambiando subtotal");
             this.setState({
                 subtotal: total
             })
-        }else{
+        } else {
             // console.log("es igual, no cambiando");
-        }       
+        }
     }
     borrarCarrito = () => {
         const uid = this.props.auth.currentUser.uid
@@ -88,6 +87,7 @@ export class Cart extends Component {
         })
     }
     render() {
+        // console.log("PROPS: ", this.props);
         let index = 0
         if (!this.props.profile.cart || this.props.profile.cart.length === 0) {
             // console.log("NO HAY CARRITO!");
@@ -99,8 +99,12 @@ export class Cart extends Component {
             )
         } else {
             return (
-                <>
+                <   >
                     <h3 className="center">Carrito!   <span><i onClick={() => this.borrarCarrito()} className="material-icons delete">delete_forever</i></span></h3>
+                    <div className="center container resto-cart-container">
+                        <h5 className="center"><span>{this.props.restaurante.nombre}</span></h5>
+                        <img src={this.props.restaurante.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={`Foto de ${this.props.restaurante.nombre}`} className="circle responsive-img imagen-restaurante-carrito" />
+                    </div>
                     {this.props.profile.cart && this.props.profile.cart.map(item => {
                         index = index + 1;
                         return (
@@ -124,8 +128,8 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()}/>}
-                    <br/>
+                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} />}
+                    <br />
                 </>
             )
         }

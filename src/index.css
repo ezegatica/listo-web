@@ -4,7 +4,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* .swal-modal{
+  transform: translate3d(0,0,0); 
+  position: absolute;
+} */
 .producto-detalles .container .card .card-content {
   padding-top: 0!important;
 }

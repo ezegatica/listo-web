@@ -13,24 +13,38 @@ export class CartWrapper extends Component {
         cart: null,
         A: false,
         B: false,
+        restaurante:{
+            nombre: null,
+            foto: null
+        }
     }
     leerDB() {
         console.log("pedido leer db");
         if (!done && !this.props.prevent) {
-            console.log("EJECUTANDO FUNCION!");
+            console.log("APROVED!");
             done = true
             let productos = []
             this.setState({productos: null})
             if (this.props.profile.cart) {
                 this.props.profile.cart.map((item) => {
-                    db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
-                        .then(async (resp) => {
+                    return db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
+                        .then((resp) => {
                             const data = resp.data()
                             const { precio, foto, titulo } = data
                             productos.push({ precio: precio, foto: foto, titulo: titulo })
+                            // console.log("leer");
                         }).catch(error => console.log(error))
-                    return null
                 })
+                if (this.props.profile.cart.length !== 0){
+                    db.collection('restaurantes').doc(this.props.profile.cart[0].restaurante).get()
+                    .then((resp)=>{
+                        this.setState({restaurante:{nombre: resp.data().nombre, foto: resp.data().foto}})
+                        // console.log(resp.data().nombre);
+                    }).catch((err)=>{
+                        console.log(err);
+                    })
+                }
+                
                 this.setState({ productos, B: true })
             }
         }else{
@@ -62,8 +76,8 @@ export class CartWrapper extends Component {
         done = false
     }
     render =()=> {
-        console.log("CART:" ,this.props.profile.cart);
-        console.log("PRODUCTOS: ", this.state.productos);
+        // console.log("CART:" ,this.props.profile.cart);
+        // console.log("STATE: ", this.state);
         const { A, B } = this.state
         if (this.props.profile.isLoaded && !this.props.profile.isResto && !this.props.profile.isEmpty) {
             // console.log("CART: ", this.props.profile.cart);
@@ -92,7 +106,8 @@ export class CartWrapper extends Component {
                 }else{
                 return (
                     <div className="container">
-                        <Cart profile={this.props.profile} auth={auth} productos={this.state.productos} />
+                        <Cart profile={this.props.profile} auth={auth} productos={this.state.productos} restaurante={this.state.restaurante}/>
+
                     </div>
                 )}
             } else {

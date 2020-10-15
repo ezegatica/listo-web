@@ -28,11 +28,11 @@ export class RestauranteDetalles2 extends Component {
             this.setState({ logged: true, uid: this.props.auth.uid  })
         }
         if (this.props.profile.favoritos && this.props.profile.favoritos.includes(this.props.match.params.id)) { 
-            console.log("esta faveado");
+            // console.log("esta faveado");
             this.setState({ liked: true }) 
         } 
         else {
-            console.log("no esta faveado");
+            // console.log("no esta faveado");
 
              this.setState({ liked: false }) 
         }

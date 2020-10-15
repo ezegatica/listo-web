@@ -44,6 +44,7 @@ export class Pedir extends Component {
         if (this.state.metodo_de_pago) {
             console.log("pedido: ")
             console.log("usuario: ", this.props.auth);
+            console.log("Restaurante: ", this.props.cart[0].restaurante);
             console.log("Comida: ", this.props.cart);
             console.log("Comentario: ", this.props.comentario);
             console.log("Metodo de pago: ", this.state.metodo_de_pago);
