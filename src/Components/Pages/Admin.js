@@ -5,6 +5,7 @@ import SignUpResto from '../Auth/SignUpResto'
 import ConvertToResto from '../Admin/ConvertToResto'
 import Posts from '../Admin/Posts'
 import MakeAdmin from '../Admin/MakeAdmin'
+import DebugTools from '../Admin/DebugTools'
 export class Admin extends Component {
     render() {
         if (this.props.profile.isLoaded) {
@@ -13,6 +14,10 @@ export class Admin extends Component {
                 return (
                     <>
                         <h3 className="center">Bienvenido al panel de control ultra-secreto</h3>
+                        <hr />
+                        <div className="container">
+                            <DebugTools />
+                        </div>
                         <hr />
                         <div className="container">
                             <SignUpResto />

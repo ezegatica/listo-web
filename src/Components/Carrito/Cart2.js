@@ -11,6 +11,7 @@ export class Cart extends Component {
     state = {
         comentarios: '',
         subtotal: 0,
+        cantidad_total: 0
     }
 
     componentDidMount = () => {
@@ -38,16 +39,21 @@ export class Cart extends Component {
         // console.log("updating subtotal");
         let total = 0
         var indice = 0
+        var cantidadTotal = 0
         this.props.productos.forEach(element => {
             var cantidad = parseInt(this.props.profile.cart[indice].cantidad, 10)
+            cantidadTotal = cantidadTotal + cantidad
             var precioInt = parseInt(element.precio, 10)
             total = total + (precioInt * cantidad)
             indice = indice + 1
         })
+        // console.log("CANTIDAD TOTAL: ",cantidadTotal);
+
         if (total !== this.state.subtotal) {
             // console.log("no es igual, cambiando subtotal");
             this.setState({
-                subtotal: total
+                subtotal: total,
+                cantidad_total: cantidadTotal
             })
         } else {
             // console.log("es igual, no cambiando");
@@ -87,7 +93,6 @@ export class Cart extends Component {
         })
     }
     render() {
-        // console.log("PROPS: ", this.props);
         let index = 0
         if (!this.props.profile.cart || this.props.profile.cart.length === 0) {
             // console.log("NO HAY CARRITO!");
@@ -128,7 +133,7 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} />}
+                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total}/>}
                     <br />
                 </>
             )

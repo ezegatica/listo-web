@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import M from 'materialize-css'
 import swal from 'sweetalert'
+import {
+    db,
+    // fb
+} from '../../Config/fbConfig'
 let classMetodosDePago;
 export class Pedir extends Component {
     state = {
         metodo_de_pago: null,
-        dimissed: null
+        dimissed: null,
     }
     componentDidMount = () => {
         this.setState({
             dimissed: true
         })
-        // console.log("PROPS PEDIR: ", this.props);
+        
+
         var options
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, options);
@@ -30,8 +35,6 @@ export class Pedir extends Component {
         options4 = instances4
     }
     metodoDePagoChange = (e) => {
-        console.log("Metodo de pago:");
-        console.log(e.target.value);
         this.setState({
             metodo_de_pago: e.target.value
         })
@@ -40,6 +43,7 @@ export class Pedir extends Component {
         console.log(e);
     }
     pedir() {
+
         console.log(this.state.metodo_de_pago);
         if (this.state.metodo_de_pago) {
             console.log("pedido: ")
@@ -54,16 +58,7 @@ export class Pedir extends Component {
                 buttons: false,
                 closeOnEsc: false
             })
-            setTimeout(() => {
-                swal(
-                    "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
-                );
-            }, 2000);
-            setTimeout(() => {
-                swal(
-                    "Error", 'Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste ', "error"
-                );
-            }, 5000);
+            this.enviarPedidoDB()
         } else {
             if (this.state.dimissed) {
                 this.setState({ dimissed: false })
@@ -71,10 +66,41 @@ export class Pedir extends Component {
             }
         }
     }
+    enviarPedidoDB = () => {
+        let IdPedido
+        db.collection('pedidos').add({
+            usuario: this.props.auth,
+            restaurante: this.props.cart[0].restaurante,
+            precio: this.props.subtotal,
+            productos: this.props.cart,
+            data: this.props.data,
+            comentario: this.props.comentario,
+            metodo_de_pago: this.state.metodo_de_pago,
+            horario_de_entrega: null,
+            horario_de_pedido: new Date(),
+            cantidad_de_productos: this.props.cantidad_items,
+
+        }).then((resp) => {
+            IdPedido = resp.id
+            console.log(IdPedido);
+            swal(
+                "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
+            );
+            setTimeout(() => {
+                swal.close()
+            }, 10000);
+        }).catch((err) => {
+            swal(
+                "Error", `Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+            );
+        })
+    }
     dimissed = () => {
         this.setState({ dimissed: true })
     }
     render() {
+        // console.log("STATE: ", this.state);
+        // console.log("PROPS PEDIR: ", this.props);
         if (!this.state.dimissed && !this.state.metodo_de_pago) {
             classMetodosDePago = "rojo"
         } else {
@@ -82,7 +108,7 @@ export class Pedir extends Component {
         }
         let indice = 0;
         return (
-            <div>
+            <div className="pedir-screen">
                 <button data-target="modal1" className="btn modal-trigger">Ir a pagar!</button>
                 <div id="modal1" className="modal">
                     <form >
@@ -90,7 +116,9 @@ export class Pedir extends Component {
                             <h4><b>Resumen del pedido</b></h4>
                             <p><b>Comentarios para el restaurante</b>: <i>{this.props.comentario}</i></p>
                             <p style={{ margin: '0px' }}><b>Horario de entrega: </b> <span className="inline input-field" style={{ margin: '0px' }}><input type="text" className="timepicker" placeholder="Haz click para seleccionar tu horario de entrega" onChange={this.setHoraEntrega} /></span></p>
+                            <p><b>Restaurante: </b>{this.props.restaurante.nombre}</p>
                             <p><b>Cantidad de productos: </b>{this.props.cart.length} items</p>
+                            <p><b>Cantidad de items: </b>{this.props.cantidad_items}</p>
                             <p><b>Tus productos:</b></p>
                             <div>
                                 {this.props.cart.map(item => {
