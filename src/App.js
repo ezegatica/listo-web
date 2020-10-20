@@ -15,7 +15,7 @@ import RestaurantesLista from './Components/Restaurante/RestaurantesLista'
 import RestauranteDetalles from './Components/Restaurante/RestauranteDetalles'
 import RestauranteFiltro from './Components/Restaurante/RestauranteFiltro'
 import AliasRedirect from './Components/Restaurante/AliasRedirect'
-
+import PaginaPedidos from './Components/Pedidos/PaginaPedidos'
 // PRODUCTOS
 import ProductoDetalles from './Components/Productos/Detalles'
 import Agregar from './Components/Productos/Agregar'
@@ -49,6 +49,7 @@ function App() {
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/recovery" component={Recovery} />
         <Route exact path="/productos/nuevo" component={Agregar} />
+        <Route exact path="/pedidos" component={PaginaPedidos} />
         <Route exact path="/restaurante/:alias" component={AliasRedirect} />
         <Route exact path="/restaurantes" component={RestaurantesLista} />
         <Route exact path="/restaurantes/categoria/:filtro" component={RestauranteFiltro} />

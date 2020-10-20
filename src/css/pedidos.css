@@ -1,0 +1,15 @@
+.pedidos-wrapper a:hover{
+    text-decoration: underline;
+}
+.pedidos-col-1,.pedidos-col-2,.pedidos-col-3 {
+    border-right: solid;
+}
+.pedido-card{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 20px;
+    background-color: #eee;
+    margin-bottom: 10px;
+}

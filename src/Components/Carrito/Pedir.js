@@ -79,6 +79,7 @@ export class Pedir extends Component {
             horario_de_entrega: null,
             horario_de_pedido: new Date(),
             cantidad_de_productos: this.props.cantidad_items,
+            estado: 0
 
         }).then((resp) => {
             IdPedido = resp.id
