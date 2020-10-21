@@ -13,3 +13,19 @@
     background-color: #eee;
     margin-bottom: 10px;
 }
+.card-collapsible-pedido{
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.card-collapsible-pedido-footer{
+    margin-top: 20px;
+}
+.card-collapsible-pedido-footer p{
+    margin-top: 0;
+}
+.card-collapsible-pedido-comentario{
+    padding-bottom: 5px;
+}
+ul.collapsible li{
+
+}

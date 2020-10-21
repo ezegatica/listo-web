@@ -46,13 +46,6 @@ export class Pedir extends Component {
 
         console.log(this.state.metodo_de_pago);
         if (this.state.metodo_de_pago) {
-            console.log("pedido: ")
-            console.log("usuario: ", this.props.auth);
-            console.log("Restaurante: ", this.props.cart[0].restaurante);
-            console.log("Comida: ", this.props.cart);
-            console.log("Comentario: ", this.props.comentario);
-            console.log("Metodo de pago: ", this.state.metodo_de_pago);
-            console.log("Horario de entrega: ");
             swal(
                 "Enviando pedido", "Comunicandose con la base de datos...", {
                 buttons: false,
@@ -67,7 +60,10 @@ export class Pedir extends Component {
         }
     }
     enviarPedidoDB = () => {
-        let IdPedido
+        console.log("pedido: ")
+        console.log(this.props.auth, this.props.cart[0].restaurante,this.props.subtotal, this.props.cart,this.props.data, this.props.comentario,this.state.metodo_de_pago, this.props.cantidad_items,new Date()  );
+        // let IdPedido
+        const estado = 0;
         db.collection('pedidos').add({
             usuario: this.props.auth,
             restaurante: this.props.cart[0].restaurante,
@@ -76,14 +72,12 @@ export class Pedir extends Component {
             data: this.props.data,
             comentario: this.props.comentario,
             metodo_de_pago: this.state.metodo_de_pago,
-            horario_de_entrega: null,
             horario_de_pedido: new Date(),
             cantidad_de_productos: this.props.cantidad_items,
-            estado: 0
-
+            estado: estado,
         }).then((resp) => {
-            IdPedido = resp.id
-            console.log(IdPedido);
+            // IdPedido = resp.id
+            console.log(resp.id);
             swal(
                 "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
             );

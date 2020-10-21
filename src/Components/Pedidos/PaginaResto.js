@@ -31,28 +31,35 @@ export class PaginaResto extends Component {
 
 
     render() {
-        console.log("STATE: ", this.state);
+        // console.log("STATE: ", this.state);
         const { profile } = this.props
         return (
             <div className="row">
                 <h4 className="center">Pedidos de {profile.nombre}:
-                <button onClick={() => this.leerDB()} className="btn blue black-text">
+                <button onClick={() => this.leerDB()} className="btn btn-flat black-text waves-effect waves-light">
                         <i className="material-icons">refresh</i>
                     </button></h4>
 
                 <div className="col s12 l3 pedidos-col-1">
                     <b><p>pedidos por confirmar</p></b>
-                    {this.state.e0 && this.state.e0.map(p => {
-                        return (
-                            <RestoItem p={p} key={p.id} />
-                        )
-                    })}
+                    {/* <ul className="collapsible" > */}
+                        {this.state.e0 && this.state.e0.map(p => {
+                            return (
+                                <ul className="collapsible" key={p.id}>
+                                <RestoItem p={p} key={p.id} />
+                                </ul>
+                            )
+                        })}
+                        {/* </ul> */}
+                    
                 </div>
                 <div className="col s12 l3 pedidos-col-2">
                     <b><p>pedidos confirmados, a cocinarlos!</p></b>
                     {this.state.e1 && this.state.e1.map(p => {
                         return (
-                            <RestoItem p={p} key={p.id} />
+                            <ul className="collapsible" key={p.id}>
+                                <RestoItem p={p} />
+                            </ul>
                         )
                     })}
                 </div>
@@ -60,7 +67,9 @@ export class PaginaResto extends Component {
                     <b> <p>pedidos en preparacion!</p></b>
                     {this.state.e2 && this.state.e2.map(p => {
                         return (
-                            <RestoItem p={p} key={p.id} />
+                            <ul className="collapsible" key={p.id}>
+                                <RestoItem p={p} />
+                            </ul>
                         )
                     })}
                 </div>
@@ -68,7 +77,9 @@ export class PaginaResto extends Component {
                     <b> <p>pedidos listos para retirar!</p></b>
                     {this.state.e3 && this.state.e3.map(p => {
                         return (
-                            <RestoItem p={p} key={p.id} />
+                            <ul className="collapsible" key={p.id}>
+                                <RestoItem p={p} />
+                            </ul>
                         )
                     })}
                 </div>
