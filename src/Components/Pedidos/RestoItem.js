@@ -45,16 +45,16 @@ export class RestoItem extends Component {
         else {
             estadoNuevo = estadoActual - 1
         }
-        swal(id, `pasar a estado ${estadoNuevo}`);
-        // db.collection('pedidos').doc(id).update({
-        //     estado: estadoNuevo
-        // }).then(() => {
-        //     this.props.onChangeEstado(id, estadoNuevo);
-        // }).catch((err) => {
-        //     swal(
-        //         "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
-        //     );
-        // })
+        // swal(id, `pasar a estado ${estadoNuevo}`);
+        db.collection('pedidos').doc(id).update({
+            estado: estadoNuevo
+        }).then(() => {
+            this.props.onChangeEstado(id, estadoNuevo);
+        }).catch((err) => {
+            swal(
+                "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+            );
+        })
     }
     componentDidMount = () => {
         // console.log("PROPS: ", this.props);
