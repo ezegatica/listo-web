@@ -39,7 +39,7 @@ export class PaginaResto extends Component {
                         <i className="material-icons">refresh</i>
                     </button></h4>
 
-                <div className="col s12 l3 pedidos-col-1">
+                <div className="col s12 m6 xl3 pedidos-col-1">
                     <b><p>pedidos por confirmar</p></b>
                     {/* <ul className="collapsible" > */}
                         {this.state.e0 && this.state.e0.map(p => {
@@ -52,7 +52,7 @@ export class PaginaResto extends Component {
                         {/* </ul> */}
                     
                 </div>
-                <div className="col s12 l3 pedidos-col-2">
+                <div className="col s12 m6 xl3 pedidos-col-2">
                     <b><p>pedidos confirmados, a cocinarlos!</p></b>
                     {this.state.e1 && this.state.e1.map(p => {
                         return (
@@ -62,7 +62,7 @@ export class PaginaResto extends Component {
                         )
                     })}
                 </div>
-                <div className="col s12 l3 pedidos-col-3">
+                <div className="col s12 m6 xl3 pedidos-col-3">
                     <b> <p>pedidos en preparacion!</p></b>
                     {this.state.e2 && this.state.e2.map(p => {
                         return (
@@ -72,7 +72,7 @@ export class PaginaResto extends Component {
                         )
                     })}
                 </div>
-                <div className="col s12 l3 pedidos-col-4">
+                <div className="col s12 m6 xl3 pedidos-col-4">
                     <b> <p>pedidos listos para retirar!</p></b>
                     {this.state.e3 && this.state.e3.map(p => {
                         return (

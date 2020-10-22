@@ -1,40 +1,57 @@
 /* PEDIDOS EN EL PERFIL */
+
 /* .lista-pedidos-completa p{
     color: #039be5;
 } */
-.pedidos-wrapper a:hover{
+
+.pedidos-wrapper a:hover {
     text-decoration: underline;
 }
-.icon-pedidos{
+
+.icon-pedidos {
     padding: 0!important;
     margin: 0!important;
-    
 }
+
 .icon-align {
     vertical-align: text-bottom;
     margin-left: auto!important;
     margin-right: auto!important;
- }
-.icon-pedidos i{
+}
+
+.icon-pedidos i {
     padding: 0!important;
     margin: 0!important;
 }
-.pedidos-wrapper a{
-    color: black; 
+
+.pedidos-wrapper a {
+    color: black;
 }
-.pedidos-col-1,.pedidos-col-2,.pedidos-col-3 {
-    border-right: solid;
+@media only screen and (min-width: 601px){
+    .pedidos-col-1, .pedidos-col-2, .pedidos-col-3 {
+        border-right: solid;
+    }
 }
-.boton-mover-estado{
+
+
+@media only screen and  (max-width: 1201px) {
+    .pedidos-col-1, .pedidos-col-2 {
+        border-bottom: solid;
+    }
+}
+.boton-mover-estado {
     margin-left: auto;
 }
-.boton-mover-estado-r .btn:hover{
+
+.boton-mover-estado-r .btn:hover {
     background-color: #eee;
 }
-.boton-mover-estado .btn:hover{
+
+.boton-mover-estado .btn:hover {
     background-color: #eee;
 }
-.pedido-card{
+
+.pedido-card {
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 10px;
@@ -43,21 +60,68 @@
     background-color: #eee;
     margin-bottom: 10px;
 }
-.card-collapsible-pedido{
+
+.card-collapsible-pedido {
     padding-bottom: 0;
     padding-top: 0;
 }
-.card-collapsible-pedido-footer{
+
+.card-collapsible-pedido-footer {
     margin-top: 20px;
 }
-.card-collapsible-pedido-footer p{
+
+.card-collapsible-pedido-footer p {
     margin-top: 0;
 }
-.card-collapsible-pedido-comentario{
+
+.card-collapsible-pedido-comentario {
     padding-bottom: 5px;
 }
 
- 
 /* ul.collapsible li{
 
 } */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 240px;
+    background-color:#323232;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    line-height: 2;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+/* .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:#323232 transparent transparent transparent;
+} */
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.boton-mover-estado .tooltiptext{
+    margin-left: -120px!important;
+
+}
