@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { db } from '../../Config/fbConfig'
 // import M from 'materialize-css'
 import PedidoItem from './PedidoItem'
+import { Link, } from 'react-router-dom'
 export class ListaPedidos extends Component {
     state = {
         por_confirmar: null
@@ -10,7 +11,7 @@ export class ListaPedidos extends Component {
         this.leerDB();
     }
     leerDB = () => {
-        this.setState({por_confirmar: null})
+        this.setState({ por_confirmar: null })
         console.log("LEYENDO DB!");
         // AGARRAR TOODS LOS PEDIDOS NO TERMINADOS (PENDIENTES) 
         db.collection('pedidos').where('restaurante', '==', this.props.uid).where('estado', '==', 0).orderBy('horario_de_pedido', 'desc').get()
@@ -29,17 +30,24 @@ export class ListaPedidos extends Component {
         let indice = 0
         return (
             <>
-                <button onClick={() => this.leerDB()} className="btn blue black-text">
+                <button onClick={() => this.leerDB()} className="btn blue white-text">
                     <i className="material-icons">refresh</i>
                 </button>
                 <h5><b>PEDIDOS POR CONFIRMAR:</b></h5>
                 {this.state.por_confirmar && this.state.por_confirmar.map(pedido => {
                     indice = indice + 1
-                        return (
-                            <PedidoItem pedido={this.state.por_confirmar[indice - 1]} key={pedido.id} />
-                        )
+                    return (
+                        <PedidoItem pedido={this.state.por_confirmar[indice - 1]} key={pedido.id} />
+                    )
                 })}
-                {!this.state.por_confirmar && <div>cargando...</div>}
+                {!this.state.por_confirmar && <div>Cargando...</div>}
+                <div className="center">
+                <Link to="/pedidos" className="btn btn-small blue white-text">
+                        Ver lista completa!
+                    </Link>
+
+                </div>
+                   
 
             </>
         )

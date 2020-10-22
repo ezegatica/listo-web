@@ -15,7 +15,10 @@ import RestaurantesLista from './Components/Restaurante/RestaurantesLista'
 import RestauranteDetalles from './Components/Restaurante/RestauranteDetalles'
 import RestauranteFiltro from './Components/Restaurante/RestauranteFiltro'
 import AliasRedirect from './Components/Restaurante/AliasRedirect'
-import PaginaPedidos from './Components/Pedidos/PaginaPedidos'
+
+// PEDIDOS
+import PaginaPedidos from './Components/Pedidos/PedidosWrapper'
+
 // PRODUCTOS
 import ProductoDetalles from './Components/Productos/Detalles'
 import Agregar from './Components/Productos/Agregar'

@@ -18,10 +18,10 @@ export class PedidoItem extends Component {
             case 3:
                 estado = 'Listo para retirar'
                 break;
-            case 9:
-                estado = 'Entregado, esperando confirmacion de restaurante/usuario'
+            case 4:
+                estado = 'Entregado, esperando confirmacion de usuario'
                 break;
-            case 10:
+            case 5:
                 estado = 'Entregado.'
                 break;
             default:

@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import M from 'materialize-css'
 import moment from 'moment'
 import 'moment/locale/es'
+import swal from 'sweetalert'
+import { db } from '../../Config/fbConfig'
 export class RestoItem extends Component {
-    state={
+    state = {
         collapsed: false
     }
     metodo_de_pago = (m) => {
@@ -18,7 +20,7 @@ export class RestoItem extends Component {
         }
         return mdp
     }
-    changeIcon = ()=>{
+    changeIcon = () => {
         switch (this.state.collapsed) {
             case true:
                 this.setState({
@@ -31,26 +33,66 @@ export class RestoItem extends Component {
                 })
                 break;
             default:
+                swal("error")
                 break;
-        }    
+        }
+    }
+    cambiarEstado = (id, estadoActual) => {
+        const estadoNuevo = estadoActual + 1
+        // swal(id, `pasar a estado ${estadoNuevo}`);
+        db.collection('pedidos').doc(id).update({
+            estado: estadoNuevo
+        }).then(() => {
+            this.props.onChangeEstado(id, estadoNuevo);
+        }).catch((err) => {
+            swal(
+                "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+            );
+        })
     }
     componentDidMount = () => {
-        console.log("PROPS: ", this.props);
+        // console.log("PROPS: ", this.props);
         var options
         var elems = document.querySelectorAll('.collapsible');
         var instances = M.Collapsible.init(elems, options);
+        var options2
+        var elems2 = document.querySelectorAll('.tooltipped');
+        var instances2 = M.Tooltip.init(elems2, options2);
+        options2 = instances2
         options = instances;
     }
     render() {
+        const id = this.props.p.id
+        const estado = this.props.p.info.estado
         const icono = this.state.collapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+        // const icono = this.state.collapsed ? null : null
+        const volverEstado = this.props.p.info.estado > 0 ? true : false
         let i = 0;
         const { p } = this.props
         const metodo_de_pago = this.metodo_de_pago(p.info.metodo_de_pago)
         const tiempo = moment(p.info.horario_de_pedido.toDate()).locale('es').calendar()
-        if (p.info.estado === 0 || p.info.estado === 3){
+
+        const Header = () => {
+            return (
+                <div className="collapsible-header" onClick={() => this.changeIcon()}>
+                    {volverEstado && <span className="boton-mover-estado-r left">
+                        <button onClick={() => swal("hola")} className="btn btn-flat black-text icon-pedidos tooltipped left" data-position="top" data-tooltip="Mover pedido al estado anterior"><i className="material-icons left">arrow_back</i></button>
+                    </span>}
+                    <div className="pedidos-header" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+                        <span className="center" >Pedido {p.id}</span><br/>
+                        <i className="material-icons icon-pedidos icon-align">{icono}</i>
+                    </div>
+                    <span className="boton-mover-estado">
+                        <button onClick={() => this.cambiarEstado(id, estado)} className="btn btn-flat black-text icon-pedidos tooltipped" data-position="top" data-tooltip="Mover pedido al siguiente estado"><i className="material-icons right ">arrow_forward</i></button>
+                    </span>
+                </div>
+            )
+        }
+
+        if (p.info.estado === 0 || p.info.estado === 3) {
             return (
                 <li>
-                    <div className="collapsible-header"  onClick={()=>this.changeIcon()}><i className="material-icons">{icono}</i>Pedido {p.id}</div>
+                    <Header />
                     <div className="collapsible-body card-collapsible-pedido" ><span>
                         <div className="card-collapsible-pedido-comentario">
                             <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
@@ -67,16 +109,15 @@ export class RestoItem extends Component {
                         <div className="card-collapsible-pedido-footer">
                             <hr />
                             <p><b>Precio: </b>${p.info.precio}</p>
-                            {/* <p><b>Pedido a las:</b> {moment (p.info.horario_de_pedido.toDate()).format('LT')}</p> */}
                             <p><b>Pedido a las:</b> {tiempo}</p>
                         </div>
                     </span></div>
                 </li>
             )
-        }else{
-            return(
+        } else {
+            return (
                 <li>
-                    <div className="collapsible-header"  onClick={()=>this.changeIcon()}><i className="material-icons">{icono}</i>Pedido {p.id}</div>
+                    <Header />
                     <div className="collapsible-body card-collapsible-pedido" ><span>
                         <div className="card-collapsible-pedido-comentario">
                             <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
@@ -93,7 +134,7 @@ export class RestoItem extends Component {
                 </li>
             )
         }
-        
+
     }
 }
 

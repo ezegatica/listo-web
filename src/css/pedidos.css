@@ -1,8 +1,38 @@
+/* PEDIDOS EN EL PERFIL */
+/* .lista-pedidos-completa p{
+    color: #039be5;
+} */
 .pedidos-wrapper a:hover{
     text-decoration: underline;
 }
+.icon-pedidos{
+    padding: 0!important;
+    margin: 0!important;
+    
+}
+.icon-align {
+    vertical-align: text-bottom;
+    margin-left: auto!important;
+    margin-right: auto!important;
+ }
+.icon-pedidos i{
+    padding: 0!important;
+    margin: 0!important;
+}
+.pedidos-wrapper a{
+    color: black; 
+}
 .pedidos-col-1,.pedidos-col-2,.pedidos-col-3 {
     border-right: solid;
+}
+.boton-mover-estado{
+    margin-left: auto;
+}
+.boton-mover-estado-r .btn:hover{
+    background-color: #eee;
+}
+.boton-mover-estado .btn:hover{
+    background-color: #eee;
 }
 .pedido-card{
     padding-left: 20px;
@@ -26,6 +56,8 @@
 .card-collapsible-pedido-comentario{
     padding-bottom: 5px;
 }
-ul.collapsible li{
 
-}
+ 
+/* ul.collapsible li{
+
+} */

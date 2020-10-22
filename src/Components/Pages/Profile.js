@@ -34,7 +34,7 @@ const Profile = (props) => {
                 : null
             AvisoAlias = props.profile.alias === undefined && props.profile.isResto ? <div><span className="categorias"><span className="categorias">No tienes una url personalizada seleccionada<br /> Haz click <blue>en este texto</blue> y navega hasta "Alias" y escribe una para seguir.</span></span></div> 
                 : null
-            visorCategorias = props.profile.isResto && !AvisoCategorias ? <div> <span className="titulo">Categorias: </span><span className="categorias">{props.profile.cat && props.profile.cat}{props.profile.cat2 && " y " + props.profile.cat2}</span></div> : null
+            visorCategorias = props.profile.isResto && !AvisoCategorias ? <div> <span className="titulo">Categorias: </span><span className="categorias nombre-filtro-lista">{props.profile.cat && props.profile.cat}{props.profile.cat2 && " y " + props.profile.cat2}</span></div> : null
 
             return (
                 <div className="container nav-center">
