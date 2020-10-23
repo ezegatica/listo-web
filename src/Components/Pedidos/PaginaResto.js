@@ -42,22 +42,22 @@ export class PaginaResto extends Component {
                 <div className="col s12 m6 xl3 pedidos-col-1">
                     <b><p>pedidos por confirmar</p></b>
                     {/* <ul className="collapsible" > */}
-                        {this.state.e0 && this.state.e0.map(p => {
-                            return (
-                                <ul className="collapsible" key={p.id}>
+                    {this.state.e0 && this.state.e0.map(p => {
+                        return (
+                            <ul className="collapsible" key={p.id}>
                                 <RestoItem p={p} key={p.id} onChangeEstado={this.leerDB}/>
-                                </ul>
-                            )
-                        })}
-                        {/* </ul> */}
-                    
+                            </ul>
+                        )
+                    })}
+                    {/* </ul> */}
+
                 </div>
                 <div className="col s12 m6 xl3 pedidos-col-2">
                     <b><p>pedidos confirmados, a cocinarlos!</p></b>
                     {this.state.e1 && this.state.e1.map(p => {
                         return (
                             <ul className="collapsible" key={p.id}>
-                                <RestoItem p={p} onChangeEstado={this.leerDB}/>
+                                <RestoItem p={p} onChangeEstado={this.leerDB} />
                             </ul>
                         )
                     })}
@@ -67,7 +67,7 @@ export class PaginaResto extends Component {
                     {this.state.e2 && this.state.e2.map(p => {
                         return (
                             <ul className="collapsible" key={p.id}>
-                                <RestoItem p={p} onChangeEstado={this.leerDB}/>
+                                <RestoItem p={p} onChangeEstado={this.leerDB} />
                             </ul>
                         )
                     })}
@@ -77,7 +77,7 @@ export class PaginaResto extends Component {
                     {this.state.e3 && this.state.e3.map(p => {
                         return (
                             <ul className="collapsible" key={p.id}>
-                                <RestoItem p={p} onChangeEstado={this.leerDB}/>
+                                <RestoItem p={p} onChangeEstado={this.leerDB} />
                             </ul>
                         )
                     })}

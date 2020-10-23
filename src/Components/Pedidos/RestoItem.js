@@ -6,7 +6,8 @@ import swal from 'sweetalert'
 import { db } from '../../Config/fbConfig'
 export class RestoItem extends Component {
     state = {
-        collapsed: false
+        collapsed: false,
+        mostrarBody: true
     }
     metodo_de_pago = (m) => {
         let mdp = ''
@@ -38,6 +39,7 @@ export class RestoItem extends Component {
         }
     }
     cambiarEstado = (id, estadoActual, accion) => {
+        this.setState({mostrarBody: false})
         let estadoNuevo
         if (accion) {
             estadoNuevo = estadoActual + 1
@@ -45,11 +47,35 @@ export class RestoItem extends Component {
         else {
             estadoNuevo = estadoActual - 1
         }
+        if (estadoNuevo === 1 && accion) {
+            swal("Atencion!", "Una vez que confirmes el pedido, no se va a poder volver atrás", "warning", {
+                buttons: {
+                    cancel: "Cancelar",
+                    confirm: true,
+                },
+                dangerMode: true,
+            })
+                .then((value) => {
+                    switch (value) {
+                        case true:
+                            swal.close()
+                            this.sendDB(id, estadoNuevo)
+                            break;
+                        default:
+                            swal.close()
+                    }
+                });
+        } else {
+            this.sendDB(id, estadoNuevo)
+        }
+    }
+    sendDB = (id, estadoNuevo) => {
         // swal(id, `pasar a estado ${estadoNuevo}`);
         db.collection('pedidos').doc(id).update({
             estado: estadoNuevo
         }).then(() => {
-            this.props.onChangeEstado(id, estadoNuevo);
+            this.setState({mostrarBody: true})
+            this.props.onChangeEstado();
         }).catch((err) => {
             swal(
                 "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
@@ -67,11 +93,6 @@ export class RestoItem extends Component {
         var instances2 = M.Tooltip.init(elems2, options2);
         options2 = instances2
     }
-    // componentDidUpdate=()=>{
-    //     if (this.state.collapsed){
-    //         console.log("a");
-    //     }
-    // }
     fixTooltip() {
 
     }
@@ -80,7 +101,7 @@ export class RestoItem extends Component {
         const estado = this.props.p.info.estado
         // const icono = this.state.collapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
         // const icono = this.state.collapsed ? null : null
-        const volverEstado = this.props.p.info.estado > 0 ? true : false
+        const volverEstado = this.props.p.info.estado > 1 ? true : false
         let i = 0;
         const { p } = this.props
         const metodo_de_pago = this.metodo_de_pago(p.info.metodo_de_pago)
@@ -101,7 +122,7 @@ export class RestoItem extends Component {
                     </div>
                     <span className="boton-mover-estado">
                         <button onClick={() => this.cambiarEstado(id, estado, true)} className="btn btn-flat black-text icon-pedidos tooltip">
-                        <span className="tooltiptext">Mover pedido al siguiente estado</span>
+                            <span className="tooltiptext">Mover pedido al siguiente estado</span>
                             <i className="material-icons right ">arrow_forward</i>
                         </button>
                     </span>
@@ -139,25 +160,29 @@ export class RestoItem extends Component {
                 <li>
                     <Header />
                     {/* <Header2 /> */}
-                    <div className="collapsible-body card-collapsible-pedido" ><span>
-                        <div className="card-collapsible-pedido-comentario">
-                            <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
-                            <p><b>Metodo de pago: </b>{metodo_de_pago}</p>
-                        </div>
-                        {p.info.productos.map(item => {
-                            i = i + 1
-                            return (
-                                <div key={item.producto}>
-                                    <p>{item.cantidad}x - {p.info.data[i - 1].titulo}</p>
+                    {this.state.mostrarBody &&
+                        <div className="collapsible-body card-collapsible-pedido" >
+                            <span>
+                                <div className="card-collapsible-pedido-comentario">
+                                    <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
+                                    <p><b>Metodo de pago: </b>{metodo_de_pago}</p>
                                 </div>
-                            )
-                        })}
-                        <div className="card-collapsible-pedido-footer">
-                            <hr />
-                            <p><b>Precio: </b>${p.info.precio}</p>
-                            <p><b>Pedido a las:</b> {tiempo}</p>
-                        </div>
-                    </span></div>
+                                {p.info.productos.map(item => {
+                                    i = i + 1
+                                    return (
+                                        <div key={item.producto}>
+                                            <p>{item.cantidad}x - {p.info.data[i - 1].titulo}</p>
+                                        </div>
+                                    )
+                                })}
+                                <div className="card-collapsible-pedido-footer">
+                                    <hr />
+                                    <p><b>Precio: </b>${p.info.precio}</p>
+                                    <p><b>Pedido a las:</b> {tiempo}</p>
+                                </div>
+                            </span>
+                        </div>}
+
                 </li>
             )
         } else {
@@ -165,19 +190,21 @@ export class RestoItem extends Component {
                 <li>
                     <Header />
                     {/* <Header2 /> */}
-                    <div className="collapsible-body card-collapsible-pedido" ><span>
-                        <div className="card-collapsible-pedido-comentario">
-                            <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
-                        </div>
-                        {p.info.productos.map(item => {
-                            i = i + 1
-                            return (
-                                <div key={item.producto}>
-                                    <p>{item.cantidad}x - {p.info.data[i - 1].titulo}</p>
-                                </div>
-                            )
-                        })}
-                    </span></div>
+                    {this.state.mostrarBody &&
+                        <div className="collapsible-body card-collapsible-pedido" ><span>
+                            <div className="card-collapsible-pedido-comentario">
+                                <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
+                            </div>
+                            {p.info.productos.map(item => {
+                                i = i + 1
+                                return (
+                                    <div key={item.producto}>
+                                        <p>{item.cantidad}x - {p.info.data[i - 1].titulo}</p>
+                                    </div>
+                                )
+                            })}
+                        </span></div>
+                    }
                 </li>
             )
         }
