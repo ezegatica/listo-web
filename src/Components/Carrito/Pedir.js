@@ -12,6 +12,7 @@ export class Pedir extends Component {
         dimissed: null,
     }
     componentDidMount = () => {
+        console.log("PROPS:" ,this.props);
         this.setState({
             dimissed: true
         })
@@ -66,6 +67,7 @@ export class Pedir extends Component {
         const estado = 0;
         db.collection('pedidos').add({
             usuario: this.props.auth,
+            nombre: this.props.name,
             restaurante: this.props.cart[0].restaurante,
             precio: this.props.subtotal,
             productos: this.props.cart,
@@ -109,6 +111,7 @@ export class Pedir extends Component {
                     <form >
                         <div className="modal-content">
                             <h4><b>Resumen del pedido</b></h4>
+                            <p><b>Nombre a retirar: </b>{this.props.name}</p>
                             <p><b>Comentarios para el restaurante</b>: <i>{this.props.comentario}</i></p>
                             <p style={{ margin: '0px' }}><b>Horario de entrega: </b> <span className="inline input-field" style={{ margin: '0px' }}><input type="text" className="timepicker" placeholder="Haz click para seleccionar tu horario de entrega" onChange={this.setHoraEntrega} /></span></p>
                             <p><b>Restaurante: </b>{this.props.restaurante.nombre}</p>

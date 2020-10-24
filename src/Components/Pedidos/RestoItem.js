@@ -154,7 +154,6 @@ export class RestoItem extends Component {
         //         </div>
         //     )
         // }
-
         if (p.info.estado === 0 || p.info.estado === 3) {
             return (
                 <li>
@@ -164,7 +163,8 @@ export class RestoItem extends Component {
                         <div className="collapsible-body card-collapsible-pedido" >
                             <span>
                                 <div className="card-collapsible-pedido-comentario">
-                                    <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
+                                    {p.info.estado !== 3 && <p><b>Comentario: </b><i>{p.info.comentario}</i></p>}
+                                    {p.info.estado === 3 && <p><b>A nombre de: </b>{p.info.nombre}</p>}
                                     <p><b>Metodo de pago: </b>{metodo_de_pago}</p>
                                 </div>
                                 {p.info.productos.map(item => {
@@ -193,7 +193,7 @@ export class RestoItem extends Component {
                     {this.state.mostrarBody &&
                         <div className="collapsible-body card-collapsible-pedido" ><span>
                             <div className="card-collapsible-pedido-comentario">
-                                <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
+                            <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
                             </div>
                             {p.info.productos.map(item => {
                                 i = i + 1

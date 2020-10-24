@@ -23,6 +23,7 @@ export class Cart extends Component {
         this.updateSubtotal()
     }
     componentDidUpdate = () => {
+        console.log("PROPS CART ", this.props);
         // console.log("RESTAURANTE: ", "a");
         // console.log("HACER: ",hacer);
         if (this.props.prevent) {
@@ -103,6 +104,8 @@ export class Cart extends Component {
                 </div>
             )
         } else {
+            const apellido = this.props.profile.apellido ? this.props.profile.apellido : ''
+            const nombreYapellido = this.props.profile.nombre + " " + apellido
             return (
                 <   >
                     <h3 className="center">Carrito!   <span><i onClick={() => this.borrarCarrito()} className="material-icons delete">delete_forever</i></span></h3>
@@ -114,7 +117,7 @@ export class Cart extends Component {
                         index = index + 1;
                         return (
                             <div className="cart-item" key={item.restaurante + ":" + item.producto}>
-                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1} uid={this.props.auth.currentUser.uid} />
+                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1} uid={this.props.auth.currentUser.uid}/>
                             </div>
                         )
                     })}
@@ -133,7 +136,7 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total}/>}
+                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total} name={nombreYapellido}/>}
                     <br />
                 </>
             )
