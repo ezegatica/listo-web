@@ -62,6 +62,7 @@ export class RestoItem extends Component {
                             this.sendDB(id, estadoNuevo)
                             break;
                         default:
+                            this.setState({mostrarBody: true})
                             swal.close()
                     }
                 });
