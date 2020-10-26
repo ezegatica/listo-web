@@ -16,11 +16,10 @@ export class PaginaResto extends Component {
         this.leerDB()
         var el = document.querySelectorAll('.tabs');
         M.Tabs.init(el, {
-            // swipeable: true 
+
         });
     }
     leerDB = () => {
-        // console.log("LEER DB! (PAGINARESTO.JS)");
         db.collection('pedidos').where('restaurante', '==', this.props.auth.uid).orderBy('horario_de_pedido', 'desc').get()
             .then((resp) => {
                 let TotalRecaudado = 0;
@@ -28,7 +27,7 @@ export class PaginaResto extends Component {
                 resp.forEach(doc => {
                     const info = doc.data()
                     const precio = parseInt(info.precio, 10)
-                    if (info.estado === 5) {
+                    if (info.estado === 4) {
                         TotalRecaudado = TotalRecaudado + precio
                     }
                     const id = doc.id;
@@ -41,7 +40,7 @@ export class PaginaResto extends Component {
                     e2: Pedidos.filter(pedido => pedido.info.estado === 2),
                     e3: Pedidos.filter(pedido => pedido.info.estado === 3),
                     e4: Pedidos.filter(pedido => pedido.info.estado === 4),
-                    e5: Pedidos.filter(pedido => pedido.info.estado === 5),
+                    // e5: Pedidos.filter(pedido => pedido.info.estado === 3),
                     TotalRecaudado: TotalRecaudado,
                 })
             }).catch(error => console.log(error))
@@ -56,14 +55,14 @@ export class PaginaResto extends Component {
                         <i className="material-icons">refresh</i>
                     </button></h4>
 
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab col s3"><a href="#activos">Activos</a></li>
-                            <li class="tab col s3"><a href="#test2">Completos</a></li>
+                <div className="row">
+                    <div className="col s12">
+                        <ul className="tabs">
+                            <li className="tab col s3"><a href="#activos">Activos</a></li>
+                            <li className="tab col s3"><a href="#pasados">Completos</a></li>
                         </ul>
                     </div>
-                    <div id="activos" class="col s12">
+                    <div id="activos" className="col s12">
                         <div className="row pedidos-pendientes">
 
                             <div className="col s12 m6 xl4 pedidos-col-1">
@@ -101,7 +100,7 @@ export class PaginaResto extends Component {
 
                         </div>
                     </div>
-                    <div id="test2" class="col s12">
+                    <div id="pasados" className="col s12">
                         <div className="row pedidos-completados">
 
                             <div className="col s12 m6 xl4">
@@ -114,20 +113,8 @@ export class PaginaResto extends Component {
                                     )
                                 })}
                             </div>
-
-                            <div className="col s12 m6 xl4">
-                                <b><p>Pedidos entregados, esperando confirmacion del usuario</p></b>
-                                {this.state.e4 && this.state.e4.map(p => {
-                                    return (
-                                        <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={this.leerDB} />
-                                        </ul>
-                                    )
-                                })}
-                            </div>
-
-                            <div className="col s12 m6 xl4">
-                                <p><b>Pedidos entregados: </b>{this.state.e5 && this.state.e5.length.toString()}</p>
+                            <div className="col s12 m6 xl4 offset-xl4">
+                                <p><b>Pedidos entregados: </b>{this.state.e4 && this.state.e4.length.toString()}</p>
                                 <p><b>Dinero recaudado: </b>${this.state.TotalRecaudado}</p>
                                 {/* {this.state.e5 && this.state.e5.map(p => {
                             return (
@@ -138,7 +125,7 @@ export class PaginaResto extends Component {
                         })} */}
 
                             </div>
-                            
+
                         </div>
                     </div>
 

@@ -4,22 +4,11 @@ import moment from 'moment'
 import 'moment/locale/es'
 import swal from 'sweetalert'
 import { db } from '../../Config/fbConfig'
+import CollapsibleBody from './CollapsibleBody'
 export class RestoItem extends Component {
     state = {
         collapsed: false,
         mostrarBody: true
-    }
-    metodo_de_pago = (m) => {
-        let mdp = ''
-        switch (m) {
-            case '01':
-                mdp = 'Efectivo'
-                break;
-            default:
-                mdp = 'Error'
-                break;
-        }
-        return mdp
     }
     changeIcon = () => {
         switch (this.state.collapsed) {
@@ -67,16 +56,50 @@ export class RestoItem extends Component {
                     }
                 });
         } else {
-            this.sendDB(id, estadoNuevo)
+            if (estadoNuevo === 4 && accion){
+                swal("Atencion!", 'Una vez que marques el pedido como "entregado" no vas a poder volver atras ', "warning", {
+                    buttons: {
+                        cancel: "Cancelar",
+                        confirm: true,
+                    },
+                    dangerMode: true,
+                })
+                    .then((value) => {
+                        switch (value) {
+                            case true:
+                                swal.close()
+                                this.sendDB(id, estadoNuevo)
+                                break;
+                            default:
+                                this.setState({ mostrarBody: true })
+                                swal.close()
+                        }
+                    });
+            }else{
+                this.sendDB(id, estadoNuevo)
+            }
         }
     }
     sendDB = (id, estadoNuevo) => {
+        let Entregado = false;
+        if (estadoNuevo === 4){
+            Entregado = true;
+        }
         // swal(id, `pasar a estado ${estadoNuevo}`);
         db.collection('pedidos').doc(id).update({
             estado: estadoNuevo
         }).then(() => {
             this.setState({ mostrarBody: true })
             this.props.onChangeEstado();
+            if (Entregado){
+                swal({
+                    title: "Entregaste el pedido!",
+                    text: " ",
+                    icon: "success",
+                    button: null,
+                    timer: 5000
+                  });
+            }
         }).catch((err) => {
             swal(
                 "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
@@ -94,17 +117,14 @@ export class RestoItem extends Component {
     render() {
         const id = this.props.p.id
         const estado = this.props.p.info.estado
-        // const icono = this.state.collapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
-        // const icono = this.state.collapsed ? null : null
         const volverEstado = this.props.p.info.estado > 1 ? true : false
-        const seguirEstado = this.props.p.info.estado < 4 ? true : false
+        const seguirEstado = this.props.p.info.estado < 3 ? true : false
+        const completarPedido = this.props.p.info.estado === 3 ? true : false
         let i = 0;
         const { p } = this.props
-        const metodo_de_pago = this.metodo_de_pago(p.info.metodo_de_pago)
         const tiempo = moment(p.info.horario_de_pedido.toDate()).locale('es').calendar()
-
-        const Header = () => {
-            return (
+        return (
+            <li>
                 <div className="collapsible-header" onClick={() => { this.changeIcon(); this.fixTooltip() }}>
                     {volverEstado && <span className="boton-mover-estado-r left">
                         <button onClick={() => this.cambiarEstado(id, estado, false)} className="btn btn-flat black-text icon-pedidos left tooltip">
@@ -123,65 +143,19 @@ export class RestoItem extends Component {
                         </button>
                     </span>
                     }
+                    {completarPedido && <span className="boton-mover-estado ">
+                        <button onClick={() => this.cambiarEstado(id, estado, true)} className="btn btn-flat black-text icon-pedidos tooltip btn-terminar-pedido">
+                            <span className="tooltiptext">Marcar pedido como entregado</span>
+                            <i className="material-icons right green-text">done</i>
+                        </button>
+                    </span>
+                    }
 
                 </div>
-            )
-        }
-        if (p.info.estado === 0 || p.info.estado === 3) {
-            return (
-                <li>
-                    <Header />
-                    {/* <Header2 /> */}
-                    {this.state.mostrarBody &&
-                        <div className="collapsible-body card-collapsible-pedido" >
-                            <span>
-                                <div className="card-collapsible-pedido-comentario">
-                                    {p.info.estado !== 3 && <p><b>Comentario: </b><i>{p.info.comentario}</i></p>}
-                                    {p.info.estado === 3 && <p><b>A nombre de: </b>{p.info.nombre}</p>}
-                                    <p><b>Metodo de pago: </b>{metodo_de_pago}</p>
-                                </div>
-                                {p.info.productos.map(item => {
-                                    i = i + 1
-                                    return (
-                                        <div key={item.producto}>
-                                            <p>{item.cantidad}x - {p.info.data[i - 1].titulo}</p>
-                                        </div>
-                                    )
-                                })}
-                                <div className="card-collapsible-pedido-footer">
-                                    <hr />
-                                    <p><b>Precio: </b>${p.info.precio}</p>
-                                    <p><b>Pedido a las:</b> {tiempo}</p>
-                                </div>
-                            </span>
-                        </div>}
-
-                </li>
-            )
-        } else {
-            return (
-                <li>
-                    <Header />
-                    {/* <Header2 /> */}
-                    {this.state.mostrarBody &&
-                        <div className="collapsible-body card-collapsible-pedido" ><span>
-                            <div className="card-collapsible-pedido-comentario">
-                                <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
-                            </div>
-                            {p.info.productos.map(item => {
-                                i = i + 1
-                                return (
-                                    <div key={item.producto}>
-                                        <p>{item.cantidad}x - {p.info.data[i - 1].titulo}</p>
-                                    </div>
-                                )
-                            })}
-                        </span></div>
-                    }
-                </li>
-            )
-        }
-
+                {this.state.mostrarBody &&
+                    <CollapsibleBody estado={p.info.estado} p={p} tiempo={tiempo} />}
+            </li>
+        )
     }
 }
 

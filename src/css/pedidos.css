@@ -10,7 +10,9 @@
 .pedidos-container{
     margin: 0px 8vw;
 }
-
+.btn-terminar-pedido .tooltiptext{
+    background-color: #5e8233!important;
+}
 .pedidos-header span{
 vertical-align: middle;
 }

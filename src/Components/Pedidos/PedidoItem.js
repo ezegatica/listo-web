@@ -18,9 +18,9 @@ export class PedidoItem extends Component {
             case 3:
                 estado = 'Listo para retirar'
                 break;
-            case 4:
-                estado = 'Entregado, esperando confirmacion de usuario'
-                break;
+            // case 4:
+            //     estado = 'Entregado, esperando confirmacion de usuario'
+            //     break;
             case 5:
                 estado = 'Entregado.'
                 break;
@@ -32,16 +32,13 @@ export class PedidoItem extends Component {
     }
 
     render() {
-        console.log("PGITE, ", this.state.info.pedido.id);
         const { pedido } = this.state.info
         const s = pedido.info.estado
         let estado = this.estado(s)
-        // console.log("STATE: ", this.state);
         return (
             <>
                 <p>Pedido de {pedido.info.cantidad_de_productos} productos por un valor de ${pedido.info.precio}</p>
                 <p><b>Estado: </b>{estado}</p>
-                {/* <p>id: {this.state.info.pedido.id}</p> */}
                 <hr />
             </>
         )
