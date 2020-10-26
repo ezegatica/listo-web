@@ -7,7 +7,13 @@
 .pedidos-wrapper a:hover {
     text-decoration: underline;
 }
+.pedidos-container{
+    margin: 0px 8vw;
+}
 
+.pedidos-header span{
+vertical-align: middle;
+}
 .icon-pedidos {
     padding: 0!important;
     margin: 0!important;
@@ -28,16 +34,19 @@
     color: black;
 }
 @media only screen and (min-width: 601px){
-    .pedidos-col-1, .pedidos-col-2, .pedidos-col-3 {
+    .pedidos-col-1, .pedidos-col-2 {
         border-right: solid;
     }
 }
 
 
 @media only screen and  (max-width: 1201px) {
-    .pedidos-col-1, .pedidos-col-2 {
+    .pedidos-col-1, .pedidos-col-2, .pedidos-col-3, .pedidos-col-4 {
         border-bottom: solid;
     }
+}
+.pedidos-col-4 {
+    padding-right: 0px!important;
 }
 .boton-mover-estado {
     margin-left: auto;

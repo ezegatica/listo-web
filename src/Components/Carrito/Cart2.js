@@ -99,8 +99,9 @@ export class Cart extends Component {
             // console.log("NO HAY CARRITO!");
             return (
                 <div className="center container">
-                    <h4><b>Carrito vacio!</b></h4>
+                    <h4><b>Carrito vacio :(</b></h4>
                     <p>No hay productos en tu carrito, puedes agregarlos y volver acá cuando los haya!</p>
+                    <span className="btn">¡Comprar productos!</span>
                 </div>
             )
         } else {

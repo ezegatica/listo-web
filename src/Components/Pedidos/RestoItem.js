@@ -39,7 +39,7 @@ export class RestoItem extends Component {
         }
     }
     cambiarEstado = (id, estadoActual, accion) => {
-        this.setState({mostrarBody: false})
+        this.setState({ mostrarBody: false })
         let estadoNuevo
         if (accion) {
             estadoNuevo = estadoActual + 1
@@ -62,7 +62,7 @@ export class RestoItem extends Component {
                             this.sendDB(id, estadoNuevo)
                             break;
                         default:
-                            this.setState({mostrarBody: true})
+                            this.setState({ mostrarBody: true })
                             swal.close()
                     }
                 });
@@ -75,7 +75,7 @@ export class RestoItem extends Component {
         db.collection('pedidos').doc(id).update({
             estado: estadoNuevo
         }).then(() => {
-            this.setState({mostrarBody: true})
+            this.setState({ mostrarBody: true })
             this.props.onChangeEstado();
         }).catch((err) => {
             swal(
@@ -85,14 +85,8 @@ export class RestoItem extends Component {
     }
     componentDidMount = () => {
         // console.log("PROPS: ", this.props);
-        var options
         var elems = document.querySelectorAll('.collapsible');
-        var instances = M.Collapsible.init(elems, options);
-        options = instances;
-        var options2
-        var elems2 = document.querySelectorAll('.tooltipped');
-        var instances2 = M.Tooltip.init(elems2, options2);
-        options2 = instances2
+        M.Collapsible.init(elems, null);
     }
     fixTooltip() {
 
@@ -103,6 +97,7 @@ export class RestoItem extends Component {
         // const icono = this.state.collapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
         // const icono = this.state.collapsed ? null : null
         const volverEstado = this.props.p.info.estado > 1 ? true : false
+        const seguirEstado = this.props.p.info.estado < 4 ? true : false
         let i = 0;
         const { p } = this.props
         const metodo_de_pago = this.metodo_de_pago(p.info.metodo_de_pago)
@@ -121,40 +116,17 @@ export class RestoItem extends Component {
                         <span className="center " >Pedido {p.id}</span><br />
                         {/* <i className="material-icons icon-pedidos icon-align">{icono}</i> */}
                     </div>
-                    <span className="boton-mover-estado">
+                    {seguirEstado && <span className="boton-mover-estado">
                         <button onClick={() => this.cambiarEstado(id, estado, true)} className="btn btn-flat black-text icon-pedidos tooltip">
                             <span className="tooltiptext">Mover pedido al siguiente estado</span>
                             <i className="material-icons right ">arrow_forward</i>
                         </button>
                     </span>
+                    }
+
                 </div>
             )
         }
-        // const Header2 = () => {
-        //     return (
-        //         <div className="row">
-        //             <div className="col s1">
-        //                 {volverEstado && <span className="boton-mover-estado-r left">
-        //                     <button onClick={() => this.cambiarEstado(id, estado, false)} className="btn btn-flat black-text icon-pedidos tooltipped left" data-position="top" data-tooltip="Mover pedido al estado anterior"><i className="material-icons left">arrow_back</i></button>
-        //                 </span>}
-        //             </div>
-        //             <div className="col s10">
-        //                 <div className="collapsible-header" onClick={() => { this.changeIcon(); this.fixTooltip() }}>
-
-        //                     <div className="pedidos-header" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-        //                         <span className="center " >Pedido {p.id}</span><br />
-        //                         {/* <i className="material-icons icon-pedidos icon-align">{icono}</i> */}
-        //                     </div>
-        //                 </div>
-        //                 <div className="col s1">
-        //                     <span className="boton-mover-estado">
-        //                         <button onClick={() => this.cambiarEstado(id, estado, true)} className="btn btn-flat black-text icon-pedidos tooltipped" data-position="top" data-tooltip="Mover pedido al siguiente estado"><i className="material-icons right ">arrow_forward</i></button>
-        //                     </span>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     )
-        // }
         if (p.info.estado === 0 || p.info.estado === 3) {
             return (
                 <li>
@@ -194,7 +166,7 @@ export class RestoItem extends Component {
                     {this.state.mostrarBody &&
                         <div className="collapsible-body card-collapsible-pedido" ><span>
                             <div className="card-collapsible-pedido-comentario">
-                            <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
+                                <p><b>Comentario: </b><i>{p.info.comentario}</i></p>
                             </div>
                             {p.info.productos.map(item => {
                                 i = i + 1

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Cart from './Cart2'
 import { auth } from '../../Config/fbConfig'
 import '../../css/cart.css'
@@ -13,6 +13,8 @@ export class CartWrapper extends Component {
         cart: null,
         A: false,
         B: false,
+        carritoVacio: false,
+        carritoChecked: false,
         restaurante:{
             nombre: null,
             foto: null
@@ -55,6 +57,9 @@ export class CartWrapper extends Component {
         this.setState({cart: this.props.profile.cart})
     }    
     componentDidUpdate=()=>{
+        if (!this.props.profile.cart && this.props.profile.isLoaded && !this.state.carritoChecked){
+            this.setState({carritoVacio: true, carritoChecked: true})
+        }
         if (this.props.prevent){
             updated = true
         }
@@ -76,6 +81,18 @@ export class CartWrapper extends Component {
         done = false
     }
     render =()=> {
+        if (this.state.carritoVacio){
+            return (
+                <div className="center container">
+                    <h4><b>Carrito vacio :(</b></h4>
+                    <p>No hay productos en tu carrito, puedes agregarlos y volver acá cuando los haya!</p>
+                    <Link to="/restaurantes">
+                    <span className="btn" style={{borderRadius: '20px', background: '#007AFF'}}>¡Comprar productos!</span>
+                    </Link>                   
+
+                </div>
+            )
+        }
         // console.log("CART:" ,this.props.profile.cart);
         // console.log("STATE: ", this.state);
         const { A, B } = this.state
