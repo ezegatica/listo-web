@@ -5,18 +5,24 @@ import {
     db,
     // fb
 } from '../../Config/fbConfig'
+import { Redirect } from 'react-router-dom';
 let classMetodosDePago;
 export class Pedir extends Component {
     state = {
         metodo_de_pago: null,
         dimissed: null,
+        pedidoRealizado: false
+    }
+    componentWillUnmount=()=>{
+        this.setState({
+            pedidoRealizado: false
+        })
     }
     componentDidMount = () => {
-        console.log("PROPS:" ,this.props);
+        console.log("PROPS:", this.props);
         this.setState({
             dimissed: true
         })
-        
 
         var options
         var elems = document.querySelectorAll('.modal');
@@ -61,8 +67,8 @@ export class Pedir extends Component {
         }
     }
     enviarPedidoDB = () => {
-        console.log("pedido: ")
-        console.log(this.props.auth, this.props.cart[0].restaurante,this.props.subtotal, this.props.cart,this.props.data, this.props.comentario,this.state.metodo_de_pago, this.props.cantidad_items,new Date()  );
+        // console.log("pedido: ")
+        // console.log(this.props.auth, this.props.cart[0].restaurante, this.props.subtotal, this.props.cart, this.props.data, this.props.comentario, this.state.metodo_de_pago, this.props.cantidad_items, new Date());
         // let IdPedido
         const estado = 0;
         db.collection('pedidos').add({
@@ -79,23 +85,43 @@ export class Pedir extends Component {
             estado: estado,
         }).then((resp) => {
             // IdPedido = resp.id
-            console.log(resp.id);
-            swal(
-                "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
-            );
-            setTimeout(() => {
-                swal.close()
-            }, 10000);
+            // console.log(resp.id);
+            db.collection('usuarios').doc(this.props.cart[0].restaurante).update({
+                refresh: Math.random(0, 1)
+            }).then((resp) => {
+                this.setState({
+                    pedidoRealizado: true
+                })
+                swal(
+                    "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
+                );
+                setTimeout(() => {
+                    swal.close()
+                }, 10000);
+            }).catch((err) => {
+                swal(
+                    "Error avisando al restaurante", `Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+                );
+            })
         }).catch((err) => {
             swal(
-                "Error", `Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+                "Error al hacer el pedido", `Tu pedido no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
             );
+
         })
     }
     dimissed = () => {
         this.setState({ dimissed: true })
     }
     render() {
+        if (this.state.pedidoRealizado){
+            this.setState({
+                pedidoRealizado: false
+            })
+            return(
+                <Redirect to="/pedidos" />
+            )
+        }
         // console.log("STATE: ", this.state);
         // console.log("PROPS PEDIR: ", this.props);
         if (!this.state.dimissed && !this.state.metodo_de_pago) {

@@ -23,7 +23,7 @@ export class Cart extends Component {
         this.updateSubtotal()
     }
     componentDidUpdate = () => {
-        console.log("PROPS CART ", this.props);
+        // console.log("PROPS CART ", this.props);
         // console.log("RESTAURANTE: ", "a");
         // console.log("HACER: ",hacer);
         if (this.props.prevent) {

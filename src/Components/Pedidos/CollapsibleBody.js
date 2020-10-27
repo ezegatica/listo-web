@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export class CollapsibleBody extends Component {
     componentDidMount = () => {
-        console.log("PROPS:", this.props.estado);
+        // console.log("PROPS:", this.props.estado);
     }
     metodo_de_pago = (m) => {
         let mdp = ''

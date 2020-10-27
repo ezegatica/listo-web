@@ -10,7 +10,8 @@ export class PaginaResto extends Component {
         e2: null,
         e3: null,
         e4: null,
-        e5: null
+        e5: null,
+        profile: this.props.profile
     }
     componentDidMount = () => {
         this.leerDB()
@@ -19,7 +20,23 @@ export class PaginaResto extends Component {
 
         });
     }
-    leerDB = () => {
+    componentDidUpdate =()=>{
+        if (this.state.profile !== this.props.profile){
+            // console.log("UPDATING STATE");
+            this.leerDB()
+            this.setState({
+                profile: this.props.profile
+            })
+        }
+    }
+    leerDB = (refreshInAllDevices) => {
+        // console.log("leyendo db");
+        // console.log("SI: ", refreshInAllDevices);
+        if (refreshInAllDevices === 'si'){
+            db.collection('usuarios').doc(this.props.auth.uid).update({
+                refresh: Math.random(0,1)
+            })
+        }
         db.collection('pedidos').where('restaurante', '==', this.props.auth.uid).orderBy('horario_de_pedido', 'desc').get()
             .then((resp) => {
                 let TotalRecaudado = 0;
@@ -48,6 +65,8 @@ export class PaginaResto extends Component {
     render() {
         // console.log("STATE: ", this.state);
         const { profile } = this.props
+        // console.log("PROFILE: ", profile);
+        // console.log("STATE PROFILE: ", this.state.profile);
         return (
             <div className="pedidos-container pedidos">
                 <h4 className="center">Pedidos de {profile.nombre}:
@@ -70,7 +89,7 @@ export class PaginaResto extends Component {
                                 {this.state.e0 && this.state.e0.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} key={p.id} onChangeEstado={this.leerDB} />
+                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
@@ -81,7 +100,7 @@ export class PaginaResto extends Component {
                                 {this.state.e1 && this.state.e1.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={this.leerDB} />
+                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
@@ -92,7 +111,7 @@ export class PaginaResto extends Component {
                                 {this.state.e2 && this.state.e2.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={this.leerDB} />
+                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
@@ -108,7 +127,7 @@ export class PaginaResto extends Component {
                                 {this.state.e3 && this.state.e3.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={this.leerDB} />
+                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
