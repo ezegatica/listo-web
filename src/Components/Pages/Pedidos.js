@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import PaginaResto from './PaginaResto'
-import PaginaUsuario from './PaginaUsuario'
+import PaginaResto from '../Pedidos/Restaurante/PaginaResto'
+import PaginaUsuario from '../Pedidos/Usuario/PaginaUsuario'
 export class PaginaPedidos extends Component {
     render() {
         const { auth, profile } = this.props

@@ -3,8 +3,8 @@ import M from 'materialize-css'
 import moment from 'moment'
 import 'moment/locale/es'
 import swal from 'sweetalert'
-import { db } from '../../Config/fbConfig'
-import CollapsibleBody from './CollapsibleBody'
+import { db } from '../../../Config/fbConfig'
+import CollapsibleBody from '../CollapsibleBody'
 export class RestoItem extends Component {
     state = {
         collapsed: false,

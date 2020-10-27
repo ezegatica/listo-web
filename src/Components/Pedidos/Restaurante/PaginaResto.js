@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { db } from '../../Config/fbConfig'
+import { db } from '../../../Config/fbConfig'
 import RestoItem from './RestoItem'
 import M from 'materialize-css'
 export class PaginaResto extends Component {

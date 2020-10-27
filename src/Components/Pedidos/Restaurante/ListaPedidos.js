@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { db } from '../../Config/fbConfig'
+import { db } from '../../../Config/fbConfig'
 // import M from 'materialize-css'
 import PedidoItem from './PedidoItem'
 import { Link, } from 'react-router-dom'

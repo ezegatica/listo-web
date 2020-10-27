@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 // LAYOUT
 import Navbar from './Components/Layout/Navbar'
@@ -17,7 +17,7 @@ import RestauranteFiltro from './Components/Restaurante/RestauranteFiltro'
 import AliasRedirect from './Components/Restaurante/AliasRedirect'
 
 // PEDIDOS
-import PaginaPedidos from './Components/Pedidos/PedidosWrapper'
+import PaginaPedidos from './Components/Pages/Pedidos'
 
 // PRODUCTOS
 import ProductoDetalles from './Components/Productos/Detalles'
@@ -35,7 +35,8 @@ import Test from './Components/Pages/Test'
 // CARRITO
 import CartWrapper from './Components/Carrito/CartWrapper'
 
-function App() {
+export class App extends Component {
+  render() {
   document.title = process.env.REACT_APP_NAME;
   return (
     <BrowserRouter>
@@ -65,6 +66,6 @@ function App() {
     </BrowserRouter>
     
   );
+  }
 }
-
 export default App;

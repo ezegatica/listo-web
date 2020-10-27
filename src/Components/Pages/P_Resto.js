@@ -2,7 +2,7 @@ import React from 'react'
 import Lista from '../Productos/Lista'
 import { auth } from '../../Config/fbConfig'
 import { Link } from 'react-router-dom'
-import ListaPedidos from '../Pedidos/ListaPedidos'
+import ListaPedidos from '../Pedidos/Restaurante/ListaPedidos'
 import '../../css/pedidos.css'
 function PerfilResto() {
     return (

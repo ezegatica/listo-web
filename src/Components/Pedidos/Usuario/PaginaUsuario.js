@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { db } from '../../Config/fbConfig'
+import { db } from '../../../Config/fbConfig'
 import M from 'materialize-css'
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 export class PaginaUsuario extends Component {
     state = {
         pedidos: {
