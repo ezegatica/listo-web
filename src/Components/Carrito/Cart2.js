@@ -5,6 +5,7 @@ import M from 'materialize-css'
 import Pedir from './Pedir'
 import swal from 'sweetalert'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
 let hacer = false
 
 export class Cart extends Component {
@@ -101,8 +102,9 @@ export class Cart extends Component {
                 <div className="center container">
                     <h4><b>Carrito vacio :(</b></h4>
                     <p>No hay productos en tu carrito, puedes agregarlos y volver acá cuando los haya!</p>
-                    <span className="btn">¡Comprar productos!</span>
-                </div>
+                    <Link to="/restaurantes">
+                        <span className="btn" style={{ borderRadius: '20px', background: '#007AFF' }}>¡Comprar productos!</span>
+                    </Link>                 </div>
             )
         } else {
             const apellido = this.props.profile.apellido ? this.props.profile.apellido : ''
@@ -118,7 +120,7 @@ export class Cart extends Component {
                         index = index + 1;
                         return (
                             <div className="cart-item" key={item.restaurante + ":" + item.producto}>
-                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1} uid={this.props.auth.currentUser.uid}/>
+                                <CartItem item={item} auth={this.props.auth} data={this.props.productos[index - 1]} indice={index - 1} uid={this.props.auth.currentUser.uid} />
                             </div>
                         )
                     })}
@@ -137,7 +139,7 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total} name={nombreYapellido}/>}
+                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total} name={nombreYapellido} />}
                     <br />
                 </>
             )

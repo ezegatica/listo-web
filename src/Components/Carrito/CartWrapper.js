@@ -15,7 +15,7 @@ export class CartWrapper extends Component {
         B: false,
         carritoVacio: false,
         carritoChecked: false,
-        restaurante:{
+        restaurante: {
             nombre: null,
             foto: null
         }
@@ -26,7 +26,7 @@ export class CartWrapper extends Component {
             console.log("APROVED!");
             done = true
             let productos = []
-            this.setState({productos: null})
+            this.setState({ productos: null })
             if (this.props.profile.cart) {
                 this.props.profile.cart.map((item) => {
                     return db.collection('restaurantes').doc(item.restaurante).collection('productos').doc(item.producto).get()
@@ -37,39 +37,40 @@ export class CartWrapper extends Component {
                             // console.log("leer");
                         }).catch(error => console.log(error))
                 })
-                if (this.props.profile.cart.length !== 0){
+                if (this.props.profile.cart.length !== 0) {
                     db.collection('restaurantes').doc(this.props.profile.cart[0].restaurante).get()
-                    .then((resp)=>{
-                        this.setState({restaurante:{nombre: resp.data().nombre, foto: resp.data().foto}})
-                        // console.log(resp.data().nombre);
-                    }).catch((err)=>{
-                        console.log(err);
-                    })
+                        .then((resp) => {
+                            this.setState({ restaurante: { nombre: resp.data().nombre, foto: resp.data().foto } })
+                            // console.log(resp.data().nombre);
+                        }).catch((err) => {
+                            console.log(err);
+                        })
                 }
-                
+
                 this.setState({ productos, B: true })
             }
-        }else{
+        } else {
             console.log("DENIED!");
         }
     }
     leerProfile = () => {
-        this.setState({cart: this.props.profile.cart})
-    }    
-    componentDidUpdate=()=>{
-        if (!this.props.profile.cart && this.props.profile.isLoaded && !this.state.carritoChecked){
-            this.setState({carritoVacio: true, carritoChecked: true})
+        this.setState({ cart: this.props.profile.cart })
+    }
+    componentDidUpdate = () => {
+        if (!this.props.profile.cart && this.props.profile.isLoaded && !this.state.carritoChecked) {
+            this.setState({ carritoVacio: true, carritoChecked: true })
         }
-        if (this.props.prevent){
+        if (this.props.prevent) {
             updated = true
         }
-        if (!this.props.prevent && updated === true){
+        if (!this.props.prevent && updated === true) {
             updated = false;
             this.leerDB()
             console.log("STATE AL LEER DE VUELTA: ", this.state);
             console.log('%c LEER LA BASE DE DATOS DE VUELTA ', 'background: #222; color: #bada55');
-                this.setState({
-                    A: false})
+            this.setState({
+                A: false
+            })
         }
     }
     componentWillUnmount = () => {
@@ -80,15 +81,15 @@ export class CartWrapper extends Component {
         })
         done = false
     }
-    render =()=> {
-        if (this.state.carritoVacio){
+    render = () => {
+        if (this.state.carritoVacio) {
             return (
                 <div className="center container">
                     <h4><b>Carrito vacio :(</b></h4>
                     <p>No hay productos en tu carrito, puedes agregarlos y volver acá cuando los haya!</p>
                     <Link to="/restaurantes">
-                    <span className="btn" style={{borderRadius: '20px', background: '#007AFF'}}>¡Comprar productos!</span>
-                    </Link>                   
+                        <span className="btn" style={{ borderRadius: '20px', background: '#007AFF' }}>¡Comprar productos!</span>
+                    </Link>
 
                 </div>
             )
@@ -99,10 +100,10 @@ export class CartWrapper extends Component {
         if (this.props.profile.isLoaded && !this.props.profile.isResto && !this.props.profile.isEmpty) {
             // console.log("CART: ", this.props.profile.cart);
             if (this.state.productos && this.state.productos[0]) {
-                if(this.props.profile.cart && this.props.profile.cart.length !== this.state.productos.length){
+                if (this.props.profile.cart && this.props.profile.cart.length !== this.state.productos.length) {
                     // console.log("EL CARRITO NO ES IGUAL A LOS PRODUCTOS");
-                    done=false;
-                    if (!this.props.prevent){
+                    done = false;
+                    if (!this.props.prevent) {
                         this.setState({
                             A: false,
                             B: false,
@@ -110,23 +111,24 @@ export class CartWrapper extends Component {
                     }
                     this.leerDB()
                 }
-                if (this.props.prevent){
-                    return(
+                if (this.props.prevent) {
+                    return (
                         <div className="caja">
-                        <div className="centrado">
-                            <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
-                                <div></div><div></div><div></div><div></div>
-                            </div></div>
+                            <div className="centrado">
+                                <div className="loadingio-spinner-bars-jl0izsh3cc"><div className="ldio-at0j3uszb4c">
+                                    <div></div><div></div><div></div><div></div>
+                                </div></div>
+                            </div>
                         </div>
-                    </div>  
                     )
-                }else{
-                return (
-                    <div className="container">
-                        <Cart profile={this.props.profile} auth={auth} productos={this.state.productos} restaurante={this.state.restaurante}/>
+                } else {
+                    return (
+                        <div className="container">
+                            <Cart profile={this.props.profile} auth={auth} productos={this.state.productos} restaurante={this.state.restaurante} />
 
-                    </div>
-                )}
+                        </div>
+                    )
+                }
             } else {
                 this.leerDB()
 

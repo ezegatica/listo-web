@@ -74,6 +74,7 @@ export class Pedir extends Component {
         db.collection('pedidos').add({
             usuario: this.props.auth,
             nombre: this.props.name,
+            nombre_restaurante: this.props.restaurante.nombre,
             restaurante: this.props.cart[0].restaurante,
             precio: this.props.subtotal,
             productos: this.props.cart,
@@ -87,7 +88,7 @@ export class Pedir extends Component {
             // IdPedido = resp.id
             // console.log(resp.id);
             db.collection('usuarios').doc(this.props.cart[0].restaurante).update({
-                refresh: Math.random(0, 1)
+                refresh: Math.random(10, 11)
             }).then((resp) => {
                 this.setState({
                     pedidoRealizado: true
@@ -136,7 +137,7 @@ export class Pedir extends Component {
                 <div id="modal1" className="modal">
                     <form >
                         <div className="modal-content">
-                            <h4><b>Resumen del pedido</b></h4>
+                            <h4><b>Resumen del pedido a {this.props.restaurante.nombre}</b></h4>
                             <p><b>Nombre a retirar: </b>{this.props.name}</p>
                             <p><b>Comentarios para el restaurante</b>: <i>{this.props.comentario}</i></p>
                             <p style={{ margin: '0px' }}><b>Horario de entrega: </b> <span className="inline input-field" style={{ margin: '0px' }}><input type="text" className="timepicker" placeholder="Haz click para seleccionar tu horario de entrega" onChange={this.setHoraEntrega} /></span></p>

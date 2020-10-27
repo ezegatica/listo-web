@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Cart from './Cart2'
+import Cart from '../Carrito/Cart2'
 import { auth } from '../../Config/fbConfig'
 import '../../css/cart.css'
 import { db } from '../../Config/fbConfig'
