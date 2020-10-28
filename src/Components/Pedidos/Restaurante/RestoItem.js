@@ -90,16 +90,24 @@ export class RestoItem extends Component {
             estado: estadoNuevo
         }).then(() => {
             this.setState({ mostrarBody: true })
-            this.props.onChangeEstado();
-            if (Entregado){
-                swal({
-                    title: "Entregaste el pedido!",
-                    text: " ",
-                    icon: "success",
-                    button: null,
-                    timer: 5000
-                  });
-            }
+            db.collection('usuarios').doc(this.props.p.info.usuario).update({
+                refresh: Math.random(0,1)
+            }).then(()=>{
+                this.props.onChangeEstado();
+                if (Entregado){
+                    swal({
+                        title: "Entregaste el pedido!",
+                        text: " ",
+                        icon: "success",
+                        button: null,
+                        timer: 5000
+                      });
+                }
+            }).catch((err)=> {
+                swal(
+                    "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+                );
+            })
         }).catch((err) => {
             swal(
                 "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"

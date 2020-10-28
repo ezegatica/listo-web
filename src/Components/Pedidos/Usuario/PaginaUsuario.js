@@ -10,8 +10,9 @@ export class PaginaUsuario extends Component {
             pasados: [],
             todos: [],
             vacio: false,
-            cargado: false
-        }
+        },
+        cargado: false,
+        profile: this.props.profile
     }
     componentDidMount = () => {
         this.leerDB()
@@ -20,7 +21,14 @@ export class PaginaUsuario extends Component {
             // swipeable: true
         });
     }
-
+    componentDidUpdate =()=>{
+        if (this.props.profile !== this.state.profile){
+            this.setState({
+                profile: this.props.profile
+            })
+            this.leerDB()
+        }
+    }
     leerDB = () => {
         db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').get()
             .then((resp) => {
@@ -31,7 +39,7 @@ export class PaginaUsuario extends Component {
                     const id = doc.id;
                     Pedidos.push({ info, id })
                 })
-                console.log(Pedidos.length);
+                // console.log(Pedidos.length);
                 let Vacio = false
                 if (Pedidos.length === 0) {
                     Vacio = true
@@ -48,7 +56,7 @@ export class PaginaUsuario extends Component {
             }).catch(error => console.log(error))
     }
     render() {
-        console.log("STATE: ", this.state);
+        // console.log("STATE: ", this.state);
         // if (this.state.pedidos) {
         return (
             <div className="row container pedidos-usuario-container">

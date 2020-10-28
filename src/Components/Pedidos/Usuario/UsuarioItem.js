@@ -35,7 +35,6 @@ export class UsuarioItem extends Component {
                     <p>Pedido de {pedido.info.cantidad_de_productos} productos por un valor de ${pedido.info.precio}</p>
                     <p><b>Estado: </b>{estado}</p>
                     <p><b>ID: </b>{pedido.id}</p>
-                    <p>pog</p>
                     <hr />
                 </>
             )
@@ -46,7 +45,6 @@ export class UsuarioItem extends Component {
                         <p>Pedido de {pedido.info.cantidad_de_productos} productos por un valor de ${pedido.info.precio}</p>
                         <p><b>Estado: </b>{estado}</p>
                         <p><b>ID: </b>{pedido.id}</p>
-                        <p>pog</p>
                         <hr />
                     </>
                 )
