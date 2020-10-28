@@ -67,11 +67,15 @@ export class PaginaUsuario extends Component {
                     </ul>
                 </div>
                 <div id="activo" className="col s12 active">
-                    {this.state.pedidos.activos && this.state.pedidos.activos.length !== 0 && this.state.pedidos.activos.map((pedido) => {
-                        return (
-                            <UsuarioItem activo={true} pedido={pedido} key={pedido.id} />
-                        )
-                    })}
+                    <h3><b>Pedidos activos ({this.state.pedidos.activos.length})</b></h3>
+                    {this.state.pedidos.activos.length !== 0 && <br />}
+                    <ul className="collapsible popout" >
+                        {this.state.pedidos.activos && this.state.pedidos.activos.length !== 0 && this.state.pedidos.activos.map((pedido) => {
+                            return (
+                                <UsuarioItem activo={true} pedido={pedido} key={pedido.id} />
+                            )
+                        })}
+                    </ul>
                     {this.state.pedidos.activos !== null && this.state.pedidos.activos.length === 0 && this.state.cargado && <div className="center">
                         <PestanaVacia activos={true} />
                     </div>}

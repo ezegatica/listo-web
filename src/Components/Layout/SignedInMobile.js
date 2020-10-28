@@ -24,6 +24,7 @@ function SignedInMobile(props) {
                 <ul className="center">
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
+                    <li><NavLink to="/pedidos">Pedidos</NavLink></li>
                     {panelAdmin}
                     {carrito}
                     {panelResto}

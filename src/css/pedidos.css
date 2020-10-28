@@ -149,23 +149,39 @@ PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS 
 .pedidos-usuario-container {
     margin-top: 10px;
 }
+
 /* .pedidos-usuario-card{
     
 } */
+
 /* .pedidos-historial-container{
     padding-bottom: 0!important;
 } */
-.img-pedido-historial-nopadding{
+
+.img-pedido-historial-nopadding {
     padding-left: 0!important
 }
-.img-pedido-historial-nopadding img{
+
+.img-pedido-historial-nopadding img {
     width: 100%;
 }
 
-.historial-collapsible-body{
+.historial-collapsible-body {
     padding-top: 10px!important;
     /* padding-bottom: 10px!important; */
 }
-.collapsible-header-historial{
+
+.collapsible-header-historial {
     border-bottom: 0!important;
+}
+
+.acciones-pedido a {
+    margin-right: 10px;
+}
+
+.texto-card-pedido-activo:first-of-type {
+    margin-bottom: 0;
+}
+.texto-card-pedido-activo:last-of-type {
+    margin-top: 0;
 }
