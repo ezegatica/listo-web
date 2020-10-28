@@ -30,6 +30,7 @@ export class PaginaUsuario extends Component {
         }
     }
     leerDB = () => {
+        // db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_de_pedido', 'desc').get()
         db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').get()
             .then((resp) => {
                 const Pedidos = []
@@ -77,6 +78,8 @@ export class PaginaUsuario extends Component {
                     </div>}
                 </div>
                 <div id="historial" className="col s12">
+                    <h3><b>Pedidos finalizados</b></h3>
+                    <br/>
                     {this.state.pedidos.pasados && this.state.pedidos.pasados.map((pedido) => {
                         return (
                             <UsuarioItem historial={true} pedido={pedido} key={pedido.id} />

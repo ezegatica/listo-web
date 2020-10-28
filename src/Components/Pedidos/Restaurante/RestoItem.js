@@ -68,7 +68,7 @@ export class RestoItem extends Component {
                         switch (value) {
                             case true:
                                 swal.close()
-                                this.sendDB(id, estadoNuevo)
+                                this.sendDB(id, estadoNuevo, 'Entregado')
                                 break;
                             default:
                                 this.setState({ mostrarBody: true })
@@ -80,14 +80,26 @@ export class RestoItem extends Component {
             }
         }
     }
-    sendDB = (id, estadoNuevo) => {
+    sendDB = (id, estadoNuevo, accion) => {
         let Entregado = false;
+        let UpdateBody
         if (estadoNuevo === 4){
             Entregado = true;
         }
+        if (accion === "Entregado"){
+            UpdateBody = {
+                estado: estadoNuevo,
+                horario_entregado: new Date()
+            }
+        }else{
+            UpdateBody = {
+                estado: estadoNuevo,
+            }
+        }
+        // console.log(UpdateBody);
         // swal(id, `pasar a estado ${estadoNuevo}`);
         db.collection('pedidos').doc(id).update({
-            estado: estadoNuevo
+            ...UpdateBody
         }).then(() => {
             this.setState({ mostrarBody: true })
             db.collection('usuarios').doc(this.props.p.info.usuario).update({

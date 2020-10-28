@@ -7,15 +7,19 @@
 .pedidos-wrapper a:hover {
     text-decoration: underline;
 }
-.pedidos-container{
+
+.pedidos-container {
     margin: 0px 8vw;
 }
-.btn-terminar-pedido .tooltiptext{
+
+.btn-terminar-pedido .tooltiptext {
     background-color: #5e8233!important;
 }
-.pedidos-header span{
-vertical-align: middle;
+
+.pedidos-header span {
+    vertical-align: middle;
 }
+
 .icon-pedidos {
     padding: 0!important;
     margin: 0!important;
@@ -35,21 +39,23 @@ vertical-align: middle;
 .pedidos-wrapper a {
     color: black;
 }
-@media only screen and (min-width: 601px){
+
+@media only screen and (min-width: 601px) {
     .pedidos-col-1, .pedidos-col-2 {
         border-right: solid;
     }
 }
 
-
-@media only screen and  (max-width: 1201px) {
+@media only screen and (max-width: 1201px) {
     .pedidos-col-1, .pedidos-col-2, .pedidos-col-3, .pedidos-col-4 {
         border-bottom: solid;
     }
 }
+
 .pedidos-col-4 {
     padding-right: 0px!important;
 }
+
 .boton-mover-estado {
     margin-left: auto;
 }
@@ -101,7 +107,7 @@ vertical-align: middle;
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 240px;
-    background-color:#323232;
+    background-color: #323232;
     color: #fff;
     text-align: center;
     border-radius: 10px;
@@ -132,15 +138,17 @@ vertical-align: middle;
     opacity: 1;
 }
 
-.boton-mover-estado .tooltiptext{
+.boton-mover-estado .tooltiptext {
     margin-left: -120px!important;
-
 }
 
 /* 
 PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO 
 */
 
-.pedidos-usuario-container{
+.pedidos-usuario-container {
     margin-top: 10px;
+}
+.pedidos-usuario-card{
+    
 }
