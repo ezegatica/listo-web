@@ -20,9 +20,13 @@ export class PaginaUsuario extends Component {
         M.Tabs.init(el, {
             // swipeable: true
         });
+        var elems2 = document.querySelectorAll('.collapsible');
+        M.Collapsible.init(elems2, {
+
+        });
     }
-    componentDidUpdate =()=>{
-        if (this.props.profile !== this.state.profile){
+    componentDidUpdate = () => {
+        if (this.props.profile !== this.state.profile) {
             this.setState({
                 profile: this.props.profile
             })
@@ -30,17 +34,14 @@ export class PaginaUsuario extends Component {
         }
     }
     leerDB = () => {
-        // db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_de_pedido', 'desc').get()
-        db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').get()
+        db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_de_pedido', 'desc').get()
             .then((resp) => {
                 const Pedidos = []
                 resp.forEach(doc => {
                     const info = doc.data()
-                    // console.log("INFO: ", info);
                     const id = doc.id;
                     Pedidos.push({ info, id })
                 })
-                // console.log(Pedidos.length);
                 let Vacio = false
                 if (Pedidos.length === 0) {
                     Vacio = true
@@ -57,8 +58,6 @@ export class PaginaUsuario extends Component {
             }).catch(error => console.log(error))
     }
     render() {
-        // console.log("STATE: ", this.state);
-        // if (this.state.pedidos) {
         return (
             <div className="row container pedidos-usuario-container">
                 <div className="col s12">
@@ -78,14 +77,15 @@ export class PaginaUsuario extends Component {
                     </div>}
                 </div>
                 <div id="historial" className="col s12">
-                    <h3><b>Pedidos finalizados</b></h3>
-                    <br/>
-                    {this.state.pedidos.pasados && this.state.pedidos.pasados.map((pedido) => {
-                        return (
-                            <UsuarioItem historial={true} pedido={pedido} key={pedido.id} />
-
-                        )
-                    })}
+                    <h3><b>Pedidos recientes ({this.state.pedidos.pasados.length})</b></h3>
+                    {this.state.pedidos.pasados.length !== 0 && <br />}
+                    <ul className="collapsible popout" >
+                        {this.state.pedidos.pasados && this.state.pedidos.pasados.map((pedido) => {
+                            return (
+                                <UsuarioItem historial={true} pedido={pedido} key={pedido.id} />
+                            )
+                        })}
+                    </ul>
                     {this.state.pedidos.pasados.length === 0 && this.state.cargado && <div className="center">
                         <PestanaVacia historial={true} />
 
@@ -93,26 +93,7 @@ export class PaginaUsuario extends Component {
                 </div>
             </div>
         )
-        // } else {
-        //     return (
-        //         <div className="container">cargando pedios...</div>
-        //     )
-        // }
     }
 }
 
 export default PaginaUsuario
-
-
-// {this.state.pedidos.activos && this.state.pedidos.activos.map((pedido) => {
-//     const s = pedido.info.estado
-//     let estado = this.estado(s)
-//     return (
-//         <div key={pedido.id}>
-//             <p>Pedido de {pedido.info.cantidad_de_productos} productos por un valor de ${pedido.info.precio}</p>
-//             <p><b>Estado: </b>{estado}</p>
-//             <p><b>ID: </b>{pedido.id}</p>
-//             <hr />
-//         </div>
-//     )
-// })}
