@@ -34,7 +34,6 @@ export class PaginaUsuario extends Component {
         }
     }
     leerDB = () => {
-        // db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_entregado', 'desc').orderBy('horario_de_pedido', 'desc').get()
         db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_de_pedido', 'desc').get()
             .then((resp) => {
                 const Pedidos = []

@@ -87,8 +87,15 @@ export class Pedir extends Component {
         }).then((resp) => {
             // IdPedido = resp.id
             // console.log(resp.id);
+
+            // AVISAR AL RESTAURANTE QUE HAY UN PEDIDO NUEVO!
             db.collection('usuarios').doc(this.props.cart[0].restaurante).update({
-                refresh: Math.random(10, 11)
+                refresh: {
+                    tipo: 'nuevo_pedido',
+                    titulo: `Tienes un pedido nuevo!`,
+                    random: Math.random(31,40),
+                    hora: Date.now()
+                }
             }).then((resp) => {
                 this.setState({
                     pedidoRealizado: true

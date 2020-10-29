@@ -31,9 +31,16 @@ export class PaginaResto extends Component {
     leerDB = (refreshInAllDevices) => {
         // console.log("leyendo db");
         // console.log("SI: ", refreshInAllDevices);
+
+        // REFRESCAR TODAS LAS SESIONES PORQUE SE CAMBIO EL ESTADO DE UN PEDIDO (NO AVISAR AL TOAST)
         if (refreshInAllDevices === 'si') {
             db.collection('usuarios').doc(this.props.auth.uid).update({
-                refresh: Math.random(0, 1)
+                refresh: {
+                    tipo: 'no_refresh',
+                    // titulo: `Un pedido se ha cambiado de estado!`,
+                    random: Math.random(21,30),
+                    // hora: Date.now()
+                }
             })
         }
         const diez = 10

@@ -24,7 +24,7 @@ const Profile = (props) => {
     }
     else {
         if (props.profile.isLoaded && props.auth.isLoaded) { 
-            console.log("PERFIL: ",props.profile); 
+            // console.log("PERFIL: ",props.profile); 
             if (props.profile.cat === "" || props.profile.alias === undefined){MostrarAviso=true}
             // CANCELAR EL HECHO DE BORRAR LA CUENTA CON LA CUENTA DE USUARIO PREDETERMINADO
             settings = props.auth.uid === "iSOcYsCUziVYHIqspg0bfeNlCox2" ?

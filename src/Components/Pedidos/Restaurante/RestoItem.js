@@ -102,8 +102,16 @@ export class RestoItem extends Component {
             ...UpdateBody
         }).then(() => {
             this.setState({ mostrarBody: true })
+            // AVISAR AL USUARIO QUE CAMBIO EL ESTADO DE SU PEDIDO
             db.collection('usuarios').doc(this.props.p.info.usuario).update({
-                refresh: Math.random(0,1)
+                refresh: {
+                    tipo: 'cambio_estado',
+                    titulo: `Tu pedido ha cambiado de estado!`,
+                    id: this.props.p.id,
+                    random: Math.random(0,10),
+                    hora: Date.now()
+
+                }
             }).then(()=>{
                 this.props.onChangeEstado();
                 if (Entregado){

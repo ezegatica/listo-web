@@ -82,12 +82,19 @@ export class UsuarioItem extends Component {
                 estado: 10,
                 horario_entregado: new Date(),
             }).then(() => {
+                // AVISAR AL RESTAURANTE QUE SE CANCELO UN PEDIDO
                 db.collection('usuarios').doc(pedido.info.restaurante).update({
-                    refresh: Math.random(90, 100)
+                    refresh: {
+                        tipo: 'avisar_cancelado',
+                        titulo: `Un pedido no confirmado se ha cancelado!`,
+                        id: this.props.pedido.id,
+                        random: Math.random(11, 20),
+                        hora: Date.now()
+                    }
                 }).then(() => {
                     swal({
-                        title: 'Pedido cancelado!', 
-                        content:' ', 
+                        title: 'Pedido cancelado!',
+                        content: ' ',
                         icon: 'success',
                         timer: 5000
                     })
@@ -111,12 +118,8 @@ export class UsuarioItem extends Component {
         let estado = this.estado(s)
         if (this.props.activo) {
             let i = 0;
-            // const tiempo = moment(pedido.info.horario_entregado.toDate()).calendar()
-            // const tiempoUppercase = tiempo[0].toUpperCase() + tiempo.slice(1, tiempo.length)
-
-            // const dia = moment(pedido.info.horario_de_pedido.toDate()).format('L');
             const icono = this.state.collapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
-            // const metodo_de_pago = this.metodo_de_pago(pedido.info.metodo_de_pago)
+            const metodo_de_pago = this.metodo_de_pago(pedido.info.metodo_de_pago)
             // ITEMS PEDIDOS ACTIVOS
             return (
                 <li>
@@ -138,6 +141,7 @@ export class UsuarioItem extends Component {
                     <div className="collapsible-body historial-collapsible-body">
                         <span className="centro acciones-pedido">
                             <a className="waves-effect waves-light btn modal-trigger center " style={{ borderRadius: '20px', background: '#007AFF' }} href={`#modal-ubicacion-${pedido.id}`}>¿Donde queda?</a>
+                            <a className="waves-effect waves-light btn modal-trigger center " style={{ borderRadius: '20px', background: '#698a34' }} href={`#modal-detalles-${pedido.id}`}>Detalles</a>
                             {pedido.info.estado === 0 && <a className="waves-effect waves-light btn modal-trigger center " style={{ borderRadius: '20px', background: '#cc312d' }} href={`#modal-cancelar-${pedido.id}`}>Cancelar pedido</a>}
                         </span>
                     </div>
@@ -152,6 +156,30 @@ export class UsuarioItem extends Component {
                             <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
                         </div>
                     </div>
+                    {/* MODAL DETALLES*/}
+                    <div id={`modal-detalles-${pedido.id}`} className="modal">
+                        <div className="modal-content">
+                            <h4><b>Pedido a {pedido.info.nombre_restaurante}</b></h4>
+                            <p><b>Pagado con: </b>{metodo_de_pago}</p>
+                            <p><b>Productos:</b></p>
+                            <span>
+                                {pedido.info.productos.map(item => {
+                                    i = i + 1
+                                    return (
+                                        <div key={item.producto}>
+                                            <p>${pedido.info.data[i - 1].precio} - {item.cantidad}x {pedido.info.data[i - 1].titulo}</p>
+                                        </div>
+                                    )
+                                })}
+                            </span>
+                            <p><b>Valor total del pedido: </b>${pedido.info.precio}</p>
+                            <p><b>Comentario al restaurante: </b>"<i>{pedido.info.comentario}</i>"</p>
+                            <p><b>ID del pedido: </b>{pedido.id}</p>
+                        </div>
+                        <div className="modal-footer">
+                            <a href="#!" className="modal-close waves-effect waves-green btn-flat" onClick={() => this.cancelarPedido()}>Confirmar</a>
+                        </div>
+                    </div>
                     {/* MODAL CANCELAR */}
                     <div id={`modal-cancelar-${pedido.id}`} className="modal">
                         <div className="modal-content">
@@ -159,7 +187,7 @@ export class UsuarioItem extends Component {
                             <p>Solo puedes cancelar tu pedido si todavia no ha sido confirmado por el restaurante. Una vez cancelado, se notificara al restaurante de tu decisión y el pedido aparecerá como "cancelado" en tu perfil.</p>
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" className="modal-close waves-effect waves-green btn-flat" onClick={() => this.cancelarPedido()}>Confirmar</a>
+                            <a href="#!" className="modal-close waves-effect waves-green btn-flat red white-text" onClick={() => this.cancelarPedido()}>Confirmar</a>
                         </div>
                     </div>
                 </li>

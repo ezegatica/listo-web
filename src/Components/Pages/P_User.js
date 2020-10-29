@@ -14,7 +14,7 @@ export class PerfilUsuario extends Component {
         const Restaurantes = []
         const favs = this.props.profile.favoritos
         this.setState({ restaurantes: null })
-        console.log("favoritos", favs);
+        // console.log("favoritos", favs);
         if (favs) {
             favs.forEach(id => {
                 db.collection('restaurantes').doc(id).get()
@@ -58,7 +58,7 @@ export class PerfilUsuario extends Component {
 
         const perfil = this.props.profile
         return (
-            <>
+            <div className="">
                 <h4 className="center">Mis restaurantes favoritos:</h4>
                 {this.props.profile.favoritos && <div className="hover" style={{ userSelect: 'none' }} onClick={this.clearFavs}><p className="red-text"><i className="material-icons">delete</i>Borrar todos los favoritos</p></div>}
                 {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
@@ -66,7 +66,7 @@ export class PerfilUsuario extends Component {
                         <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={perfil} />
                     )
                 })}
-            </>
+            </div>
         )
     }
 }
