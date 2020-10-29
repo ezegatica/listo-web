@@ -177,6 +177,7 @@ PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS USUARIO - PEDIDOS 
 
 .acciones-pedido a {
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .texto-card-pedido-activo:first-of-type {

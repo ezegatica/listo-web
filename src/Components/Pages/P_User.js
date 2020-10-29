@@ -3,12 +3,37 @@ import ShowRestaurante from '../Restaurante/ShowRestaurante'
 import { db, auth, fb } from '../../Config/fbConfig'
 // import { connect } from 'react-redux'
 import swal from 'sweetalert';
-
+import UsuarioItem from '../Pedidos/Usuario/UsuarioItem'
+import { Link } from 'react-router-dom';
+import M from 'materialize-css'
 export class PerfilUsuario extends Component {
     state = {
         restaurantes: null,
+        pedidos: null,
+        cargado: false
     }
 
+    leerDBPedidos = () => {
+        console.log(auth.currentUser.uid);
+        db.collection('pedidos').where('usuario', '==', auth.currentUser.uid).where('estado', '<', 4).orderBy('estado', 'asc').get()
+            .then((resp) => {
+                const Pedidos = []
+                resp.forEach(doc => {
+                    const info = doc.data()
+                    const id = doc.id;
+                    Pedidos.push({ info, id })
+                })
+                let Vacio = false
+                if (Pedidos.length === 0) {
+                    Vacio = true
+                }
+                this.setState({
+                    pedidos: Pedidos,
+                    cargado: true,
+                    vacio: Vacio
+                })
+            }).catch(error => console.log(error))
+    }
 
     leerDB = () => {
         const Restaurantes = []
@@ -30,6 +55,11 @@ export class PerfilUsuario extends Component {
     }
     componentDidMount() {
         this.leerDB()
+        this.leerDBPedidos()
+        var elems = document.querySelectorAll('.collapsible');
+        M.Collapsible.init(elems, {
+
+        });
     }
     clearFavs = () => {
         const uid = auth.currentUser.uid
@@ -50,22 +80,39 @@ export class PerfilUsuario extends Component {
                         icon: "success",
                     });
                 } else {
-                    
-                }   
+
+                }
             });
     }
     render() {
-
+        if (this.state.cargado) {
+            console.log("PEDIDOS: ", this.state.pedidos);
+        }
         const perfil = this.props.profile
         return (
-            <div className="">
-                <h4 className="center">Mis restaurantes favoritos:</h4>
-                {this.props.profile.favoritos && <div className="hover" style={{ userSelect: 'none' }} onClick={this.clearFavs}><p className="red-text"><i className="material-icons">delete</i>Borrar todos los favoritos</p></div>}
-                {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
-                    return (
-                        <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={perfil} />
-                    )
-                })}
+            <div className="row">
+                <div className="col s12 m6">
+                    <Link to="/pedidos#activos"><h4 className="center titulo-link"><b>Mis pedidos activos:</b></h4></Link>
+                    <ul className="collapsible" >
+                        {this.state.cargado && !this.state.vacio && this.state.pedidos.map((pedido) => {
+                            return (
+                                <UsuarioItem activo={true} pedido={pedido} key={pedido.id} leerDB={() => this.leerDBPedidos()} showPics={false}/>
+                            )
+                        })}
+                    </ul>
+                    <Link to="/pedidos"><h5 className="center card-titulo"><b>Ver todos los pedidos!</b></h5></Link>
+                    {!this.state.cargado && <div>cargando...</div>}
+                    {!this.state.cargado && this.state.vacio && <div>Vacio</div>}
+                </div>
+                <div className="col s12 m6">
+                    <h4 className="center"><b>Mis restaurantes favoritos:</b></h4>
+                    {this.props.profile.favoritos && <div className="hover" style={{ userSelect: 'none' }} onClick={this.clearFavs}><p className="red-text"><i className="material-icons">delete</i>Borrar todos los favoritos</p></div>}
+                    {this.state.restaurantes && this.state.restaurantes.map(restaurant => {
+                        return (
+                            <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={perfil} fotoMasGrande={true} />
+                        )
+                    })}
+                </div>
             </div>
         )
     }

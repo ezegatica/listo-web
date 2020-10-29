@@ -18,6 +18,11 @@ br{
   padding-top: 0!important;
 }
 
+/* TABS GENERALES */
+.tabs .tab a:hover, .tabs .tab a.active{
+  color: blue;
+}
+
 .categorias-display span {
   text-transform: capitalize;
 }

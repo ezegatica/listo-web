@@ -27,6 +27,19 @@ export const signInDefault = () => {
         })
     }
 }
+export const signInBeni = () => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase();
+        firebase.auth().signInWithEmailAndPassword(
+            'restaurante1@gati.ga',
+            'restaurante1'
+        ).then(() => {
+            dispatch({ type: 'LOGIN_SUCCESS' })
+        }).catch((err) => {
+            dispatch({ type: 'LOGIN_ERROR', err });
+        })
+    }
+}
 
 export const signOut = () => {
     return (dispatch, getState, { getFirebase }) => {

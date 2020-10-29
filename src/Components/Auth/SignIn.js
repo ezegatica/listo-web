@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import {signIn, signInDefault} from '../../Actions/authActions'
+import { connect } from 'react-redux'
+import { signIn, signInDefault, signInBeni } from '../../Actions/authActions'
 import { Redirect, Link } from 'react-router-dom'
 
 export class SignIn extends Component {
@@ -11,11 +11,11 @@ export class SignIn extends Component {
     }
     Change = (e) => {
         this.setState({
-            [e.target.id] : e.target.value,
+            [e.target.id]: e.target.value,
             loading: false
         })
     }
-    Submit = (e) => { 
+    Submit = (e) => {
         e.preventDefault();
         this.setState({ loading: true })
         this.props.signIn(this.state);
@@ -25,11 +25,16 @@ export class SignIn extends Component {
         this.props.signInDefault();
 
     }
+    defaultResto = () => {
+        this.setState({ loading: true })
+        this.props.signInBeni();
+
+    }
     // clearError = () =>{
-        
+
     // }
     render() {
-        const {authError, auth} = this.props;
+        const { authError, auth } = this.props;
         let asd;
         if (this.state.loading) {
             asd = "btn pink lighten-1 z-depth-0 disabled"
@@ -38,10 +43,10 @@ export class SignIn extends Component {
             asd = "btn pink lighten-1 z-depth-0"
         }
         const Enviando = this.state.loading ? <div className="center"><h4>Entrando...</h4></div> : null
-        if (auth.uid){
-            return <Redirect to="/profile"/>
+        if (auth.uid) {
+            return <Redirect to="/profile" />
         }
-        else{
+        else {
             return (
                 <div className="container">
                     <form onSubmit={this.Submit} className="white">
@@ -56,19 +61,21 @@ export class SignIn extends Component {
                         </div>
                         <div>
                             <Link to="/recovery" email={"#email"}>¿Olvidaste tu contraseña? </Link> /
-                            <Link to="/register"> ¿No tienes cuenta?</Link> <br/>
+                            <Link to="/register"> ¿No tienes cuenta?</Link> <br />
                         </div>
                         <div className="input-field">
                             <button className={asd}>
                                 Login
                             </button>
                             <div className="red-text center">
-                                {authError ? <p>{authError}</p>: null}
+                                {authError ? <p>{authError}</p> : null}
                             </div>
                             {Enviando}
                         </div>
                     </form>
-                    <button className={asd} onClick={this.defaultUser}>Login con usuario predeterminado</button>
+                    <button className={asd} onClick={this.defaultUser}>Login con usuario predeterminado</button> <br />
+                    <br />
+                    <button className={asd} onClick={this.defaultResto}>Login con restaurante Beni</button>
                 </div>
             )
         }
@@ -76,16 +83,17 @@ export class SignIn extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         authError: state.auth.authError,
         auth: state.firebase.auth
     }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
     return {
         signIn: (creds) => dispatch(signIn(creds)),
-        signInDefault: () => dispatch(signInDefault())
+        signInDefault: () => dispatch(signInDefault()),
+        signInBeni: () => dispatch(signInBeni()),
     }
 }
 

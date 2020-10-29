@@ -13,6 +13,18 @@
         left:auto!important;
         right:auto!important;
     }
+    .row .col.xxl2 {
+        width:16.6666666666%!important;
+        margin-left:auto!important;
+        left:auto!important;
+        right:auto!important;
+    }
+    .row .col.xxl10 {
+        width:83.3333333334%!important;
+        margin-left:auto!important;
+        left:auto!important;
+        right:auto!important;
+    }
     .row .col.xxl11 {
         width:91.6666666667%!important;
         margin-left:auto!important;

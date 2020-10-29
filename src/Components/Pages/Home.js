@@ -10,7 +10,7 @@ const Home = () =>{
                 <h4>Publicaciones del equipo:</h4>
                 <div className="container">
                     <div className="row container">
-                        <Preview restaurante={"a"}/>
+                        <Preview />
                     </div>        
                  </div>
             </div>

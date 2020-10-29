@@ -112,7 +112,15 @@ export class UsuarioItem extends Component {
         }
     }
     render() {
-        // console.log("props: ", this.props);
+        let divClass1
+        let divClass2
+        if (this.props.showPics === false) {
+            divClass1 = "hide"
+            divClass2 = "col s11 m11 l11"
+        } else {
+            divClass1 = "col s3 m2 l1 img-pedido-historial-nopadding"
+            divClass2 = "col s8 m9 l10"
+        }
         const { pedido } = this.props
         const s = pedido.info.estado
         let estado = this.estado(s)
@@ -124,10 +132,10 @@ export class UsuarioItem extends Component {
             return (
                 <li>
                     <div className="collapsible-header valign-wrapper collapsible-header-historial" onClick={() => { this.changeIcon() }}>
-                        <div className="col s3 m2 l1 img-pedido-historial-nopadding">
+                        <div className={divClass1}>
                             <img src={`https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/imagenes%2F${pedido.info.restaurante}?alt=media`} alt="" className="circle responsive-img" />
                         </div>
-                        <div className="col s8 m9 l10">
+                        <div className={divClass2}>
                             <span className="black-text">
                                 <h5><b>{pedido.info.nombre_restaurante} - {pedido.info.cantidad_de_productos} productos</b></h5>
                                 <p className="texto-card-pedido-activo"><b>Estado: </b>{estado}</p>
@@ -153,7 +161,7 @@ export class UsuarioItem extends Component {
                             <img src="https://memegenerator.net/img/images/15215811/si-tan-solo-tuviera-uno.jpg" alt="por favor ayuda" style={{ height: '75%', width: 'auto' }} />
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            <a href="#!" className="modal-close waves-effect btn-flat white-text" style={{ borderRadius: '20px', background: '#007AFF' }}>OK</a>
                         </div>
                     </div>
                     {/* MODAL DETALLES*/}
@@ -174,10 +182,10 @@ export class UsuarioItem extends Component {
                             </span>
                             <p><b>Valor total del pedido: </b>${pedido.info.precio}</p>
                             <p><b>Comentario al restaurante: </b>"<i>{pedido.info.comentario}</i>"</p>
-                            <p><b>ID del pedido: </b>{pedido.id}</p>
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" className="modal-close waves-effect waves-green btn-flat" onClick={() => this.cancelarPedido()}>Confirmar</a>
+                            <p style={{ float: "left" }}><b>ID: </b>{pedido.id}</p>
+                            <a href="#!" className="modal-close waves-effect waves-green btn-flat white-text" style={{ borderRadius: '20px', background: '#698a34' }}>Confirmar</a>
                         </div>
                     </div>
                     {/* MODAL CANCELAR */}
@@ -187,7 +195,7 @@ export class UsuarioItem extends Component {
                             <p>Solo puedes cancelar tu pedido si todavia no ha sido confirmado por el restaurante. Una vez cancelado, se notificara al restaurante de tu decisión y el pedido aparecerá como "cancelado" en tu perfil.</p>
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" className="modal-close waves-effect waves-green btn-flat red white-text" onClick={() => this.cancelarPedido()}>Confirmar</a>
+                            <a href="#!" className="modal-close waves-effect waves-green btn-flat white-text" style={{ borderRadius: '20px', background: '#cc312d' }} onClick={() => this.cancelarPedido()}>Confirmar</a>
                         </div>
                     </div>
                 </li>

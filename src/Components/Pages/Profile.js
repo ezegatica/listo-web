@@ -5,12 +5,12 @@ import PerfilResto from './P_Resto'
 import PerfilUsuario from './P_User'
 import { Link } from 'react-router-dom'
 import FotoDePerfil from '../Layout/FotoDePerfil'
-
+import '../../css/perfil.css'
 const Profile = (props) => {  
     document.title = process.env.REACT_APP_NAME + ' - Perfil';
 
     const TipoPerfil = props.profile.isResto ?
-        <PerfilResto />
+        <PerfilResto profile={props.profile}/>
         :
         <PerfilUsuario profile={props.profile}/>
 

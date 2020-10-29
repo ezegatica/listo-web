@@ -5,14 +5,15 @@ import PedidoItem from './PedidoItem'
 import { Link, } from 'react-router-dom'
 export class ListaPedidos extends Component {
     state = {
-        por_confirmar: null
+        por_confirmar: null,
+        profile: this.props.profile
     }
     componentDidMount() {
         this.leerDB();
     }
     leerDB = () => {
         this.setState({ por_confirmar: null })
-        console.log("LEYENDO DB!");
+        // console.log("LEYENDO DB!");
         // AGARRAR TOODS LOS PEDIDOS NO TERMINADOS (PENDIENTES) 
         db.collection('pedidos').where('restaurante', '==', this.props.uid).where('estado', '==', 0).orderBy('horario_de_pedido', 'desc').get()
             // db.collection('pedidos').where('restaurante', '==', this.props.uid).where('estado', '==', 0).orderBy('horario_de_pedido', 'desc').get()
@@ -25,6 +26,12 @@ export class ListaPedidos extends Component {
                 })
                 this.setState({ por_confirmar: Pedidos })
             }).catch(error => console.log(error))
+    }
+    componentDidUpdate =()=>{
+        if (this.props.profile !== this.state.profile){
+            this.setState({profile: this.props.profile})
+            this.leerDB()
+        }
     }
     render() {
         let indice = 0

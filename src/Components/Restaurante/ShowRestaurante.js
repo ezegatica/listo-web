@@ -51,6 +51,16 @@ export class ShowRestaurante extends Component {
     }
 
     render() {
+        let classDivFoto
+        let classDivTexto
+        if (this.props.fotoMasGrande){
+            classDivFoto = "col s4 m3 l3 xl2 xxl2"
+            classDivTexto = "col s8 m9 l9 xl10 xxl10"
+
+        }else{
+            classDivFoto = "col s4 m3 l3 xl2 xxl1"
+            classDivTexto = "col s8 m9 l9 xl10 xxl11"
+        }
         const { restaurant } = this.props
         let Fav = ""
         if (this.state.logged && !this.props.perfil.isResto) {
@@ -60,10 +70,10 @@ export class ShowRestaurante extends Component {
             return (
                 <div className="card z-depth-0 proyect-summary grey lighten-3">
                     <div className="card-content grey-text text-darken-3 lista-proyectos row">
-                        <div className="col s4 m3 l3 xl2 xxl1">
+                        <div className={classDivFoto}>
                             <img src={restaurant.info.foto || 'https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media'} alt={"IMG"} draggable="false" className=" circle z-depth-3 imagen-lista resposive-img" /> <br />
                         </div>
-                        <div className="col s8 m9 l9 xl10 xxl11">
+                        <div className={classDivTexto}>
                             <div>{Fav && <i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>}<Link to={"/restaurantes/" + restaurant.id}><span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></Link></div>
                             <div className="categorias-display"><p>Categorias: <span className="cat1">{restaurant.info.cat}</span><span className="cat2">{restaurant.info.cat2 && ", " + restaurant.info.cat2}</span></p></div>
                         </div>
