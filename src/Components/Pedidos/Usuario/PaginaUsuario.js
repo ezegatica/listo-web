@@ -34,6 +34,7 @@ export class PaginaUsuario extends Component {
         }
     }
     leerDB = () => {
+        // db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_entregado', 'desc').orderBy('horario_de_pedido', 'desc').get()
         db.collection('pedidos').where('usuario', '==', this.props.auth.uid).orderBy('estado', 'asc').orderBy('horario_de_pedido', 'desc').get()
             .then((resp) => {
                 const Pedidos = []
@@ -57,6 +58,9 @@ export class PaginaUsuario extends Component {
                 })
             }).catch(error => console.log(error))
     }
+    hola =()=>{
+        console.log("hola!");
+    }
     render() {
         return (
             <div className="row container pedidos-usuario-container">
@@ -72,7 +76,7 @@ export class PaginaUsuario extends Component {
                     <ul className="collapsible popout" >
                         {this.state.pedidos.activos && this.state.pedidos.activos.length !== 0 && this.state.pedidos.activos.map((pedido) => {
                             return (
-                                <UsuarioItem activo={true} pedido={pedido} key={pedido.id} />
+                                <UsuarioItem activo={true} pedido={pedido} key={pedido.id} leerDB={()=>this.leerDB()} />
                             )
                         })}
                     </ul>
@@ -86,7 +90,7 @@ export class PaginaUsuario extends Component {
                     <ul className="collapsible popout" >
                         {this.state.pedidos.pasados && this.state.pedidos.pasados.map((pedido) => {
                             return (
-                                <UsuarioItem historial={true} pedido={pedido} key={pedido.id} />
+                                <UsuarioItem historial={true} pedido={pedido} key={pedido.id} leerDB={()=>this.leerDB()} />
                             )
                         })}
                     </ul>

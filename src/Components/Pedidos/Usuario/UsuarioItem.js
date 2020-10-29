@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import M from 'materialize-css'
 import moment from 'moment'
 import '../../../css/pedidos.css'
+import swal from 'sweetalert'
+import { db } from '../../../Config/fbConfig'
+
 export class UsuarioItem extends Component {
     state = {
         collapsed: false
@@ -71,7 +74,38 @@ export class UsuarioItem extends Component {
                 break;
         }
     }
+    cancelarPedido = () => {
+        const { pedido } = this.props
+        if (pedido.info.estado === 0) {
+            swal('Cancelando pedido!', 'Comunicando con la base de datos...', 'info')
+            db.collection('pedidos').doc(pedido.id).update({
+                estado: 10,
+                horario_entregado: new Date(),
+            }).then(() => {
+                db.collection('usuarios').doc(pedido.info.restaurante).update({
+                    refresh: Math.random(90, 100)
+                }).then(() => {
+                    swal({
+                        title: 'Pedido cancelado!', 
+                        content:' ', 
+                        icon: 'success',
+                        timer: 5000
+                    })
+                    this.props.leerDB();
+                }).catch((err) => {
+                    swal(
+                        "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+                    );
+                })
+            }).catch((err) => {
+                swal(
+                    "Error", `Tu accion no se ha podido procesar, intenta de vuelta o contacta a soporte si el problema persiste \nSi ves a algun programador, decile que: \n"${err.message}"`, "error"
+                );
+            })
+        }
+    }
     render() {
+        // console.log("props: ", this.props);
         const { pedido } = this.props
         const s = pedido.info.estado
         let estado = this.estado(s)
@@ -104,36 +138,28 @@ export class UsuarioItem extends Component {
                     <div className="collapsible-body historial-collapsible-body">
                         <span className="centro acciones-pedido">
                             <a className="waves-effect waves-light btn modal-trigger center " style={{ borderRadius: '20px', background: '#007AFF' }} href={`#modal-ubicacion-${pedido.id}`}>¿Donde queda?</a>
-                            <a className="waves-effect waves-light btn modal-trigger center " style={{ borderRadius: '20px', background: '#cc312d' }} href={`#modal-cancelar-${pedido.id}`}>Cancelar pedido</a>
+                            {pedido.info.estado === 0 && <a className="waves-effect waves-light btn modal-trigger center " style={{ borderRadius: '20px', background: '#cc312d' }} href={`#modal-cancelar-${pedido.id}`}>Cancelar pedido</a>}
                         </span>
                     </div>
                     {/* MODAL DONDE QUEDA */}
-                    <div id={`modal-ubicacion-${pedido.id}-2`} className="modal">
+                    <div id={`modal-ubicacion-${pedido.id}`} className="modal modal-fixed-footer">
                         <div className="modal-content">
-                            <h4>Donde queda?</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe, tempore omnis soluta dolorem doloribus cumque earum, iure, quibusdam fuga ea id blanditiis eveniet magnam! Obcaecati ipsa quibusdam nisi excepturi consequatur!</p>
+                            <h4><b>¿Donde queda {pedido.info.nombre_restaurante}?</b></h4>
+                            <p>aca iria el mapa, SI TAN SOLO TUVIERA UNO</p>
+                            <img src="https://memegenerator.net/img/images/15215811/si-tan-solo-tuviera-uno.jpg" alt="por favor ayuda" style={{ height: '75%', width: 'auto' }} />
                         </div>
                         <div className="modal-footer">
                             <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
-                        </div>
-                    </div>
-                    <div id={`modal-ubicacion-${pedido.id}`} class="modal modal-fixed-footer">
-                        <div class="modal-content">
-                            <h4>Modal Header</h4>
-                            <p>A bunch of text</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
                         </div>
                     </div>
                     {/* MODAL CANCELAR */}
                     <div id={`modal-cancelar-${pedido.id}`} className="modal">
                         <div className="modal-content">
-                            <h4>Cancelar</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis repellendus labore quibusdam perspiciatis ea? Quam aliquid ex expedita amet, et ut dicta, nisi provident reiciendis explicabo qui voluptate molestias ad!</p>
+                            <h4><b>Cancelar pedido</b></h4>
+                            <p>Solo puedes cancelar tu pedido si todavia no ha sido confirmado por el restaurante. Una vez cancelado, se notificara al restaurante de tu decisión y el pedido aparecerá como "cancelado" en tu perfil.</p>
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            <a href="#!" className="modal-close waves-effect waves-green btn-flat" onClick={() => this.cancelarPedido()}>Confirmar</a>
                         </div>
                     </div>
                 </li>

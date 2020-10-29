@@ -20,9 +20,8 @@ export class PaginaResto extends Component {
 
         });
     }
-    componentDidUpdate =()=>{
-        if (this.state.profile !== this.props.profile){
-            // console.log("UPDATING STATE");
+    componentDidUpdate = () => {
+        if (this.state.profile !== this.props.profile) {
             this.leerDB()
             this.setState({
                 profile: this.props.profile
@@ -32,12 +31,18 @@ export class PaginaResto extends Component {
     leerDB = (refreshInAllDevices) => {
         // console.log("leyendo db");
         // console.log("SI: ", refreshInAllDevices);
-        if (refreshInAllDevices === 'si'){
+        if (refreshInAllDevices === 'si') {
             db.collection('usuarios').doc(this.props.auth.uid).update({
-                refresh: Math.random(0,1)
+                refresh: Math.random(0, 1)
             })
         }
-        db.collection('pedidos').where('restaurante', '==', this.props.auth.uid).orderBy('horario_de_pedido', 'desc').get()
+        const diez = 10
+        db.collection('pedidos')
+            .where('restaurante', '==', this.props.auth.uid)
+            .where('estado', '!=', diez)
+            .orderBy('estado', 'asc')
+            .orderBy('horario_de_pedido', 'desc')
+            .get()
             .then((resp) => {
                 let TotalRecaudado = 0;
                 const Pedidos = []
@@ -63,7 +68,7 @@ export class PaginaResto extends Component {
             }).catch(error => console.log(error))
     }
     render() {
-        // console.log("STATE: ", this.state);
+        // console.log("STATE: ", this.state.pedidos);
         const { profile } = this.props
         // console.log("PROFILE: ", profile);
         // console.log("STATE PROFILE: ", this.state.profile);
@@ -89,7 +94,7 @@ export class PaginaResto extends Component {
                                 {this.state.e0 && this.state.e0.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
+                                            <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
@@ -100,7 +105,7 @@ export class PaginaResto extends Component {
                                 {this.state.e1 && this.state.e1.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
+                                            <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
@@ -111,7 +116,7 @@ export class PaginaResto extends Component {
                                 {this.state.e2 && this.state.e2.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
+                                            <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
@@ -127,7 +132,7 @@ export class PaginaResto extends Component {
                                 {this.state.e3 && this.state.e3.map(p => {
                                     return (
                                         <ul className="collapsible" key={p.id}>
-                                            <RestoItem p={p} onChangeEstado={()=> this.leerDB('si')} />
+                                            <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
                                 })}
