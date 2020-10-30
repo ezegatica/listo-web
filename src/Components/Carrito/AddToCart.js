@@ -75,7 +75,7 @@ export class AddToCart extends Component {
         })
     }
     componentDidMount() {
-        console.log("PROPS: ", this.props);
+        // console.log("PROPS: ", this.props);
     }
     render() {
         // console.log(this.props);

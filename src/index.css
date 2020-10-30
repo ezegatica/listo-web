@@ -4,12 +4,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.material-icons{
+.material-icons, br{
   user-select: none!important;
 }
-br{
-  user-select: none!important;
-}
+
 /* .swal-modal{
   transform: translate3d(0,0,0); 
   position: absolute;
@@ -20,8 +18,20 @@ br{
 
 /* TABS GENERALES */
 .tabs .tab a:hover, .tabs .tab a.active{
-  color: blue;
+  color: #007aff;
+  background-color: #f1f1f1;
 }
+.tabs .tab a:focus, .tabs .tab a:focus.active{
+  background-color: rgba(180, 180, 180, 0.2);
+}
+li.indicator{
+  background-color: blue!important;
+}
+.tabs .tab a{
+  color: #007aff;
+
+}
+/* FINISH */
 
 .categorias-display span {
   text-transform: capitalize;

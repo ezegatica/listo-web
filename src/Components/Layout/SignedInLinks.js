@@ -26,44 +26,48 @@ export class SignedInLinks extends Component {
                 profile: this.props.profile
             })
             const horaActual = Date.now()
-            if (this.props.profile.refresh.hora + 10000 > horaActual) {
-                if (this.state.esResto) {
-                    // NOTIFICACIONES RESTAURANTE
-                    switch (this.props.profile.refresh.tipo) {
-                        case 'avisar_cancelado':
-                            M.toast({
-                                html:
-                                    `<span className="red">
-                            ${this.props.profile.refresh.titulo}</span>`
-                            });
-                            break;
-                        case 'no_refresh':
-                            break
-                        case 'nuevo_pedido':
-                            M.toast({
-                                html:
-                                    `<span>
-                                ${this.props.profile.refresh.titulo}</span><a href="/pedidos"><button class="btn-flat toast-action">Ver</button></a>`
-                            });
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-                    // NOTIFICACIONES USUARIO
-                    switch (this.props.profile.refresh.tipo) {
-                        case 'cambio_estado':
-                            M.toast({
-                                html:
-                                    `<span>
-                            ${this.props.profile.refresh.titulo}</span><a href="/pedidos"><button class="btn-flat toast-action">Ver</button></a>`
-                            });
-                            break;
+            if (this.props.profile.refresh) {
+                if (this.props.profile.refresh.hora + 10000 > horaActual) {
+                    if (this.state.esResto) {
+                        // NOTIFICACIONES RESTAURANTE
 
-                        default:
-                            break;
+                        switch (this.props.profile.refresh.tipo) {
+                            case 'avisar_cancelado':
+                                M.toast({
+                                    html:
+                                        `<span className="red">
+                                ${this.props.profile.refresh.titulo}</span>`
+                                });
+                                break;
+                            case 'no_refresh':
+                                break
+                            case 'nuevo_pedido':
+                                M.toast({
+                                    html:
+                                        `<span>
+                                    ${this.props.profile.refresh.titulo}</span><a href="/pedidos"><button class="btn-flat toast-action">Ver</button></a>`
+                                });
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        // NOTIFICACIONES USUARIO
+                        switch (this.props.profile.refresh.tipo) {
+                            case 'cambio_estado':
+                                M.toast({
+                                    html:
+                                        `<span>
+                                ${this.props.profile.refresh.titulo}</span><a href="/pedidos"><button class="btn-flat toast-action">Ver</button></a>`
+                                });
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
                 }
+
             }
         }
     }

@@ -15,7 +15,7 @@ function PerfilResto(props) {
             </div>
             <div className="col s12 l6">
                 <h4 className="center">Mis productos:</h4>
-                <Lista restaurante={auth.currentUser.uid} />
+                <Lista restaurante={auth.currentUser.uid} auth={auth} profile={props.profile} profileView={true}/>
             </div>
 
 

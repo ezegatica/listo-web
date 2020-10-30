@@ -20,55 +20,55 @@ export class RestauranteDetalles2 extends Component {
         logged: null
     }
     leerDB = (condition) => {
-        if (condition){this.setState({bugfix: true}); console.log("BUGFIXING!");}
+        if (condition) { this.setState({ bugfix: true }); console.log("BUGFIXING!"); }
         if (this.props.profile.isEmpty && this.props.profile.isLoaded) {
             this.setState({ logged: false })
         }
         else {
-            this.setState({ logged: true, uid: this.props.auth.uid  })
+            this.setState({ logged: true, uid: this.props.auth.uid })
         }
-        if (this.props.profile.favoritos && this.props.profile.favoritos.includes(this.props.match.params.id)) { 
+        if (this.props.profile.favoritos && this.props.profile.favoritos.includes(this.props.match.params.id)) {
             // console.log("esta faveado");
-            this.setState({ liked: true }) 
-        } 
+            this.setState({ liked: true })
+        }
         else {
             // console.log("no esta faveado");
 
-             this.setState({ liked: false }) 
+            this.setState({ liked: false })
         }
     }
-    handleFav =  () => {
+    handleFav = () => {
         // console.log("user: ", this.state.uid, " \nresto: ", this.props.restaurant.info.nombre, "\nestá likeado? ",this.state.liked);
-        if (this.state.liked){
+        if (this.state.liked) {
             this.borrarFav()
             // this.props.UpdateProfileWithNewFavs()
-        }else{
+        } else {
             this.addFav()
         }
     }
     addFav = () => {
         const RESTO = this.state.id
         const uid = this.state.uid
-        db.collection('usuarios').doc(uid).update({"favoritos": fb.firestore.FieldValue.arrayUnion(RESTO)}).then(() => {
+        db.collection('usuarios').doc(uid).update({ "favoritos": fb.firestore.FieldValue.arrayUnion(RESTO) }).then(() => {
             console.log("agregado!");
-            this.setState({liked: true})
-        }).catch((err) => {console.log(err);})
+            this.setState({ liked: true })
+        }).catch((err) => { console.log(err); })
     }
     borrarFav = () => {
         const RESTO = this.state.id
         const uid = this.state.uid
-        db.collection('usuarios').doc(uid).update({"favoritos": fb.firestore.FieldValue.arrayRemove(RESTO)}).then(() => {
+        db.collection('usuarios').doc(uid).update({ "favoritos": fb.firestore.FieldValue.arrayRemove(RESTO) }).then(() => {
             console.log("borrado!");
-            this.setState({liked: false})
-        }).catch((err) => {console.log(err);})
+            this.setState({ liked: false })
+        }).catch((err) => { console.log(err); })
     }
     componentDidMount() {
         document.title = process.env.REACT_APP_NAME;
         let urlID = this.props.match.params.id;
         this.setState({
             id: urlID
-        })  
-              // console.log(urlID)
+        })
+        // console.log(urlID)
         this.leerDB(false)
         db.collection('restaurantes').doc(urlID).get()
             .then(snapshot => {
@@ -89,14 +89,14 @@ export class RestauranteDetalles2 extends Component {
             })
     }
     componentWillUnmount = () => {
-        this.setState({bugfix: false})
+        this.setState({ bugfix: false })
     }
     render() {
         let Fav = ""
         if (this.state.logged && !this.props.profile.isResto) {
             Fav = this.state.liked ? "favorite" : "favorite_border"
         }
-        if(this.state.logged && !this.state.uid && !this.state.bugfix && this.props.auth.uid && this.props.auth.isLoaded && !this.props.auth.isEmpty &&this.props.profile.isLoaded){
+        if (this.state.logged && !this.state.uid && !this.state.bugfix && this.props.auth.uid && this.props.auth.isLoaded && !this.props.auth.isEmpty && this.props.profile.isLoaded) {
             this.leerDB(true)
         }
         if (this.state.e404 === true) {
@@ -110,7 +110,7 @@ export class RestauranteDetalles2 extends Component {
                     <div>
                         <Link to="/restaurantes">Atras</Link>
                         {!this.props.auth.isEmpty && this.props.auth.isLoaded && <span style={{ float: 'right' }}>
-                           <i className="material-icons hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>
+                            <i className="material-icons hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>
                         </span>}
                     </div>
                     <div className="center container fotoResto-container">
@@ -119,8 +119,8 @@ export class RestauranteDetalles2 extends Component {
                     <h4 className="center">{this.state.nombreRestaurante}</h4>
                     <p className="center"><b>Categorias:</b> {this.state.cat1}{this.state.cat2 && ", " + this.state.cat2}</p>
                     <hr />
-                    <h4>Productos: </h4>
-                    <Lista restaurante={this.props.match.params.id} />
+                    {/* <h4>Productos: </h4> */}
+                    <Lista restaurante={this.props.match.params.id} auth={this.props.auth} profile={this.props.profile} />
                 </div>
             )
         } else {

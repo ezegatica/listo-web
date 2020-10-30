@@ -14,7 +14,6 @@ export class PerfilUsuario extends Component {
     }
 
     leerDBPedidos = () => {
-        console.log(auth.currentUser.uid);
         db.collection('pedidos').where('usuario', '==', auth.currentUser.uid).where('estado', '<', 4).orderBy('estado', 'asc').get()
             .then((resp) => {
                 const Pedidos = []
@@ -63,7 +62,6 @@ export class PerfilUsuario extends Component {
     }
     clearFavs = () => {
         const uid = auth.currentUser.uid
-        console.log(uid);
         swal({
             title: "Cuidado!",
             text: "Estas seguro que quieres eliminar todos tus favoritos? Una vez hecho, no se puede volver atras...",
@@ -85,9 +83,6 @@ export class PerfilUsuario extends Component {
             });
     }
     render() {
-        if (this.state.cargado) {
-            console.log("PEDIDOS: ", this.state.pedidos);
-        }
         const perfil = this.props.profile
         return (
             <div className="row">
@@ -96,13 +91,18 @@ export class PerfilUsuario extends Component {
                     <ul className="collapsible" >
                         {this.state.cargado && !this.state.vacio && this.state.pedidos.map((pedido) => {
                             return (
-                                <UsuarioItem activo={true} pedido={pedido} key={pedido.id} leerDB={() => this.leerDBPedidos()} showPics={false}/>
+                                <UsuarioItem activo={true} pedido={pedido} key={pedido.id} leerDB={() => this.leerDBPedidos()} showPics={false} />
                             )
                         })}
+                        {this.state.cargado && this.state.vacio && <div className="center">
+                            <h3>No tienes pedidos activos!</h3>
+                            <p>Puedes pedir comida y volver acá cuando los haya!</p>
+                            <br/>
+                        </div>}
                     </ul>
-                    <Link to="/pedidos"><h5 className="center card-titulo"><b>Ver todos los pedidos!</b></h5></Link>
-                    {!this.state.cargado && <div>cargando...</div>}
-                    {!this.state.cargado && this.state.vacio && <div>Vacio</div>}
+                    {!this.state.cargado && <div>Cargando...</div>}
+
+                    <Link to="/pedidos#historial"><h5 className="center card-titulo"><b>Historial de pedidos</b></h5></Link>
                 </div>
                 <div className="col s12 m6">
                     <h4 className="center"><b>Mis restaurantes favoritos:</b></h4>
