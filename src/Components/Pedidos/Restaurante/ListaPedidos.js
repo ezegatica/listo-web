@@ -41,13 +41,16 @@ export class ListaPedidos extends Component {
                     <i className="material-icons">refresh</i>
                 </button>
                 <h5><b>PEDIDOS POR CONFIRMAR:</b></h5>
-                {this.state.por_confirmar && this.state.por_confirmar.map(pedido => {
+                <div className="blanquito" style={{padding: 20, borderRadius: 20}}>
+                    {this.state.por_confirmar && this.state.por_confirmar.map(pedido => {
                     indice = indice + 1
                     return (
                         <PedidoItem pedido={this.state.por_confirmar[indice - 1]} key={pedido.id} />
                     )
                 })}
                 {!this.state.por_confirmar && <div>Cargando...</div>}
+                </div>
+                
                 <div className="center">
                 <Link to="/pedidos" className="btn btn-small blue white-text">
                         Ver lista completa!

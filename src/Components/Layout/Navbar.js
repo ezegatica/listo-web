@@ -13,7 +13,7 @@ const Navbar= (props) => {
     const mobile = auth.uid ? <SignedInMobile profile={profile}/> : <SignedOutMobile/>
 
     return(
-        <nav className="nav-wrapper grey darken-3">
+        <nav className="nav-wrapper" style={{background: '#004ea3'}}>
             <div className="container">
                 <Link to="/" className="brand-logo">Listo!</Link>
                 

@@ -105,7 +105,7 @@ export class ProductosList extends Component {
                 <div>
                     {this.state.productos && this.state.productos.map (producto =>{
                         return(
-                            <div className="card z-depth-0 proyect-summary grey lighten-3 redondo" key={producto.id}>
+                            <div className="card proyect-summary redondo sombrita" key={producto.id}>
                                 <Link to={"/restaurantes/" + producto.info.autorUUID+"/"+producto.id}>
                                 <div className="card-content grey-text text-darken-3 lista-proyectos row">
                                     <div className="col s4 m4 l3 xl2">

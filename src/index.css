@@ -1,36 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-family: 'Montserrat', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-.material-icons, br{
-  user-select: none!important;
+  background-color: #EBEBEB;
 }
 
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.material-icons, br {
+  user-select: none!important;
+}
+:root{
+  --blanquito: #F4F4F4
+}
+.blanquito {
+  background-color: var(--blanquito);
+}
+.azulClaro{
+  background: #007aaf;
+}
+.sombrita {
+  box-shadow: 0px 5.44px 5.44px 0px rgba(0, 0, 0, 0.25);
+}
+
+.sombrita:hover {
+  box-shadow: 0px 5px 26px 2px rgba(0,0,0,0.25)!important;
+}
+
+.form-login .btn:hover{
+  background-color: #00a4f6;
+}
+.form-auth{
+  background: #f4f4f4;
+  border-radius: 20px ;
+  padding: 30px;
+  margin-top: 10px;
+}
 /* .swal-modal{
   transform: translate3d(0,0,0); 
   position: absolute;
 } */
+
 .producto-detalles .container .card .card-content {
   padding-top: 0!important;
 }
 
+/* CORRECCION DE COLOR */
+.collapsible-header{
+  background-color: var(--blanquito);
+}
+.card{
+  background-color: #F4F4F4
+}
+/* end */
 /* TABS GENERALES */
-.tabs .tab a:hover, .tabs .tab a.active{
-  color: #007aff;
-  background-color: #f1f1f1;
-}
-.tabs .tab a:focus, .tabs .tab a:focus.active{
-  background-color: rgba(180, 180, 180, 0.2);
-}
-li.indicator{
-  background-color: blue!important;
-}
-.tabs .tab a{
-  color: #007aff;
 
+.tabs .tab a:hover, .tabs .tab a.active {
+  color: #007aff;
+  background-color: #e1e1e1;
 }
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: rgba(170, 170, 170, 0.2);
+}
+
+li.indicator {
+  background-color: #0062cc!important;
+}
+
+.tabs .tab a {
+  color: #007aff;
+}
+.tabs{
+  background: transparent!important;
+}
+
 /* FINISH */
 
 .categorias-display span {
@@ -84,6 +135,7 @@ blue:hover {
 }
 
 .carta {
+  background-color: #fefefe;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 100%;
   margin: auto;
@@ -96,8 +148,6 @@ blue:hover {
   font-size: 10px;
   vertical-align: top;
 }
-
-
 
 .titulo {
   color: grey;
@@ -137,7 +187,7 @@ blue:hover {
 .caja {
   height: 500px;
   position: relative;
-} 
+}
 
 nav.nav-center ul {
   text-align: center;

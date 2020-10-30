@@ -29,10 +29,10 @@ export class SignUp extends Component {
         const {authError, auth} = this.props;
         let asd;
         if (this.state.loading) {
-            asd = "btn pink lighten-1 z-depth-0 disabled"
+            asd = "btn azulClaro z-depth-0 disabled"
         }
         else {
-            asd = "btn pink lighten-1 z-depth-0"
+            asd = "btn azulClaro z-depth-0"
         }
         const Enviando = this.state.loading ? <div className="center"><h4>Registrando...</h4></div> : null
         if (auth.uid){
@@ -40,8 +40,8 @@ export class SignUp extends Component {
         }
         else{
             return (
-                <div className="container">
-                    <form onSubmit={this.Submit} className="white">
+                <div className="container form-auth form-login">
+                    <form onSubmit={this.Submit}>
                         <h5 className="grey-text text-darken-3">Registrarse</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>

@@ -32,16 +32,17 @@ export class Restaurantes extends Component {
             </div>
 
         return (
-            <div>
+            <div className="container">
                 <h3 className="center">Pedir Comida!</h3>
                 <Filtros />
                 {Cargando}
                 <div className="lista-restaurantes row">
-                {this.state.restaurantes && this.props.profile.isLoaded && this.state.restaurantes.map(restaurant => {
-                    return (
-                        <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={this.props.profile}/>
-                    )
-                })}
+                    <br />
+                    {this.state.restaurantes && this.props.profile.isLoaded && this.state.restaurantes.map(restaurant => {
+                        return (
+                            <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={this.props.profile} />
+                        )
+                    })}
                 </div>
             </div>
         )

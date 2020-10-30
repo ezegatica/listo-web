@@ -97,7 +97,7 @@ export class SignedInLinks extends Component {
                     {carrito}
                     <li><NavLink to="/pedidos">Pedidos</NavLink></li>
                     <li><NavLink to="/" onClick={props.signOut}>Logout</NavLink></li>
-                    <li><NavLink to="/profile" className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
+                    <li><NavLink to="/profile" className="btn btn-floating grey darken-1">{props.profile.initials}</NavLink></li>
                 </ul>
                 <ul className="show-on-medium-and-down hide-on-med-and-up right">
                     <li><NavLink to="/" style={{ padding: 0, margin: 0 }} onClick={props.signOut}><i className="material-icons left white-text">logout</i></NavLink></li>

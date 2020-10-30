@@ -88,7 +88,8 @@ export class PerfilUsuario extends Component {
             <div className="row">
                 <div className="col s12 m6">
                     <Link to="/pedidos#activos"><h4 className="center titulo-link"><b>Mis pedidos activos:</b></h4></Link>
-                    <ul className="collapsible" >
+                    <br/>
+                    <ul className="collapsible popout" >
                         {this.state.cargado && !this.state.vacio && this.state.pedidos.map((pedido) => {
                             return (
                                 <UsuarioItem activo={true} pedido={pedido} key={pedido.id} leerDB={() => this.leerDBPedidos()} showPics={false} />

@@ -37,10 +37,10 @@ export class SignIn extends Component {
         const { authError, auth } = this.props;
         let asd;
         if (this.state.loading) {
-            asd = "btn pink lighten-1 z-depth-0 disabled"
+            asd = "btn azulClaro z-depth-0 disabled"
         }
         else {
-            asd = "btn pink lighten-1 z-depth-0"
+            asd = "btn azulClaro z-depth-0"
         }
         const Enviando = this.state.loading ? <div className="center"><h4>Entrando...</h4></div> : null
         if (auth.uid) {
@@ -48,8 +48,8 @@ export class SignIn extends Component {
         }
         else {
             return (
-                <div className="container">
-                    <form onSubmit={this.Submit} className="white">
+                <div className="container form-login form-auth">
+                    <form onSubmit={this.Submit} >
                         <h5 className="grey-text text-darken-3">Entrar</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>
@@ -70,12 +70,13 @@ export class SignIn extends Component {
                             <div className="red-text center">
                                 {authError ? <p>{authError}</p> : null}
                             </div>
-                            {Enviando}
                         </div>
                     </form>
                     <button className={asd} onClick={this.defaultUser}>Login con usuario predeterminado</button> <br />
                     <br />
                     <button className={asd} onClick={this.defaultResto}>Login con restaurante Beni</button>
+                    <br/>
+                    {Enviando}
                 </div>
             )
         }

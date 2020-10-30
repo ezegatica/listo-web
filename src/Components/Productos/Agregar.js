@@ -64,8 +64,8 @@ export class Create extends Component {
         const Enviando = this.state.loading && !this.props.hecho ? <div className="center"><h4>Creando...</h4></div> : null
         if (this.props.auth.isLoaded && this.props.auth.uid && this.props.profile.isLoaded && this.props.profile.isResto) {
             return (
-                <div className="container">
-                    <form onSubmit={this.Click} className="white">
+                <div className="container form-auth">
+                    <form onSubmit={this.Click}>
                         <h5 className="grey-text text-darken-3">Agregar producto</h5> <br />
                         <div className="input-field">
                             <label htmlFor="titulo">Titulo</label>
