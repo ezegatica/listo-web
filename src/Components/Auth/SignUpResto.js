@@ -35,8 +35,8 @@ export class SignUpResto extends Component {
             asd = "btn pink lighten-1 z-depth-0"
         }
             return (
-                <div className="container">
-                    <form onSubmit={this.Submit} className="white" autoComplete="no">
+                <div className="container form-auth">
+                    <form onSubmit={this.Submit} autoComplete="no">
                         <h5 className="grey-text text-darken-3">Registrar nuevo Restaurante</h5>
                         <div className="input-field">
                             <label htmlFor="email">Email</label>

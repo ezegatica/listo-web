@@ -100,6 +100,7 @@ export class Pedir extends Component {
                 this.setState({
                     pedidoRealizado: true
                 })
+                this.props.borrarCarrito()
                 swal(
                     "Confirmado", 'Tu pedido se ha realizado con exito, puedes visitar la pestaña "pedidos" para ver mas info ', "success"
                 );

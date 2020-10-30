@@ -5,7 +5,7 @@ import M from 'materialize-css'
 import Pedir from './Pedir'
 import swal from 'sweetalert'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 let hacer = false
 
 export class Cart extends Component {
@@ -61,33 +61,41 @@ export class Cart extends Component {
             // console.log("es igual, no cambiando");
         }
     }
-    borrarCarrito = () => {
+    borrarCarrito = (showAlert) => {
         const uid = this.props.auth.currentUser.uid
-        swal({
-            title: "Advertencia!",
-            text: "Quieres vaciar el carrito?",
-            icon: "warning",
-            buttons: {
-                cancel: "Cancelar",
-                ok: {
-                    text: 'Ok',
-                    value: true
-                }
-            },
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    db.collection('usuarios').doc(uid).update({ "cart": fb.firestore.FieldValue.delete() }).then(() => {
-                    }).catch((err) => { console.log(err); })
-                    swal("Carrito vaciado!", {
-                        icon: "success",
-                        timer: 2000
-                    });
-                } else {
+        if (showAlert) {
+            swal({
+                title: "Advertencia!",
+                text: "Quieres vaciar el carrito?",
+                icon: "warning",
+                buttons: {
+                    cancel: "Cancelar",
+                    ok: {
+                        text: 'Ok',
+                        value: true
+                    }
+                },
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        db.collection('usuarios').doc(uid).update({ "cart": fb.firestore.FieldValue.delete() }).then(() => {
+                        }).catch((err) => { console.log(err); })
+                        swal("Carrito vaciado!", {
+                            icon: "success",
+                            timer: 2000
+                        });
+                    } else {
 
-                }
-            });
+                    }
+                });
+        } else {
+            db.collection('usuarios').doc(uid).update({
+                "cart": fb.firestore.FieldValue.delete()
+            }).then(() => {
+            }).catch((err) => { console.log(err); })
+        }
+
     }
     change = (e) => {
         this.setState({
@@ -104,14 +112,15 @@ export class Cart extends Component {
                     <p>No hay productos en tu carrito, puedes agregarlos y volver acá cuando los haya!</p>
                     <Link to="/restaurantes">
                         <span className="btn" style={{ borderRadius: '20px', background: '#007AFF' }}>¡Comprar productos!</span>
-                    </Link>                 </div>
+                    </Link>
+                </div>
             )
         } else {
             const apellido = this.props.profile.apellido ? this.props.profile.apellido : ''
             const nombreYapellido = this.props.profile.nombre + " " + apellido
             return (
                 <   >
-                    <h3 className="center">Carrito!   <span><i onClick={() => this.borrarCarrito()} className="material-icons delete">delete_forever</i></span></h3>
+                    <h3 className="center">Carrito!   <span><i onClick={() => this.borrarCarrito(true)} className="material-icons delete">delete_forever</i></span></h3>
                     <div className="center container resto-cart-container">
                         <h5 className="center"><span>{this.props.restaurante.nombre}</span></h5>
                         <img src={this.props.restaurante.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={`Foto de ${this.props.restaurante.nombre}`} className="circle responsive-img imagen-restaurante-carrito" />
@@ -139,7 +148,7 @@ export class Cart extends Component {
                             </div>
                         </form>
                     </div>
-                    {this.state.subtotal !== '0' && <Pedir cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total} name={nombreYapellido} />}
+                    {this.state.subtotal !== '0' && <Pedir borrarCarrito={this.borrarCarrito} cart={this.props.profile.cart} data={this.props.productos} auth={this.props.auth.currentUser.uid} comentario={this.state.comentarios ? this.state.comentarios : 'Vacío'} subtotal={this.state.subtotal.toString()} restaurante={this.props.restaurante} cantidad_items={this.state.cantidad_total} name={nombreYapellido} />}
                     <br />
                 </>
             )

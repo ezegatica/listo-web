@@ -49,8 +49,8 @@ export class Detalles extends Component {
             //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
             return (
                 <div className="producto-detalles">
-                    <Link to={"/restaurantes/" + this.props.match.params.id}><p className="container">Atras</p></Link>
-                    <div className="container section">
+                    <p style={{float: 'left'}}><Link to={"/restaurantes/" + this.props.match.params.id}>Atras</Link></p>
+                    <div className="container section"> 
                         <div className="card z-depth-0">
                             <div className="card-content">
                                 <div className="center">

@@ -62,7 +62,7 @@ export class CartItem extends Component {
         // console.log("PROPS: ", this.props.data.titulo, this.props);
         // console.log("PROPS CARTITEM", item.producto, this.props);
         return (
-            <div className="row">
+            <div className="row item-productos">
                 <div className="col s4 m4 l4 xl2">
                     <img className="imagen-carrito-producto materialboxed"  src={data.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="Imagen" />
                 </div>
@@ -83,7 +83,6 @@ export class CartItem extends Component {
                     </div>
 
                 </div>
-                <hr />
             </div>
 
         )

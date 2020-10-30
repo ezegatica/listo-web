@@ -5,8 +5,8 @@ function SignedOutMobile() {
     return (
         <div>
             <br />
-            <nav className="show-on-medium-and-down hide-on-med-and-up">
-                <div className="nav-wrapper grey darken-2 awdajkhbdw">
+            <nav className="show-on-medium-and-down hide-on-med-and-up color-nav-mobile">
+                <div className="nav-wrapper">
                     <ul className="center">
                         <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
                         <li><NavLink to="/login">Login</NavLink></li>
