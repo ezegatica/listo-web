@@ -51,7 +51,6 @@ export class ShowRestaurante extends Component {
     }
 
     render() {
-        console.log("PROPS_: ",this.props);
         let classDivFoto
         let classDivTexto
         if (this.props.fotoMasGrande) {
@@ -69,19 +68,26 @@ export class ShowRestaurante extends Component {
         }
         if (restaurant.info) {
             return (
-                <Link to={"/restaurantes/" + restaurant.id}>
-                    <div className="card proyect-summary white sombrita" style={{ borderRadius: 20 }}>
-                        <div className="card-content grey-text text-darken-3 lista-proyectos row">
+                <div className="card proyect-summary white sombrita" style={{ borderRadius: 20 }}>
+                    <div className="card-content grey-text text-darken-3 lista-proyectos row">
+                        <Link to={"/restaurantes/" + restaurant.id}>
                             <div className={classDivFoto}>
                                 <img src={restaurant.info.foto || 'https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media'} alt={"IMG"} draggable="false" className=" circle z-depth-3 imagen-lista resposive-img" /> <br />
                             </div>
-                            <div className={classDivTexto}>
-                                <div>{Fav && <i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>}<span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span></div>
-                                <div className="categorias-display"><p>Categorias: <span className="cat1">{restaurant.info.cat}</span><span className="cat2">{restaurant.info.cat2 && ", " + restaurant.info.cat2}</span></p></div>
+                        </Link>
+
+                        <div className={classDivTexto}>
+                            <div>{Fav && <i className="material-icons left hover restaurante-fav" onClick={this.handleFav}>{Fav}</i>}
+                                <Link to={"/restaurantes/" + restaurant.id}>
+                                    <span className="card-title" title={restaurant.info.nombre}>{restaurant.info.nombre}</span>
+                                </Link>
                             </div>
+                            <Link to={"/restaurantes/" + restaurant.id}>
+                                <div className="categorias-display"><p>Categorias: <span className="cat1">{restaurant.info.cat}</span><span className="cat2">{restaurant.info.cat2 && ", " + restaurant.info.cat2}</span></p></div>
+                            </Link>
                         </div>
                     </div>
-                </Link>
+                </div>
             )
         } else {
             return null

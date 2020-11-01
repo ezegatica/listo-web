@@ -29,7 +29,7 @@ export class MakeAdmin extends Component {
             isAdmin: fb.firestore.FieldValue.delete()
         }).then(() => {
             this.leerDB()
-            console.log("SUCCESS REMOVING ", uid, " AS AN ADMIN");
+            // console.log("SUCCESS REMOVING ", uid, " AS AN ADMIN");
         }).catch((err) => {
             console.log(err);
         })
@@ -41,7 +41,7 @@ export class MakeAdmin extends Component {
             isAdmin: true
         }).then(() => {
             this.leerDB()
-            console.log("SUCCESS ADDING ", uid, " AS AN ADMIN");
+            // console.log("SUCCESS ADDING ", uid, " AS AN ADMIN");
         }).catch((err) => {
             console.log(err);
         })

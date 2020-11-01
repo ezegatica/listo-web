@@ -117,7 +117,7 @@ export class Cart extends Component {
         } else {
             if (!this.state.rendered && this.state.cargado) {
                 setTimeout(() => {
-                    console.log("uwu");
+                    // console.log("uwu");
                     this.setState({
                         rendered: true
                     })

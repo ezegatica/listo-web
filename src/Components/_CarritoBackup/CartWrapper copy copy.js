@@ -65,7 +65,7 @@ export class CartWrapper extends Component {
 
                 if (!A && B) {
                     setTimeout(() => {
-                        console.log("owo");
+                        // console.log("owo");
                         this.setState({
                             A: true
                         })

@@ -39,7 +39,6 @@ export class Restaurantes extends Component {
                 <div className="lista-restaurantes row">
                     <br />
                     {this.state.restaurantes && this.props.profile.isLoaded && this.state.restaurantes.map(restaurant => {
-                        console.log("RESTO: ", restaurant);
                         return (
                             <ShowRestaurante restaurant={restaurant} key={restaurant.id} perfil={this.props.profile} />
                         )

@@ -51,7 +51,7 @@ export class Posts extends Component {
         })    
     }
     edit = (id) => {
-        console.log("EDITAR: ",id);
+        // console.log("EDITAR: ",id);
     }
     render() {
         return (

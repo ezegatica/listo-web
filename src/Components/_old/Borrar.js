@@ -46,7 +46,7 @@ export class Borrar extends Component {
                 )
             }
             if (auth.currentUser.uid === this.state.producto.autorUUID){
-                console.log("ES EL DUEÑO")
+                // console.log("ES EL DUEÑO")
                 return (
                     <div className="center">
                         <h2>{this.state.producto.titulo}</h2>
@@ -57,7 +57,7 @@ export class Borrar extends Component {
                 )
             }
             else{
-                console.log("NO ES EL DUEÑO")
+                // console.log("NO ES EL DUEÑO")
                 return(
                     <Forbidden />
                 )
