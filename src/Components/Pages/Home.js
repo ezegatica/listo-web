@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ShowRestaurante from '../Restaurante/ShowRestaurante'
+// import ShowRestaurante from '../Restaurante/ShowRestaurante'
 import Preview from '../Posts/Preview'
 import { connect } from 'react-redux'
-import { auth } from '../../Config/fbConfig'
+// import { auth } from '../../Config/fbConfig'
 
 export class Home extends Component {
     componentDidMount =()=>{
