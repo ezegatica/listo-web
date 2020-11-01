@@ -51,6 +51,7 @@ export class ShowRestaurante extends Component {
     }
 
     render() {
+        console.log("PROPS_: ",this.props);
         let classDivFoto
         let classDivTexto
         if (this.props.fotoMasGrande) {
@@ -69,7 +70,7 @@ export class ShowRestaurante extends Component {
         if (restaurant.info) {
             return (
                 <Link to={"/restaurantes/" + restaurant.id}>
-                    <div className="card proyect-summary blanquito sombrita" style={{ borderRadius: 20 }}>
+                    <div className="card proyect-summary white sombrita" style={{ borderRadius: 20 }}>
                         <div className="card-content grey-text text-darken-3 lista-proyectos row">
                             <div className={classDivFoto}>
                                 <img src={restaurant.info.foto || 'https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media'} alt={"IMG"} draggable="false" className=" circle z-depth-3 imagen-lista resposive-img" /> <br />

@@ -103,24 +103,24 @@ export class ProductosList extends Component {
         if (this.props.profileView) {
             return (
                 <div>
-                    {this.state.productos && this.state.productos.map (producto =>{
-                        return(
+                    {this.state.productos && this.state.productos.map(producto => {
+                        return (
                             <div className="card proyect-summary redondo sombrita" key={producto.id}>
-                                <Link to={"/restaurantes/" + producto.info.autorUUID+"/"+producto.id}>
-                                <div className="card-content grey-text text-darken-3 lista-proyectos row">
-                                    <div className="col s4 m4 l3 xl2">
-                                    <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3" draggable="false"/> <br/>
+                                <Link to={"/restaurantes/" + producto.info.autorUUID + "/" + producto.id}>
+                                    <div className="card-content grey-text text-darken-3 lista-proyectos row">
+                                        <div className="col s4 m4 l3 xl2">
+                                            <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3" draggable="false" /> <br />
+                                        </div>
+                                        <div className="col s8 m8 l9 xl10">
+                                            <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
+                                            <p className="red-text">{producto.info.descripcion}</p>
+                                            <p><b>Precio: </b>${producto.info.precio}</p>
+                                        </div>
                                     </div>
-                                    <div className="col s8 m8 l9 xl10">
-                                    <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
-                                    <p className="red-text">{producto.info.descripcion}</p>
-                                    <p><b>Precio: </b>${producto.info.precio}</p>
-                                    </div>
-                                </div>
                                 </Link>
                             </div>
                         )
-                })}
+                    })}
                 </div>
             )
         } else {
@@ -130,18 +130,18 @@ export class ProductosList extends Component {
                         indice = indice + 1
                         let i = indice - 1
                         return (
-                            <div className="card col s12 m6 l3 redondo center " key={producto.id}>
+                            <div className="card col s12 m6 l4 xl3 redondo center " key={producto.id} >
                                 <div className="card-image waves-effect waves-block waves-light">
                                     <img alt={`imagen de ${producto.info.titulo}`} src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} className="responsive-img activator" style={{ objectFit: "cover", height: '20vh', width: '100%' }} />
                                 </div>
-                                <div className="card-content" style={{ paddingTop: 10 }}>
+                                <div className="card-content" style={{ paddingTop: 10, paddingLeft: 10, paddingRight: 10 }}>
                                     <span className="card-title activator grey-text text-darken-4"><b className="activator">{producto.info.titulo}</b></span>
                                     <p><b>${producto.info.precio}</b></p>
                                     <br />
-                                    <p >
+                                    <span>
                                         <span style={{ float: ClaseDetalles, padding: '10px', background: 'grey', color: 'white', borderRadius: '10px', marginBottom: '10px', cursor: 'pointer' }} className="activator">Detalles</span>
                                         {showAdd && <span style={{ float: "right", padding: '10px', background: '#007aff', color: 'white', borderRadius: '10px', marginBottom: '10px', cursor: 'pointer' }} onClick={() => this.agregarCarrito(i)}>Agregar al carrito</span>}
-                                    </p>
+                                    </span>
                                 </div>
                                 <div className="card-reveal">
                                     <span className="card-title grey-text text-darken-4"><b>{producto.info.titulo}</b><i className="material-icons right">close</i></span>

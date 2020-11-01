@@ -72,10 +72,10 @@ export class SignIn extends Component {
                             </div>
                         </div>
                     </form>
-                    <button className={asd} onClick={this.defaultUser}>Login con usuario predeterminado</button> <br />
-                    <br />
-                    <button className={asd} onClick={this.defaultResto}>Login con restaurante Beni</button>
-                    <br/>
+                    {/* <button className={asd} onClick={this.defaultUser}>Login con usuario predeterminado</button> <br /> */}
+                    {/* <br /> */}
+                    {/* <button className={asd} onClick={this.defaultResto}>Login con restaurante Beni</button> */}
+                    {/* <br/> */}
                     {Enviando}
                 </div>
             )

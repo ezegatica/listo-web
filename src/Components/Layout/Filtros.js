@@ -5,6 +5,7 @@ import hamburguesa from '../../iconos/hamburguesa.png'
 import pinches from '../../iconos/pinches.png'
 import tacos from '../../iconos/taco.png'
 import galletitas from '../../iconos/galletita.png'
+import fideos from '../../iconos/fideos.png'
 import { Link } from 'react-router-dom'
 function Filtros() {
     return (
@@ -16,6 +17,7 @@ function Filtros() {
             <Link to="/restaurantes/categoria/pollo"><img src={pinches} alt="Pollo" title="Pollo"/></Link>
             <Link to="/restaurantes/categoria/empanadas"><img src={tacos} alt="Empanadas" title="Empanadas"/></Link>
             <Link to="/restaurantes/categoria/sandwiches"><img src={galletitas} alt="Sandwiches" title="Sandwiches"/></Link>
+            <Link to="/restaurantes/categoria/pasta"><img src={fideos} alt="Pasta" title="Pasta"/></Link>
             </div>
         </div>
     )

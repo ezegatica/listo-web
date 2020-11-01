@@ -117,7 +117,7 @@ export class RestauranteDetalles2 extends Component {
                         <img src={this.state.imagen || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/user.png?alt=media"} alt={"LOGO DE " + this.state.nombreRestaurante} className="responsive-img circle z-depth-3" draggable="false" /> <br />
                     </div>
                     <h4 className="center">{this.state.nombreRestaurante}</h4>
-                    <p className="center"><b>Categorias:</b> {this.state.cat1}{this.state.cat2 && ", " + this.state.cat2}</p>
+                    <p className="center"><b>Categorias:</b> <span className="capitalize">{this.state.cat1}{this.state.cat2 && ", " + this.state.cat2}</span></p>
                     <hr />
                     {/* <h4>Productos: </h4> */}
                     <Lista restaurante={this.props.match.params.id} auth={this.props.auth} profile={this.props.profile} />

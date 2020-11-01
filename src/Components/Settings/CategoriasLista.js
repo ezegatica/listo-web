@@ -8,6 +8,7 @@ function Categorias() {
             <option value="hamburguesas">Hamburguesas</option>
             <option value="empanadas">Empanadas</option>
             <option value="sandwiches">Sandwiches</option>
+            <option value="pasta">Pasta</option>
         </>
     )
 }

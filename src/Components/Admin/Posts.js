@@ -59,7 +59,7 @@ export class Posts extends Component {
                 <h5>Posteos:</h5>
                 {this.state.publicaciones && this.state.publicaciones.map(message => {
                     return (
-                        <div className="row admin-post-list" key={message.id}>
+                        <div className="row admin-post-list sombrita" key={message.id}>
                             <p className="col s6 m3 ">{message.info.titulo}</p>
                             <p className="col    m5 hide-on-med-and-down">{message.id}</p>
                             <p className="col s4 m3 ">{moment(message.info.createdAt.toDate()).calendar()}</p>
@@ -72,8 +72,8 @@ export class Posts extends Component {
                     <p>Lista vacía!</p>
                     </div>}
                 <hr />
+                <form onSubmit={this.Submit} className="form-auth">
                 <h5 style={{ marginBottom: 5 }}>Añadir post:</h5>
-                <form onSubmit={this.Submit}>
                     <div className="input-field">
                         <label htmlFor="titulo">Titulo</label>
                         <input type="text" id="titulo" onChange={this.Change} required={true} />

@@ -9,7 +9,10 @@ const projectReducer = (state = initState, action, props) =>{
         case 'RESET':
             return {
                 ...state,
-                done: false
+                done: false,
+                id: null,
+                cargando: false,
+                mensaje: null,
             }
         case 'URL_IMAGEN':
             console.log("ID PRODUCTO: ", action.id)

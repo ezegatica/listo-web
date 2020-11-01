@@ -35,8 +35,8 @@ export class Recovery extends Component {
             Enviando = null
         }
         return (
-            <div className="container">
-                <form onSubmit={this.Submit} className="white">
+            <div className="container form-auth">
+                <form onSubmit={this.Submit}>
                     <h5 className="grey-text text-darken-3">Olvide mi contraseña</h5>
                     <p className="grey-text text-darken-1">Escribe tu direccion de mail y te enviaremos un email con la informacion para recuperar tu cuenta.</p>
                     <div className="input-field">

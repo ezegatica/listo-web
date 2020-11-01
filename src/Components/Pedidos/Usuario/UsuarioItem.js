@@ -130,7 +130,7 @@ export class UsuarioItem extends Component {
             const metodo_de_pago = this.metodo_de_pago(pedido.info.metodo_de_pago)
             // ITEMS PEDIDOS ACTIVOS
             return (
-                <li>
+                <li className="sombrita">
                     <div className="collapsible-header valign-wrapper collapsible-header-historial" onClick={() => { this.changeIcon() }} >
                         <div className={divClass1}>
                             <img src={`https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/imagenes%2F${pedido.info.restaurante}?alt=media`} alt="" className="circle responsive-img" />
