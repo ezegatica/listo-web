@@ -39,7 +39,17 @@
 .pedidos-wrapper a {
     color: black;
 }
-
+/* .collapsible{
+    width: 90%;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+.titulo-estado{
+    width: 90%;
+    margin-bottom: auto;
+    margin-left: auto;
+} */
+/* 
 @media only screen and (min-width: 601px) {
     .pedidos-col-1, .pedidos-col-2 {
         border-right: solid;
@@ -54,7 +64,7 @@
 
 .pedidos-col-4 {
     padding-right: 0px!important;
-}
+} */
 
 .boton-mover-estado {
     margin-left: auto;

@@ -151,17 +151,18 @@ export class RestoItem extends Component {
         let i = 0;
         const { p } = this.props
         const tiempo = moment(p.info.horario_de_pedido.toDate()).locale('es').calendar()
+        const pedido_id = id
         return (
-            <li>
-                <div className="collapsible-header" onClick={() => { this.changeIcon(); this.fixTooltip() }}>
+            <li className="white" style={{borderRadius: 20}}>
+                <div className="collapsible-header" onClick={() => { this.changeIcon(); this.fixTooltip() }} style={{borderRadius: 20}}>
                     {volverEstado && <span className="boton-mover-estado-r left">
                         <button onClick={() => this.cambiarEstado(id, estado, false)} className="btn btn-flat black-text icon-pedidos left tooltip">
                             <span className="tooltiptext">Mover pedido al estado anterior</span>
                             <i className="material-icons left">arrow_back</i>
                         </button>
                     </span>}
-                    <div className="pedidos-header" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                        <span className="center " >Pedido {p.id}</span><br />
+                    <div className="pedidos-header" style={{ marginLeft: 'auto', marginRight: 'auto', verticalAlign: 'middle' }}>
+                        <span className="center " >Pedido {pedido_id}</span><br />
                         {/* <i className="material-icons icon-pedidos icon-align">{icono}</i> */}
                     </div>
                     {seguirEstado && <span className="boton-mover-estado">

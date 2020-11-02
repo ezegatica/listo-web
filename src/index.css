@@ -64,7 +64,12 @@ body {
 /* .collapsible-header {
   background-color: var(--blanquito);
 } */
-
+.keyboard-focused .collapsible-header:focus{
+  background-color: #fafafa;
+}
+.collapsible-header{
+  user-select: none;
+}
 .card {
   background-color: #F4F4F4
 }

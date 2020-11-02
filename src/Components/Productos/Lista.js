@@ -105,11 +105,11 @@ export class ProductosList extends Component {
                 <div>
                     {this.state.productos && this.state.productos.map(producto => {
                         return (
-                            <div className="card proyect-summary redondo sombrita" key={producto.id}>
+                            <div className="card proyect-summary redondo white sombrita" key={producto.id}>
                                 <Link to={"/restaurantes/" + producto.info.autorUUID + "/" + producto.id}>
                                     <div className="card-content grey-text text-darken-3 lista-proyectos row">
                                         <div className="col s4 m4 l3 xl2">
-                                            <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-3" draggable="false" /> <br />
+                                            <img src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} alt="" className="responsive-img z-depth-0" draggable="false" /> <br />
                                         </div>
                                         <div className="col s8 m8 l9 xl10">
                                             <span className="card-title" title={producto.info.titulo}><b>{producto.info.titulo}</b></span>
@@ -130,8 +130,8 @@ export class ProductosList extends Component {
                         indice = indice + 1
                         let i = indice - 1
                         return (
-                            <div className="card col s12 m6 l4 xl3 redondo center " key={producto.id} >
-                                <div className="card-image waves-effect waves-block waves-light">
+                            <div className="card col s12 m6 l4 xl3 redondo center white" key={producto.id} >
+                                <div className="card-image waves-effect waves-block waves-light ">
                                     <img alt={`imagen de ${producto.info.titulo}`} src={producto.info.foto || "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/producto.png?alt=media"} className="responsive-img activator" style={{ objectFit: "cover", height: '20vh', width: '100%' }} />
                                 </div>
                                 <div className="card-content" style={{ paddingTop: 10, paddingLeft: 10, paddingRight: 10 }}>

@@ -97,10 +97,10 @@ export class PaginaResto extends Component {
                         <div className="row pedidos-pendientes">
 
                             <div className="col s12 m6 xl4 pedidos-col-1">
-                                <b><p>Pedidos por confirmar</p></b>
+                                <b><p className="titulo-estado">Pedidos por confirmar</p></b>
                                 {this.state.e0 && this.state.e0.map(p => {
                                     return (
-                                        <ul className="collapsible" key={p.id}>
+                                        <ul className="collapsible" key={p.id} style={{borderRadius: 20}}>
                                             <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
@@ -108,10 +108,10 @@ export class PaginaResto extends Component {
                             </div>
 
                             <div className="col s12 m6 xl4 pedidos-col-2">
-                                <b><p>Pedidos para cocinarlos!</p></b>
+                                <b><p className="titulo-estado">Pedidos para cocinarlos!</p></b>
                                 {this.state.e1 && this.state.e1.map(p => {
                                     return (
-                                        <ul className="collapsible" key={p.id}>
+                                        <ul className="collapsible" key={p.id}  style={{borderRadius: 20}}>
                                             <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
@@ -119,10 +119,10 @@ export class PaginaResto extends Component {
                             </div>
 
                             <div className="col s12 m6 xl4 pedidos-col-3">
-                                <b> <p>Pedidos en preparacion!</p></b>
+                                <b> <p className="titulo-estado">Pedidos en preparacion!</p></b>
                                 {this.state.e2 && this.state.e2.map(p => {
                                     return (
-                                        <ul className="collapsible" key={p.id}>
+                                        <ul className="collapsible" key={p.id}  style={{borderRadius: 20}}>
                                             <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
@@ -135,10 +135,10 @@ export class PaginaResto extends Component {
                         <div className="row pedidos-completados">
 
                             <div className="col s12 m6 xl4">
-                                <b> <p>Pedidos listos para entregar!</p></b>
+                                <b> <p className="titulo-estado">Pedidos listos para entregar!</p></b>
                                 {this.state.e3 && this.state.e3.map(p => {
                                     return (
-                                        <ul className="collapsible" key={p.id}>
+                                        <ul className="collapsible " key={p.id}  style={{borderRadius: 20}}>
                                             <RestoItem p={p} onChangeEstado={() => this.leerDB('si')} />
                                         </ul>
                                     )
