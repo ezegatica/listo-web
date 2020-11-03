@@ -14,6 +14,24 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.app-logo {
+  height: 48px;
+  line-height: 48px;
+  /* padding: 4px; */
+  margin-top: 4px;
+  width: auto;
+}
+
+@media only screen and (min-width: 601px) {
+  .app-logo {
+    height: 50px;
+    line-height: 50px;
+    /* padding: 4px; */
+    margin-top: 6px;
+    width: auto;
+  }
+}
+
 .material-icons, br {
   user-select: none!important;
 }
@@ -36,7 +54,6 @@ body {
 
 .sombrita:hover {
   box-shadow: 0px 5px 26px 2px rgba(0, 0, 0, 0.25)!important;
- 
 }
 
 .form-login .btn:hover {
@@ -64,12 +81,15 @@ body {
 /* .collapsible-header {
   background-color: var(--blanquito);
 } */
-.keyboard-focused .collapsible-header:focus{
+
+.keyboard-focused .collapsible-header:focus {
   background-color: #fafafa;
 }
-.collapsible-header{
+
+.collapsible-header {
   user-select: none;
 }
+
 .card {
   background-color: #F4F4F4
 }
@@ -108,7 +128,8 @@ li.indicator {
 .nombre-filtro-lista {
   text-transform: capitalize;
 }
-.capitalize{
+
+.capitalize {
   text-transform: capitalize;
 }
 

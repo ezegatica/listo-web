@@ -20,6 +20,9 @@ export class CartWrapper extends Component {
             foto: null
         }
     }
+    componentDidMount =()=>{
+        document.title = process.env.REACT_APP_NAME + ' - Carrito';
+    }
     leerDB() {
         console.log("pedido leer db");
         if (!done && !this.props.prevent) {

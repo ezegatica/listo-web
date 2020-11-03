@@ -1,39 +1,43 @@
 import React from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import SignedOutMobile from './SignedOutMobile'
 import SignedInMobile from './SignedInMobile'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import logo from '../../iconos/logo.png'
 
 
-const Navbar= (props) => {
-    const {auth, profile} = props;
-    const links = auth.uid && profile.isLoaded ? <SignedInLinks profile={profile}/> : <SignedOutLinks/>
-    const mobile = auth.uid ? <SignedInMobile profile={profile}/> : <SignedOutMobile/>
+const Navbar = (props) => {
+    const { auth, profile } = props;
+    const links = auth.uid && profile.isLoaded ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
+    const mobile = auth.uid ? <SignedInMobile profile={profile} /> : <SignedOutMobile />
 
-    return(
-        <nav className="nav-wrapper" style={{background: '#004ea3'}}>
+    return (
+        <nav className="nav-wrapper" style={{ background: '#004ea3' }}>
             <div className="container">
-                <Link to="/" className="brand-logo">Listo!</Link>
-                
+                <Link to="/" className="brand-logo">
+                    <img src={logo} alt="Logo" className="app-logo" />
+                    <span className="brand-logo hide-on-med-and-down" style={{marginLeft: '10px'}}>Listo!</span>
+                </Link>
+
                 <ul className="right">
-                {auth.isLoaded && profile.isLoaded && links}
+                    {auth.isLoaded && profile.isLoaded && links}
                 </ul>
                 <ul className="left show-on-medium-and-down hide-on-med-and-up" >
-                    <SignedInLinks showCarritoOnly={true} profile={profile}/>
+                    <SignedInLinks showCarritoOnly={true} profile={profile} />
                 </ul>
-                
+
             </div>
             <ul className="show-on-medium-and-down hide-on-med-and-up">
                 {auth.isLoaded && profile.isLoaded && mobile}
-                </ul>
+            </ul>
         </nav>
     )
 }
 
-const mapStateToProps= (state) =>{
-    return{
+const mapStateToProps = (state) => {
+    return {
         auth: state.firebase.auth,
         profile: state.firebase.profile
     }
