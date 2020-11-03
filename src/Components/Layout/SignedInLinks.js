@@ -74,37 +74,44 @@ export class SignedInLinks extends Component {
     render() {
         const { props } = this
         const panelAdmin = props.profile.isAdmin ?
-            <li><NavLink to="/admin">Admin</NavLink></li> : null
+            <li><NavLink to="/admin"><i className="material-icons">admin_panel_settings</i></NavLink></li> : null
         const panelResto = props.profile.isResto ?
             <li><NavLink to="/productos/nuevo">Nuevo producto</NavLink></li> : null
         let carrito;
         if (props.profile.cart) {
             if (props.profile.cart.length > 0) {
-                carrito = <li><NavLink to="/carrito">Carrito ({props.profile.cart.length})</NavLink></li>
+                carrito = <li><NavLink to="/carrito"><span><i className="material-icons">shopping_cart<span class="badge white-text" style={{ padding: 0, margin: 0 }}>({props.profile.cart.length})</span></i></span></NavLink></li>
             } else {
                 carrito = null
             }
         } else {
             carrito = null
         }
-
-        return (
-            <div className="nav-wrapper grey darken-3">
-                <ul className="right hide-on-med-and-down">
-                    {panelResto}
-                    {panelAdmin}
-                    <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
+        if (this.props.showCarritoOnly) {
+            return (
+                <>
                     {carrito}
-                    <li><NavLink to="/pedidos">Pedidos</NavLink></li>
-                    <li><NavLink to="/" onClick={props.signOut}>Logout</NavLink></li>
-                    <li><NavLink to="/profile" className="btn btn-floating grey darken-1">{props.profile.initials}</NavLink></li>
-                </ul>
-                <ul className="show-on-medium-and-down hide-on-med-and-up right">
-                    <li><NavLink to="/" style={{ padding: 0, margin: 0 }} onClick={props.signOut}><i className="material-icons left white-text">logout</i></NavLink></li>
-                    <li><Link to="/profile" className="btn btn-floating red lighten-1" style={{ padding: 0, margin: 0 }}>{props.profile.initials}</Link></li>
-                </ul>
-            </div>
-        )
+                </>
+            )
+        } else {
+            return (
+                <div className="nav-wrapper grey darken-3">
+                    <ul className="right hide-on-med-and-down">
+                        {panelResto}
+                        <li><NavLink to="/restaurantes">Restaurantes</NavLink></li>
+                        <li><NavLink to="/pedidos">Pedidos</NavLink></li>
+                        {carrito}
+                        {panelAdmin}
+                        <li><NavLink to="/profile" className="btn btn-floating grey darken-1">{props.profile.initials}</NavLink></li>
+                        <li><NavLink to="/" onClick={props.signOut}><i className="material-icons left white-text">logout</i></NavLink></li>
+                    </ul>
+                    <ul className="show-on-medium-and-down hide-on-med-and-up right">
+                        <li><NavLink to="/" style={{ padding: 0, margin: 0 }} onClick={props.signOut}><i className="material-icons left white-text">logout</i></NavLink></li>
+                        <li><Link to="/profile" className="btn btn-floating red lighten-1" style={{ padding: 0, margin: 0 }}>{props.profile.initials}</Link></li>
+                    </ul>
+                </div>
+            )
+        }
     }
 }
 

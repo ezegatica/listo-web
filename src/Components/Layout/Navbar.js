@@ -18,12 +18,15 @@ const Navbar= (props) => {
                 <Link to="/" className="brand-logo">Listo!</Link>
                 
                 <ul className="right">
-                {auth.isLoaded && links}
+                {auth.isLoaded && profile.isLoaded && links}
+                </ul>
+                <ul className="left show-on-medium-and-down hide-on-med-and-up" >
+                    <SignedInLinks showCarritoOnly={true} profile={profile}/>
                 </ul>
                 
             </div>
             <ul className="show-on-medium-and-down hide-on-med-and-up">
-                {auth.isLoaded && mobile}
+                {auth.isLoaded && profile.isLoaded && mobile}
                 </ul>
         </nav>
     )
