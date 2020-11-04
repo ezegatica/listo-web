@@ -80,7 +80,7 @@ export class SignedInLinks extends Component {
         let carrito;
         if (props.profile.cart) {
             if (props.profile.cart.length > 0) {
-                carrito = <li><NavLink to="/carrito"><span><i className="material-icons">shopping_cart<span class="badge white-text" style={{ padding: 0, margin: 0 }}>({props.profile.cart.length})</span></i></span></NavLink></li>
+                carrito = <li><NavLink to="/carrito"><span><i className="material-icons">shopping_cart<span className="badge white-text" style={{ padding: 0, margin: 0 }}>({props.profile.cart.length})</span></i></span></NavLink></li>
             } else {
                 carrito = null
             }

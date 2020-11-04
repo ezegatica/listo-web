@@ -1,26 +1,70 @@
 import React, { Component } from 'react'
-// import ShowRestaurante from '../Restaurante/ShowRestaurante'
 import Preview from '../Posts/Preview'
 import { connect } from 'react-redux'
-// import { auth } from '../../Config/fbConfig'
-
+import { db } from '../../Config/fbConfig'
+import '../../css/home.css'
+import CardResto from '../Restaurante/CardResto'
 export class Home extends Component {
-    componentDidMount =()=>{
+    state = {
+        restaurantes: null,
+        logged: false,
+        loaded: false,
+        hayFavs: false,
+        favs: null,
+        skeleton: ["a", "b", "c", "d", "e", "f"]
+    }
+    componentDidMount = () => {
+        db.collection('restaurantes').orderBy("nombre", "asc").get()
+            .then(snapshot => {
+                const Restaurantes = []
+                snapshot.forEach(doc => {
+                    const info = doc.data()
+                    const id = doc.id;
+                    Restaurantes.push({ info, id })
+                })
+                this.setState({ restaurantes: Restaurantes })
+            }).catch(error => console.log(error))
         document.title = process.env.REACT_APP_NAME + '';
     }
+    componentDidUpdate = () => {
+        if (this.props.profile.isLoaded && !this.state.loaded && this.state.restaurantes) {
+            if (this.props.profile.isEmpty) {
+                this.setState({
+                    logged: false,
+                    loaded: true
+                })
+            } else {
+                if (this.props.profile.favoritos) {
+                    const Favs = []
+                    this.props.profile.favoritos.forEach((fav) => {
+                        this.state.restaurantes.forEach((resto) => {
+                            if (resto.id === fav) {
+                                Favs.push({ ...resto })
+                            }
+                        })
+                    })
+                    this.setState({
+                        hayFavs: true,
+                        favs: Favs,
+                        logged: true,
+                        loaded: true
+                    })
+                } else {
+                    this.setState({
+                        hayFavs: false,
+                        loaded: true,
+                        logged: true
+                    })
+                }
+            }
+        }
+    }
+    toggleView =()=>{
+        this.setState({hayFavs: false})
+    }
     render() {
-        // const restaurant = {
-        //     id: "Fw0JV2TtEXN3xHM2JD1q9EtN9Ov2",
-        //     info: {
-        //         alias: "beni",
-        //         cat: "pollo",
-        //         cat2: "sushi",
-        //         foto: "https://firebasestorage.googleapis.com/v0/b/prueba-proyecto-tic.appspot.com/o/imagenes%2FFw0JV2TtEXN3xHM2JD1q9EtN9Ov2?alt=media&token=7b26bfd6-9b8e-45c0-8f47-b14a4eace3dc",
-        //         id: " Fw0JV2TtEXN3xHM2JD1q9EtN9Ov2",
-        //         initials: "B",
-        //         nombre: "BENI POLLO FRITO"
-        //     }
-        // }
+        // console.log("PROFILE:", this.props.profile);
+        // console.log("STATE: ", this.state);
         return (
             <div>
                 <div className="container">
@@ -30,17 +74,34 @@ export class Home extends Component {
                             <Preview />
                         </div>
                     </div>
-                    {/* <br />
-                    <hr />
-                    <h4>Restaurante destacado:</h4>
-                    <div className="container">
-                        <div className="row">
-                            {auth.currentUser && this.props.profile.isLoaded && <ShowRestaurante restaurant={restaurant} perfil={this.props.profile}/>}
-                        </div>
-                    </div> */}
                 </div>
-    
-            </div>
+                <hr />
+                <div className="container row">
+        <h4>Elegi tu restaurante favorito!{this.state.hayFavs && <button style={{marginLeft: 20, borderRadius: 15}} className="btn listo-azul" onClick={()=>this.toggleView()}>Ver todos los restos</button>}</h4>
+                    {this.state.loaded && !this.state.hayFavs && this.state.restaurantes.map((r) => {
+                        return (
+                            <div className="col s4 m3 l2" key={r.id}>
+                                <CardResto resto={r} />
+                            </div>
+                        )
+                    })}
+                    {this.state.loaded && this.state.hayFavs && this.state.favs.map((r) => {
+                        return (
+                            <div className="col s4 m3 l2" key={r.id}>
+                                <CardResto resto={r} />
+                            </div>
+                        )
+                    })}
+                    {!this.state.loaded && this.state.skeleton.map((s) => {
+                        return (
+                            <div className="col s4 m3 l2" key={s}>
+                                <CardResto type="skeleton" />
+                            </div>
+                        )
+                    })}
+                </div>
+
+            </div >
         )
     }
 }

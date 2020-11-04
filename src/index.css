@@ -114,6 +114,9 @@ li.indicator {
 .tabs .tab a {
   color: #007aff;
 }
+.listo-azul{
+  background-color: #007aff;
+}
 
 .tabs {
   background: transparent!important;

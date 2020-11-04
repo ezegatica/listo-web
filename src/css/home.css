@@ -1,0 +1,45 @@
+.borde-home{
+    border-radius: 30px!important;
+}
+/* .card-home{
+    height: 50%;
+    width: 50%;
+} */
+.card-title-home{
+    padding-bottom: 10px!important;
+    padding-top: 10px!important;
+    background-color: black;
+    width: 100%;
+}
+.imagen-home{
+    object-fit: cover!important;
+    height: 100%;
+    width: auto;
+}
+.skeleton-home{
+height: 190px;
+width: 190px;
+max-width: 100%;
+}
+.card-skeleton{
+    background-color: white;
+}
+.card-skeleton::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
+    animation: load 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+}
+@keyframes load {
+    from {
+        left: -150px;
+    }
+    to   {
+        left: 100%;
+    }
+}
