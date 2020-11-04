@@ -59,8 +59,8 @@ export class Home extends Component {
             }
         }
     }
-    toggleView =()=>{
-        this.setState({hayFavs: false})
+    toggleView = () => {
+        this.setState({ hayFavs: false })
     }
     render() {
         // console.log("PROFILE:", this.props.profile);
@@ -76,29 +76,35 @@ export class Home extends Component {
                     </div>
                 </div>
                 <hr />
-                <div className="container row">
-        <h4>Elegi tu restaurante favorito!{this.state.hayFavs && <button style={{marginLeft: 20, borderRadius: 15}} className="btn listo-azul" onClick={()=>this.toggleView()}>Ver todos los restos</button>}</h4>
-                    {this.state.loaded && !this.state.hayFavs && this.state.restaurantes.map((r) => {
-                        return (
-                            <div className="col s4 m3 l2" key={r.id}>
-                                <CardResto resto={r} />
-                            </div>
-                        )
-                    })}
-                    {this.state.loaded && this.state.hayFavs && this.state.favs.map((r) => {
-                        return (
-                            <div className="col s4 m3 l2" key={r.id}>
-                                <CardResto resto={r} />
-                            </div>
-                        )
-                    })}
-                    {!this.state.loaded && this.state.skeleton.map((s) => {
-                        return (
-                            <div className="col s4 m3 l2" key={s}>
-                                <CardResto type="skeleton" />
-                            </div>
-                        )
-                    })}
+                <div className="container">
+                    <h4>Elegi tu restaurante preferido!</h4>
+                    <div className="row">
+                        {this.state.loaded && this.state.restaurantes.map((r) => {
+                            return (
+                                <div className="col s4 m3 l2" key={r.id}>
+                                    <CardResto resto={r} />
+                                </div>
+                            )
+                        })}
+                        {!this.state.loaded && this.state.skeleton.map((s) => {
+                            return (
+                                <div className="col s4 m3 l2" key={s}>
+                                    <CardResto type="skeleton" />
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className="row" style={{marginTop: 10}}>
+                        {this.state.hayFavs && <h4>Tus restaurantes favoritos:</h4>}
+                        {this.state.hayFavs && this.state.favs.map((r) => {
+                            return (
+                                <div className="col s4 m3 l2" key={r.id}>
+                                    <CardResto resto={r} />
+                                </div>
+                            )
+                        })}
+                    </div>
+
                 </div>
 
             </div >
