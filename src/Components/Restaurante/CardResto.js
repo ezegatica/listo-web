@@ -11,7 +11,6 @@ function CardResto(props) {
                         <div className="skeleton-home responsive-img" />
                     </div>
                 </div>
-
         )
     } else {
         return (

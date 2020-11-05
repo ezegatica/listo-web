@@ -49,8 +49,8 @@ export class Detalles extends Component {
             //BUG: SI NO ESTAS LOGUEADO NO TE DEJA VERLO, RE RANCIO ESTE FIX XD
             return (
                 <div className="producto-detalles">
-                    <p style={{float: 'left'}}><Link to={"/restaurantes/" + this.props.match.params.id}>Atras</Link></p>
-                    <div className="container section"> 
+                    <p style={{ float: 'left' }}><Link to={"/restaurantes/" + this.props.match.params.id}>Atras</Link></p>
+                    <div className="container section">
                         <div className="card z-depth-0">
                             <div className="card-content">
                                 <div className="center">
@@ -83,7 +83,7 @@ export class Detalles extends Component {
                                 <p>{this.state.producto.descripcion}</p>
                                 <p>${this.state.producto.precio}</p>
                                 {auth.currentUser.uid === this.state.producto.autorUUID && <DetallesResto state={this.state} match={this.props.match} />}
-                                {this.props.profile.isLoaded && !this.props.profile.isEmpty && !this.props.profile.isResto && <AddToCart resto={this.props.match.params.id} producto={this.props.match.params.productoid} uid={auth.currentUser.uid} precio={this.state.producto.precio} profile={this.props.profile} nombreResto={this.state.producto.autorNombre}/>}
+                                {this.props.profile.isLoaded && !this.props.profile.isEmpty && !this.props.profile.isResto && <AddToCart resto={this.props.match.params.id} producto={this.props.match.params.productoid} uid={auth.currentUser.uid} precio={this.state.producto.precio} profile={this.props.profile} nombreResto={this.state.producto.autorNombre} />}
                             </div>
                         </div>
                     </div>

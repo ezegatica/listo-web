@@ -54,10 +54,10 @@ export class Create extends Component {
     render() {
         let asd;
         if (this.state.loading) {
-            asd = "btn pink lighten-1 z-depth-0 disabled"
+            asd = "btn listo-azul z-depth-0 disabled"
         }
         else {
-            asd = "btn pink lighten-1 z-depth-0"
+            asd = "btn listo-azul z-depth-0"
         }
 
         const Hecho = this.props.hecho ? <Redirect to="/profile" /> : null
@@ -72,7 +72,7 @@ export class Create extends Component {
                             <input type="text" id="titulo" onChange={this.Change} required={true} />
                         </div>
                         <div className="input-field">
-                            <label htmlFor="descripcion">Contenido del Proyecto:</label>
+                            <label htmlFor="descripcion">Descripcion del producto:</label>
                             <textarea id="descripcion" className="materialize-textarea" onChange={this.Change} required={true}></textarea>
                         </div>
                         <div className="input-field">
